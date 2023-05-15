@@ -39,9 +39,6 @@ C
   - 지도는 파일 내에서 보이는 것처럼 불러 올 수 있어야 합니다. 공백은 지도의 유효한 부분이며, 처리는 여러분의 몫입니다. 여러분은 규칙대로 만들어진 모든 종류의 지도를 제대로 불러올 수 있어야 합니다.
 
 - 각 요소 (지도 제외) 의 첫 번째 정보는 (하나 또는 두개의 문자로 구성된) 유형 식별자이며, 각 객체에 대한 모든 구체적인 정보는 다음과 같은 엄격한 규칙을 따릅니다
-  - 해상도 : R x크기 y크기
-    - R 1920 1080
-
   - 북쪽 벽 텍스쳐 : 북쪽 벽 텍스쳐가 담겨있는 경로
     - NO ./path_to_the_north_texture
 
@@ -54,9 +51,6 @@ C
   - 동쪽 벽 텍스쳐 : 동쪽 벽 텍스쳐가 담겨있는 경로
     - EA ./path_to_the_east_texture
 
-  - 아이템 텍스쳐 : 아이템 텍스쳐가 담겨있는 경로
-    - S ./path_to_the_sprite_texture
-
   - 바닥 색상 : [0, 255] 사이의 RGB 색상 : 0, 255, 255
     - F 220,100,0
 
@@ -67,13 +61,11 @@ C
 
 - 예시
 ```text
-R 1920 1080
 NO ./path_to_the_north_texture
 SO ./path_to_the_south_texture
 WE ./path_to_the_west_texture
 EA ./path_to_the_east_texture
 
-S ./path_to_the_sprite_texture
 F 220,100,0
 C 225,30,0
 
@@ -95,9 +87,7 @@ C 225,30,0
 
 ### mlx 관련
 
-
 ```C
-
 
 void * mlx_init(void);
 // - 나의 소프트웨어와 OS의 디스플레이를 연결해주는 함수.

@@ -6,7 +6,7 @@
 /*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 16:58:08 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/03 19:18:04 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/15 17:40:41 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../libft/libft.h"
 # include "get_next_line.h"
+# include "queue.h"
 # include <stddef.h>
 
 # define KEY_PRESS			2

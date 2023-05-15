@@ -6,15 +6,31 @@
 /*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 18:08:44 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/03 19:44:51 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/15 17:38:33 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	main(int ac, char *av[])
+int	check_extension(char *filename)
 {
-	if (ac != 2 && ac != 3)
+	int	i;
+	
+	i = 0;
+	while (filename && filename[i] != '\0')
+		i++;
+	if (filename[i - 4] != '.' || filename[i - 3] != 'c' || \
+		filename[i - 2] != 'u' || filename[i - 1] != 'b')
+		return (1);
+	return (0);
+}
+
+int	main(int ac, char *av[]) // map 이름 검수만 하고 확장자는 .cub, 인자 순서에서 맵은 가장 마지막에 와야한다
+{
+	if (ac != 2)
 		ft_err("invalid argument count");
+	if (check_extension(av[1]))
+		ft_err("invalid file argument extention");
 	//ac, .cub으로 끝나는지, 맵 하나씩
+	read_file(av[1]);
 	
 	return (0);
 }
