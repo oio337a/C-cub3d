@@ -1,6 +1,6 @@
-#include "../includes/cub3D.h"
+// #include "../includes/cub3D.h"
 
-int main(void)
-{
+// int main(void)
+// {
 	
-}
+// }

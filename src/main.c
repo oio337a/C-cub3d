@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 18:08:44 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/15 17:38:33 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/15 21:03:52 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../includes/cub3D.h"
 
 int	check_extension(char *filename)
 {
@@ -25,13 +27,15 @@ int	check_extension(char *filename)
 
 int	main(int ac, char *av[]) // map 이름 검수만 하고 확장자는 .cub, 인자 순서에서 맵은 가장 마지막에 와야한다
 {
+	t_game	game;
+
 	if (ac != 2)
 		ft_err("invalid argument count");
 	if (check_extension(av[1]))
 		ft_err("invalid file argument extention");
+	ft_memset(&game, 0, sizeof(game));
+	read_file(av[1], &game);
 	//ac, .cub으로 끝나는지, 맵 하나씩
-	read_file(av[1]);
-	
 	return (0);
 }
 

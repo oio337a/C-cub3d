@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validate_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:35:04 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/15 18:03:06 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/15 21:44:29 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,17 @@ int	is_whitespace(char *str)
 	int	i;
 
 	i = 0;
-	while (str[i] >= 9 && str[i] <= 13 || str[i] == 32)
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
 		i++;
 	return (i);
 }
 
+int	whitespace(char c)
+{
+	if ((c >= 9 && c <= 13) || c == 32)
+		return (1);
+	return (0);
+}
 
 int	start_end_wall(char *map)
 {
@@ -74,12 +80,12 @@ int	all_around_wall(char **map) // 이차원이라 생각할게여
 	int	len;
 
 	i = 0;
-	len = ft_str_col(map);	
+	len = ft_str_col(map);
 	while (map[i])
 	{
 		if (i == 0 || i == len)
 		{
-			if (start_end_wall(map[i]) == -1);
+			if (start_end_wall(map[i]) == -1)
 			{
 				ft_free(map);
 				return (-1);
@@ -87,7 +93,7 @@ int	all_around_wall(char **map) // 이차원이라 생각할게여
 		}
 		else
 		{
-			if (check_wall(map[i], ft_strlen(map[i])) == -1);
+			if (check_wall(map[i], ft_strlen(map[i])) == -1)
 			{
 				ft_free(map);
 				return (-1);
@@ -97,81 +103,175 @@ int	all_around_wall(char **map) // 이차원이라 생각할게여
 	return (1);
 }
 
-int	context_check(char context, t_game *dir) // WASD중 하나 있는지 봐야되는디요
-{
-	if (context != '0' && context != '1' && context != 'W' \
-		&& context != 'S' && context != 'A' && context != 'D')
-			return (-1);
-	if (context == 'W')
-		dir->w++;
-	else if (context == 'A')
-		dir->a++;
-	else if (context == 'S')
-		dir->s++;
-	else if (context == 'D')
-		dir->d++;
-	if (dir->w >= 2 || dir->a >= 2 || dir->s >= 2 || dir->d >= 2)
-	{
-		ft_err("player count err\n");
-		return (-1);
-	}
-	return (1);
-}
+// int	context_check(char context, t_game *dir)
+// {
+// 	if (context != '0' && context != '1' && context != 'W' \
+// 		&& context != 'S' && context != 'A' && context != 'D' \
+// 		&& !whitespace(context))
+// 		return (-1);
+// 	if (context == 'W')
+// 		dir->w++;
+// 	else if (context == 'A')
+// 		dir->a++;
+// 	else if (context == 'S')
+// 		dir->s++;
+// 	else if (context == 'D')
+// 		dir->d++;
+// 	if (dir->w >= 2 || dir->a >= 2 || dir->s >= 2 || dir->d >= 2)
+// 	{
+// 		ft_err("player count err\n");
+// 		return (-1);
+// 	}
+// 	return (1);
+// }
 
-int	space_check(char **map, t_game *dir) //WASD, 1, 0만 있어야댐
-{
-	int	i;
-	int	j;
-	int	col;
+// int	mid_context_check(char **map, t_game *dir) //WASD, 1, 0만 있어야댐
+// {
+// 	int	i;
+// 	int	j;
+// 	int	col;
 
-	col = ft_str_col(map);
-	i = 1;
-	while (map[i] && i < col)
+// 	col = ft_str_col(map);
+// 	i = 1;
+// 	while (map[i] && i < col)
+// 	{
+// 		j = 0;
+// 		while (map[i][j])
+// 		{
+// 			if (context_check(map[i][j], dir) == -1)
+// 			{
+// 				ft_free(map);
+// 				return (-1);
+// 			}
+// 		}
+// 		i++;
+// 	}
+// 	if (dir->w == 0 && dir->a == 0 && dir->s == 0 && dir->d == 0)
+// 	{
+// 		ft_free(map);
+// 		ft_err("player count err\n");
+// 		return (-1);
+// 	}
+// 	return (1);
+// }
+
+void	append_space_index(char **map, t_queue *q)
+{
+	int i;
+	int j;
+
+	i = 0;
+	printf("asdasd\n");
+	while (map[i])
 	{
 		j = 0;
 		while (map[i][j])
 		{
-			if (context_check(map[i][j], dir) == -1)
-			{
-				ft_free(map);
-				return (-1);
-			}
 			if (map[i][j] == ' ')
-				bfs_test(map, i, j);
+			{
+				printf("i: %d j: %d\n", i, j);
+				enqueue(q, j, i);
+			}
+			j++;
 		}
 		i++;
 	}
-	if (dir->w == 0 && dir->a == 0 && dir->s == 0 && dir->d == 0)
-	{
-		ft_free(map);
-		ft_err("player count err\n");
-		return (-1);
-	}
-	return (1);
 }
 
-int	bfs_test(t_visit *visit, char **map, int i, int j)
+static int	ft_strlen2(char *str)
 {
-	int	**visited;
+	int i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
+int	bfs_test(char **map)
+{
+	// int	**visited;
 	int	i;
 	int	j;
 	t_visit	*visit;
-	
+	t_queue *q;
+	t_node *pop;
+
 	i = 0;
 	visit = (t_visit *)malloc(sizeof(t_visit));
-	visited = (int **)malloc(sizeof(int *) * (ft_str_col(map) + 1));
-	if (!visited)
+	visit->visited = (int **)malloc(sizeof(int *) * (ft_str_col(map) + 1));
+	if (!visit->visited)
 		return (-1);
+	printf("%d\n", ft_str_col(map));
 	while (map[i])
 	{
 		j = ft_strlen(map[i]);
-		visited[i] = (int *)malloc(sizeof(int) * j);
-		if (!visited[i])
+		visit->visited[i] = (int *)ft_calloc(sizeof(int), j);
+		if (!visit->visited[i])
 			return (-1);
-		ft_memset(visited[i], 0, j);
 		i++;
 	}
-	visited[i] = NULL;
-	visit->visited = visited;
-	visit->cnt = 0;
+	visit->visited[i] = NULL;
+	visit->zero_cnt = 0;
+	q = init_queue();
+	append_space_index(map, q);
+	while (!is_empty(q))
+	{
+		pop = dequeue(q);
+		// printf("pos x: %d pox y : %d\n", pop->x, pop->y);
+		if (pop->x - 1 >= 0)
+			if (visit->visited[pop->y][pop->x - 1] == 0)
+				visit_left(map, visit, q, pop);
+		if (pop->x + 1 < ft_strlen2(map[pop->y]))
+			if (visit->visited[pop->y][pop->x + 1] == 0)
+				visit_right(map, visit, q, pop);
+		if (pop->y - 1 >= 0)
+			if (visit->visited[pop->y - 1][pop->x] == 0)
+				visit_down(map, visit, q, pop);
+		if (pop->y + 1 < ft_str_col(map))
+			if (visit->visited[pop->y + 1][pop->x] == 0)
+				visit_up(map, visit, q, pop);
+		free(pop);
+	}
+	if (visit->zero_cnt != 0)
+		return (-1);
+	// printf("zero count : %d\n", visit->zero_cnt);
+	return (1);
+}
+
+void	*ft_memset(void *b, int c, size_t len)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < len)
+	{
+		((unsigned char *)b)[i] = (unsigned char)c;
+		i++;
+	}
+	return (b);
+}
+
+int main()
+{
+	int fd;
+	char *file = "test.txt";
+	fd = open(file, O_RDONLY);
+	char *join = ft_strdup("");
+	char *line;
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (!line)
+			break ;
+		join = ft_strjoin(join, line);
+		free(line);
+	}
+	char **map = ft_split(join, '\n');
+	int i = 0;
+	while(map[i])
+	{
+		printf("map : %s\n", map[i]);
+		i++;
+	}
+	int a = bfs_test(map);
+	printf("%d\n", a);
 }

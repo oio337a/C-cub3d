@@ -3,16 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   map_validate_1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:19:07 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/15 18:01:48 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/15 21:35:34 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-char	**read_file(char *file, t_game *game)
+int	cnt_info_flag(t_game *game)
+{
+	int i;
+	int	cnt;
+
+	i = 0;
+	cnt = 0;
+	while (i < 6)
+	{
+		if (game->info_flag[i] == 1)
+			cnt++;
+		i++;
+	}
+	return (cnt);
+}
+
+char	*read_file(char *file, t_game *game)
 {
 	int		fd;
 	char	*line;
@@ -27,13 +43,10 @@ char	**read_file(char *file, t_game *game)
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-			//요소먼저 파싱 후 맵 확인->join해주기
-		// 여기서확인하는것도 해볼게요! 파이팅!
-		if (read_map_info(line, game))
-		{
-			
-		}
+		if (cnt_info_flag(game) == 6)
 			join = ft_strjoin(join, line);
+		if (cnt_info_flag(game) != 6 && *line != '\n')
+			read_map_info(line, game);
 		free(line);
 	}
 	close(fd);
@@ -45,13 +58,25 @@ static void	init_texture(char **str, t_game *game, int type)
 	if (ft_size(str) != 2)
 		ft_err("File not found");
 	if (type == 1)
+	{
+		game->info_flag[0] = 1;
 		game->img->north = str[1]; // mlx_xpm_file_to_image 로 이어줘야하는지 몰겠음...
+	}
 	else if (type == 2)
+	{
+		game->info_flag[1] = 2;
 		game->img->south = str[1];
+	}
 	else if (type == 3)
+	{
+		game->info_flag[2] = 1;
 		game->img->west = str[1];
+	}
 	else if (type == 4)
+	{
+		game->info_flag[3] = 1;
 		game->img->east = str[1];
+	}	
 }
 
 static void	init_color(char **str, t_game *game, int type)
@@ -69,12 +94,14 @@ static void	init_color(char **str, t_game *game, int type)
 		ft_err("Color range (0 ~ 255)");
 	if (type == 5)
 	{
+		game->info_flag[4] = 1;
 		game->map->f[0] = r;
 		game->map->f[1] = g;
 		game->map->f[2] = b;
 	}
 	else
 	{
+		game->info_flag[5] = 1;
 		game->map->c[0] = r;
 		game->map->c[1] = g;
 		game->map->c[2] = b;
@@ -84,7 +111,6 @@ static void	init_color(char **str, t_game *game, int type)
 int	read_map_info(char *str, t_game *game)
 {
 	char	**temp;
-	// 순서도 맞춰야한대여
 	temp = ft_split(str); // split 고쳤는데 테스트 해봐야함. split 고치면서 ft_strchr 도 고침 같이 확인 필요...
 	if (!temp)
 		ft_err("split");
@@ -103,7 +129,7 @@ int	read_map_info(char *str, t_game *game)
 	else
 	{
 		ft_free(temp);
-		return (1);
+		ft_err("map info error\n");
 	}
 	ft_free(temp);
 	return (0);

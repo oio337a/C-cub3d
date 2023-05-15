@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 15:17:38 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/15 17:24:30 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/15 20:51:02 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../includes/cub3D.h"
 
 void	ft_free(char **str)
 {
@@ -19,7 +21,18 @@ void	ft_free(char **str)
 		free(str[i]);
 	free(str);
 }
+void	*safe_malloc(size_t	size)
+{
+	void	*ret;
 
+	ret = malloc(size);
+	if (!ret)
+	{
+		ft_putendl_fd("malloc failed", 2);
+		exit(EXIT_FAILURE);
+	}
+	return (ret);
+}
 int	ft_size(char **str) // 2차원 사이즈 카운트 함수
 {
 	int	i;

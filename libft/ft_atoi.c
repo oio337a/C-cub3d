@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:42:48 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/15 16:14:23 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/15 20:52:26 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #define MIN_INT -2147483648
 
-static int	ft_atoi(char *str)
+int	ft_atoi(char *str)
 {
 	int	i;
 	int	res;
