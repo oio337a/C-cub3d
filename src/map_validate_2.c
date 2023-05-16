@@ -6,7 +6,7 @@
 /*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:35:04 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/15 21:44:29 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/16 17:58:12 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,99 +155,45 @@ int	all_around_wall(char **map) // 이차원이라 생각할게여
 // 	return (1);
 // }
 
-void	append_space_index(char **map, t_queue *q)
-{
-	int i;
-	int j;
 
-	i = 0;
-	printf("asdasd\n");
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			if (map[i][j] == ' ')
-			{
-				printf("i: %d j: %d\n", i, j);
-				enqueue(q, j, i);
-			}
-			j++;
-		}
-		i++;
-	}
-}
-
-static int	ft_strlen2(char *str)
+int	over_len(char **map)
 {
-	int i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-
-int	bfs_test(char **map)
-{
-	// int	**visited;
+	int	prev_len;
+	int curr_len;
 	int	i;
-	int	j;
-	t_visit	*visit;
-	t_queue *q;
-	t_node *pop;
 
+	prev_len = ft_strlen(map[0]);
+	curr_len = 0;
 	i = 0;
-	visit = (t_visit *)malloc(sizeof(t_visit));
-	visit->visited = (int **)malloc(sizeof(int *) * (ft_str_col(map) + 1));
-	if (!visit->visited)
-		return (-1);
-	printf("%d\n", ft_str_col(map));
 	while (map[i])
 	{
-		j = ft_strlen(map[i]);
-		visit->visited[i] = (int *)ft_calloc(sizeof(int), j);
-		if (!visit->visited[i])
-			return (-1);
+		curr_len = ft_strlen(map[i]);
+		if (curr_len > prev_len)
+		{
+			//prev_len의 끝지점부터 cur_len의 끝지점의 context들이 모두 1 혹은 공백?
+			while (map[i][prev_len])
+			{
+				if (map[i][prev_len] != ' ' && map[i][prev_len] != '1')
+					return (-1);
+				prev_len++;
+			}
+		}
+		prev_len = ft_strlen(map[i]);
 		i++;
 	}
-	visit->visited[i] = NULL;
-	visit->zero_cnt = 0;
-	q = init_queue();
-	append_space_index(map, q);
-	while (!is_empty(q))
-	{
-		pop = dequeue(q);
-		// printf("pos x: %d pox y : %d\n", pop->x, pop->y);
-		if (pop->x - 1 >= 0)
-			if (visit->visited[pop->y][pop->x - 1] == 0)
-				visit_left(map, visit, q, pop);
-		if (pop->x + 1 < ft_strlen2(map[pop->y]))
-			if (visit->visited[pop->y][pop->x + 1] == 0)
-				visit_right(map, visit, q, pop);
-		if (pop->y - 1 >= 0)
-			if (visit->visited[pop->y - 1][pop->x] == 0)
-				visit_down(map, visit, q, pop);
-		if (pop->y + 1 < ft_str_col(map))
-			if (visit->visited[pop->y + 1][pop->x] == 0)
-				visit_up(map, visit, q, pop);
-		free(pop);
-	}
-	if (visit->zero_cnt != 0)
-		return (-1);
-	// printf("zero count : %d\n", visit->zero_cnt);
 	return (1);
 }
-
-void	*ft_memset(void *b, int c, size_t len)
+int	validate_all(char *map_join)
 {
-	size_t	i;
+	char **map;
 
-	i = 0;
-	while (i < len)
-	{
-		((unsigned char *)b)[i] = (unsigned char)c;
-		i++;
-	}
-	return (b);
+	map = ft_split(map_join, '\n');
+	if (!map)
+		return (-1);
+	if (bsf(map) == 1 && over_len(map) == 1 && all_around_wall(map) == 1)
+		return (1);
+	// 플레이어가 있는지에 대한 판단여부만 해주면 끝!
+	return (-1);
 }
 
 int main()
@@ -272,6 +218,7 @@ int main()
 		printf("map : %s\n", map[i]);
 		i++;
 	}
-	int a = bfs_test(map);
-	printf("%d\n", a);
+	int a = over_len(map);
+	int b = bfs(map);
+	printf("over len : %d bfs : %d\n", a, b);
 }

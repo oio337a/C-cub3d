@@ -6,7 +6,7 @@
 #    By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/16 17:14:23 by yongmipa          #+#    #+#              #
-#    Updated: 2023/05/15 21:09:18 by suhwpark         ###   ########.fr        #
+#    Updated: 2023/05/16 17:31:40 by suhwpark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ LIB_NAME	= ./libft/libft.a
 INCS		= -I includes
 #MLX_FLAGS	= -L./mlx -lmlx -framework OpenGL -framework Appkit
 
-SRC			=	get_next_line.c map_validate_2.c queue_utils.c queue_utils2.c utils.c
+SRC			=	get_next_line.c map_validate_2.c queue_utils.c queue_utils2.c utils.c use_bfs.c
 LIBS		=	$(addprefix $(LIB_DIR), $(LIB_NAME))
 SRCS		=	$(addprefix $(SRCS_DIR), $(SRC))
 OBJS		=	$(SRCS:.c=.o)

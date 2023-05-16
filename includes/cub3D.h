@@ -6,7 +6,7 @@
 /*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:17:25 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/15 21:01:21 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/16 17:31:45 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	all_around_wall(char **map); // 이차원이라 생각할게여
 int	context_check(char context, t_game *dir);
 int	mid_context_check(char **map, t_game *dir); //WASD, 1, 0만 있어야댐
 void	append_space_index(char **map, t_queue *q);
-int	bfs_test(char **map);
+int	bfs(char **map);
 //gnl
 char	*get_next_line(int fd);
 

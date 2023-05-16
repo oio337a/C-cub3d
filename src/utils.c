@@ -6,7 +6,7 @@
 /*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 15:17:38 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/15 20:51:02 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/16 13:58:32 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	ft_free(char **str)
 		free(str[i]);
 	free(str);
 }
+
 void	*safe_malloc(size_t	size)
 {
 	void	*ret;
@@ -33,6 +34,7 @@ void	*safe_malloc(size_t	size)
 	}
 	return (ret);
 }
+
 int	ft_size(char **str) // 2차원 사이즈 카운트 함수
 {
 	int	i;
