@@ -31,7 +31,7 @@ SRC			=	get_next_line.c \
 				utils.c \
 				map_validate_1.c \
 				main.c\
-#				map_validate_2.c \
+				map_validate_2.c \
 				use_bfs.c \
 
 LIBS		=	$(addprefix $(LIB_DIR), $(LIB_NAME))
