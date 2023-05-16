@@ -190,35 +190,35 @@ int	validate_all(char *map_join)
 	map = ft_split(map_join, '\n');
 	if (!map)
 		return (-1);
-	if (bsf(map) == 1 && over_len(map) == 1 && all_around_wall(map) == 1)
+	if (bfs(map) == 1 && over_len(map) == 1 && all_around_wall(map) == 1)
 		return (1);
 	// 플레이어가 있는지에 대한 판단여부만 해주면 끝!
 	return (-1);
 }
-
-int main()
-{
-	int fd;
-	char *file = "test.txt";
-	fd = open(file, O_RDONLY);
-	char *join = ft_strdup("");
-	char *line;
-	while (1)
-	{
-		line = get_next_line(fd);
-		if (!line)
-			break ;
-		join = ft_strjoin(join, line);
-		free(line);
-	}
-	char **map = ft_split(join, '\n');
-	int i = 0;
-	while(map[i])
-	{
-		printf("map : %s\n", map[i]);
-		i++;
-	}
-	int a = over_len(map);
-	int b = bfs(map);
-	printf("over len : %d bfs : %d\n", a, b);
-}
+//
+//int main()
+//{
+//	int fd;
+//	char *file = "test.txt";
+//	fd = open(file, O_RDONLY);
+//	char *join = ft_strdup("");
+//	char *line;
+//	while (1)
+//	{
+//		line = get_next_line(fd);
+//		if (!line)
+//			break ;
+//		join = ft_strjoin(join, line);
+//		free(line);
+//	}
+//	char **map = ft_split(join, '\n');
+//	int i = 0;
+//	while(map[i])
+//	{
+//		printf("map : %s\n", map[i]);
+//		i++;
+//	}
+//	int a = over_len(map);
+//	int b = bfs(map);
+//	printf("over len : %d bfs : %d\n", a, b);
+//}

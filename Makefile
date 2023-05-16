@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME		= cub3d
+NAME		= cub3D
 
 CC			= cc
 FLAGS		= -Wall -Werror -Wextra
@@ -26,7 +26,14 @@ LIB_NAME	= ./libft/libft.a
 INCS		= -I includes
 #MLX_FLAGS	= -L./mlx -lmlx -framework OpenGL -framework Appkit
 
-SRC			=	get_next_line.c map_validate_2.c queue_utils.c queue_utils2.c utils.c use_bfs.c
+SRC			=	get_next_line.c \
+				queue_utils.c queue_utils2.c \
+				utils.c \
+				map_validate_1.c \
+				main.c\
+#				map_validate_2.c \
+				use_bfs.c \
+
 LIBS		=	$(addprefix $(LIB_DIR), $(LIB_NAME))
 SRCS		=	$(addprefix $(SRCS_DIR), $(SRC))
 OBJS		=	$(SRCS:.c=.o)
@@ -36,8 +43,8 @@ all : $(NAME)
 $(NAME) : $(OBJS)
 	make -C $(LIB_DIR)
 # make -C $(MLX_DIR)
-	$(CC) -o $(NAME) $(OBJS) -L $(LIB_DIR) -lft -I $(INCS_DIR) 
-# -L 
+	$(CC) -o $(NAME) $(OBJS) -L $(LIB_DIR) -lft -I $(INCS_DIR)
+# -L
 # $(MLX_DIR) -lmlx -framework OpenGL -framework Appkit
 
 %.o : %.c
