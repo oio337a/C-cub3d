@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:17:25 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/17 17:16:25 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/17 21:27:02 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 #  define BUFFER_SIZE 10000
 # endif
 
+# define TRUE 1
+# define FALSE -1
+
 # include "queue.h"
 # include "../libft/libft.h"
 # include <math.h>
@@ -24,7 +27,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
-
 
 
 typedef struct s_map // 맵에 대한 정보 담긴 구조체
@@ -40,6 +42,7 @@ typedef struct s_img //이미지, 해상도 담긴 구조체
 	char	*south;
 	char	*west;
 	char	*east;
+	void	*img_north;
 }	t_img;
 
 typedef struct s_game
@@ -51,8 +54,10 @@ typedef struct s_game
 	int		a;
 	int		s;
 	int		d;
-	t_img	img[4];
-	t_map	map;
+	int		p_pos[2];
+	int		player;
+	t_img	*img;
+	t_map	*map;
 }	t_game;
 
 /* utils.c */
@@ -66,13 +71,13 @@ int	ft_str_col(char **map);
 int	is_whitespace(char *str);
 int	whitespace(char c);
 int	start_end_wall(char *map);
+int	mid_context_check(char **map, t_game *dir); //WASD, 1, 0만 있어야댐
+int	context_check(char context, t_game *dir, int x, int y);
 int	check_wall(char *map, int len);
 int	all_around_wall(char **map); // 이차원이라 생각할게여
-int	context_check(char context, t_game *dir);
-int	mid_context_check(char **map, t_game *dir); //WASD, 1, 0만 있어야댐
 void	append_space_index(char **map, t_queue *q);
 int	bfs(char **map);
-
+int	validate_all(char *map_join, t_game *game);
 /*map_validate_1.c*/
 int		word_cnt(char const *s);
 int		word_len(char const *s);
@@ -83,9 +88,11 @@ char	**is_split(char const *s);
 int		cnt_info_flag(t_game *game);
 char	*read_file(int fd, t_game *game);
 int		read_map_info(char *str, t_game *game);
-
+int	validate_all(char *map_join, t_game *game);
 //gnl
 char	*get_next_line(int fd);
 
+//init
+t_game	*init_game(void);
 
 #endif

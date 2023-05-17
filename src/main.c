@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 18:08:44 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/17 16:42:45 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/17 21:16:59 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,33 @@ void	leak(void)
 
 int	main(int ac, char *av[])
 {
-	t_game	game;
+	t_game	*game;
 	int		fd;
-	char	*join;
+	// char	*join;
 
-	atexit(leak);
+	// atexit(leak);
 	if (ac != 2)
-		ft_err("invalid argument count\n");
+		ft_err("invalid argument count");
 	if (check_extension(av[1]))
-		ft_err("invalid file argument extention\n");
+		ft_err("invalid file argument extention");
 	fd = open(av[1], O_RDONLY);
 	if (fd < 0)
-		ft_err("Failed to open file\n");
-	ft_memset(&game, 0, sizeof(game));
-	join = read_file(fd, &game);
+		ft_err("Failed to open file");
+	// ft_memset(&game, 0, sizeof(game));
+	game = init_game();
+	if (validate_all(read_file(fd, game), game) == FALSE)
+		ft_err("map error!");
 	close(fd);
-	printf("%s\n", join);
-	free(join);
+	printf("%d %d %d %d %d %d %d\n", game->player, game->w, game->a, game->d, game->s, game->p_pos[0], game->p_pos[1]);
+	printf("%d %d %d %d %d %d\n", game->map->f[0], game->map->f[1], game->map->f[2], game->map->c[0], game->map->c[1], game->map->c[2]);
+	int i = 0;
+	while(game->map->map[i])
+	{
+		printf("%s\n", game->map->map[i]);
+		i++;
+	}
+	// printf("%s\n", join);
+	// free(join);
 	//ac, .cub으로 끝나는지, 맵 하나씩
 	return (0);
 }

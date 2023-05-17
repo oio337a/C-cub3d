@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/16 17:14:23 by yongmipa          #+#    #+#              #
-#    Updated: 2023/05/17 17:00:06 by yongmipa         ###   ########seoul.kr   #
+#    Updated: 2023/05/17 21:15:19 by suhwpark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRC			=	get_next_line.c \
 				main.c\
 				map_validate_2.c \
 				use_bfs.c \
+				initialize.c
 
 LIBS		=	$(addprefix $(LIB_DIR), $(LIB_NAME))
 SRCS		=	$(addprefix $(SRCS_DIR), $(SRC))

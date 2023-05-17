@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validate_1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:19:07 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/17 18:02:33 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/17 21:14:51 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,6 @@ char	*read_file(int fd, t_game *game)
 			break ;
 		if (cnt_info_flag(game) == 6)
 		{
-			//join전에 맵 아닌 부분 없애고 보내주는것 만들지 고민....!
 			tmp = join;
 			join = ft_strjoin(join, line);
 			free(tmp);
@@ -139,7 +138,6 @@ char	*read_file(int fd, t_game *game)
 			read_map_info(line, game);
 		free(line);
 	}
-//	printf("%s\n", join);
 	return (join);
 }
 
@@ -199,12 +197,12 @@ static void	init_color(char **str, t_game *game, int type)
 	if (type == 5)
 	{
 		game->info_flag[4]++;
-		check_color(game->map.f, color);
+		check_color(game->map->f, color);
 	}
 	else
 	{
 		game->info_flag[5]++;
-		check_color(game->map.c, color);
+		check_color(game->map->c, color);
 	}
 	ft_free(color);
 }

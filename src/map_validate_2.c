@@ -6,7 +6,7 @@
 /*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:35:04 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/17 20:31:01 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/17 21:23:06 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 int	ft_str_col(char **map)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (map[i])
@@ -55,7 +55,6 @@ int	start_end_wall(char *map)
 	return (TRUE);
 }
 
-
 int	context_check(char context, t_game *dir, int x, int y)
 {
 	if (context != '0' && context != '1' && context != 'W' \
@@ -67,27 +66,32 @@ int	context_check(char context, t_game *dir, int x, int y)
 		dir->w++;
 		dir->p_pos[0] = y;
 		dir->p_pos[1] = x;
+		dir->player++;
 	}
 	else if (context == 'A')
 	{
 		dir->a++;
 		dir->p_pos[0] = y;
 		dir->p_pos[1] = x;
+		dir->player++;
 	}
 	else if (context == 'S')
 	{
 		dir->s++;
 		dir->p_pos[0] = y;
 		dir->p_pos[1] = x;
+		dir->player++;
 	}
 	else if (context == 'D')
 	{
 		dir->d++;
 		dir->p_pos[0] = y;
 		dir->p_pos[1] = x;
+		dir->player++;
 	}
 	return (TRUE);
 }
+
 int	check_wall(char *map, int len)
 {
 	int	i;
@@ -110,18 +114,12 @@ int	all_around_wall(char **map) // 이차원이라 생각할게여
 		if (i == 0 || i == len - 1)
 		{
 			if (start_end_wall(map[i]) == FALSE)
-			{
-				ft_free(map);
 				return (FALSE);
-			}
 		}
 		else
 		{
 			if (check_wall(map[i], ft_strlen(map[i])) == FALSE)
-			{
-				ft_free(map);
 				return (FALSE);
-			}
 		}
 		i++;
 	}
@@ -142,18 +140,13 @@ int	mid_context_check(char **map, t_game *dir) //WASD, 1, 0만 있어야댐
 		while (map[i][j])
 		{
 			if (context_check(map[i][j], dir, j, i) == FALSE)
-			{
-				ft_free(map);
-				printf("%d %d\n", j, i);
 				return (-1);
-			}
 			j++;
 		}
 		i++;
 	}
-	if (dir->w == 0 && dir->a == 0 && dir->s == 0 && dir->d == 0)
+	if (dir->player != 1)
 	{
-		ft_free(map);
 		ft_err("player count err\n");
 		return (-1);
 	}
@@ -196,7 +189,11 @@ int	validate_all(char *map_join, t_game *game)
 		return (FALSE);
 	if (bfs(map) == TRUE && over_len(map) == TRUE
 		&& all_around_wall(map) == TRUE && mid_context_check(map, game) == TRUE)
+	{
+		game->map->map = map;
 		return (TRUE);
+	}
+	ft_free(map);
 	return (FALSE);
 }
 
