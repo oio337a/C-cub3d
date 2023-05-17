@@ -6,7 +6,7 @@
 /*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:17:25 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/17 21:27:02 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/17 22:30:10 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,19 @@
 # include <fcntl.h>
 
 
-typedef struct s_map // 맵에 대한 정보 담긴 구조체
+typedef struct s_info // 맵에 대한 정보 담긴 구조체
 {
 	char	**map;
+	int		info_flag[6];
+	int		w;
+	int		a;
+	int		s;
+	int		d;
+	int		p_pos[2];
+	int		player;
 	int		f[3];
 	int		c[3];
-}	t_map;
+}	t_info;
 
 typedef struct s_img //이미지, 해상도 담긴 구조체
 {
@@ -43,21 +50,17 @@ typedef struct s_img //이미지, 해상도 담긴 구조체
 	char	*west;
 	char	*east;
 	void	*img_north;
+	void	*img_south;
+	void	*img_west;
+	void	*img_east;
 }	t_img;
 
 typedef struct s_game
 {
 	void	*mlx;
 	void	*window;
-	int		info_flag[6];
-	int		w;
-	int		a;
-	int		s;
-	int		d;
-	int		p_pos[2];
-	int		player;
 	t_img	*img;
-	t_map	*map;
+	t_info	*info;
 }	t_game;
 
 /* utils.c */

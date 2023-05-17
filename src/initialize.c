@@ -6,7 +6,7 @@
 /*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 21:06:01 by suhwpark          #+#    #+#             */
-/*   Updated: 2023/05/17 21:15:39 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/17 22:35:09 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,25 @@
 t_game	*init_game(void)
 {
 	t_game	*game;
-	t_map	*map;
-	// t_img	*img;
+	t_info	*info;
+	t_img	*img;
 
 	game = (t_game *)safe_malloc(sizeof(t_game));
-	map = (t_map *)safe_malloc(sizeof(t_map));
-	// img = (t_img *)safe_malloc(sizeof(t_img));
-
-	game->a = 0;
-	game->d = 0;
-	game->s = 0;
-	game->w = 0;
+	info = (t_info *)safe_malloc(sizeof(t_info));
+	img = (t_img *)safe_malloc(sizeof(t_img));
+	info->a = 0;
+	info->d = 0;
+	info->s = 0;
+	info->w = 0;
 	game->window = NULL;
 	game->mlx = NULL;
-	game->player = 0;
-	map->map = NULL;
-	game->map = map;
+	info->player = 0;
+	info->map = NULL;
+	img->east = NULL;
+	img->west = NULL;
+	img->north = NULL;
+	img->south = NULL;
+	game->info = info;
+	game->img = img;
 	return (game);
 }

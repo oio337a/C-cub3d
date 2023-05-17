@@ -6,7 +6,7 @@
 /*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:19:07 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/17 21:14:51 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/17 22:36:18 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,9 @@ int	cnt_info_flag(t_game *game)
 	cnt = 0;
 	while (i < 6)
 	{
-		if (game->info_flag[i] > 1)
+		if (game->info->info_flag[i] > 1)
 			ft_err("Duplicate information");
-		if (game->info_flag[i] == 1)
+		if (game->info->info_flag[i] == 1)
 			cnt++;
 		i++;
 	}
@@ -149,23 +149,23 @@ static void	init_texture(char **str, t_game *game, int type)
 	if (type == 1)
 	{
 		// mlx_xpm_file_to_image 로 이어줘야하는지 몰겠음...
-		game->img->north = str[1];
-		game->info_flag[0]++;
+		game->img->north = ft_strdup(str[1]);
+		game->info->info_flag[0]++;
 	}
 	else if (type == 2)
 	{
-		game->img->south = str[1];
-		game->info_flag[1]++;
+		game->info->info_flag[1]++;
+		game->img->south = ft_strdup(str[1]);
 	}
 	else if (type == 3)
 	{
-		game->img->west = str[1];
-		game->info_flag[2]++;
+		game->img->west = ft_strdup(str[1]);
+		game->info->info_flag[2]++;
 	}
 	else if (type == 4)
 	{
-		game->img->east = str[1];
-		game->info_flag[3]++;
+		game->img->east = ft_strdup(str[1]);
+		game->info->info_flag[3]++;
 	}
 }
 
@@ -196,13 +196,13 @@ static void	init_color(char **str, t_game *game, int type)
 		ft_err("we need 3 color");
 	if (type == 5)
 	{
-		game->info_flag[4]++;
-		check_color(game->map->f, color);
+		game->info->info_flag[4]++;
+		check_color(game->info->f, color);
 	}
 	else
 	{
-		game->info_flag[5]++;
-		check_color(game->map->c, color);
+		game->info->info_flag[5]++;
+		check_color(game->info->c, color);
 	}
 	ft_free(color);
 }
@@ -213,7 +213,7 @@ int	read_map_info(char *str, t_game *game)
 	char	**temp;
 
 	temp = is_split(str);
-	if (temp[0]) //temp[0] == NULL 일때 temp 프리해주기 위해 변경
+	if (temp[0])
 	{
 		if (!ft_strncmp(temp[0], "NO", 3))
 			init_texture(temp, game, 1);
