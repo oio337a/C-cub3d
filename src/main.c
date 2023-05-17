@@ -24,18 +24,19 @@ int	check_extension(char *filename)
 		return (1);
 	return (0);
 }
-//
-//void	leak(void)
-//{
-//	system("leaks cub3D");
-//}
+
+void	leak(void)
+{
+	system("leaks cub3D");
+}
 
 int	main(int ac, char *av[])
 {
 	t_game	game;
 	int		fd;
+	char	*join;
 
-//	atexit(leak);
+	atexit(leak);
 	if (ac != 2)
 		ft_err("invalid argument count\n");
 	if (check_extension(av[1]))
@@ -44,8 +45,10 @@ int	main(int ac, char *av[])
 	if (fd < 0)
 		ft_err("Failed to open file\n");
 	ft_memset(&game, 0, sizeof(game));
-	read_file(fd, &game);
+	join = read_file(fd, &game);
 	close(fd);
+	printf("%s\n", join);
+	free(join);
 	//ac, .cub으로 끝나는지, 맵 하나씩
 	return (0);
 }

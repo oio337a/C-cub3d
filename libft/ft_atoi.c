@@ -56,7 +56,5 @@ int	ft_atoi(char *str)
 			return (-1);
 		str++;
 	}
-	if ((result * sign) < 0)
-		return (-1);
 	return (result * sign);
 }
