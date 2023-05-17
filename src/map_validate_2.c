@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validate_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:35:04 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/17 16:35:13 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/17 20:31:01 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,33 +43,64 @@ int	is_whitespace(char *str)
 
 int	start_end_wall(char *map)
 {
-	//1 아니면 스페이스바 외에 다른게 들어오면 안됨 추가적으로 len 맞춰바야댐?
 	int	i;
 
 	i = is_whitespace(map);
-	while (map[i++])
+	while (map[i])
+	{
 		if (map[i] != '1' && map[i] != ' ')
-			return(-1);
-	return (1);
+			return (FALSE);
+		i++;
+	}
+	return (TRUE);
 }
 
+
+int	context_check(char context, t_game *dir, int x, int y)
+{
+	if (context != '0' && context != '1' && context != 'W' \
+		&& context != 'S' && context != 'A' && context != 'D' \
+		&& !ft_isspace(context))
+		return (FALSE);
+	if (context == 'W')
+	{
+		dir->w++;
+		dir->p_pos[0] = y;
+		dir->p_pos[1] = x;
+	}
+	else if (context == 'A')
+	{
+		dir->a++;
+		dir->p_pos[0] = y;
+		dir->p_pos[1] = x;
+	}
+	else if (context == 'S')
+	{
+		dir->s++;
+		dir->p_pos[0] = y;
+		dir->p_pos[1] = x;
+	}
+	else if (context == 'D')
+	{
+		dir->d++;
+		dir->p_pos[0] = y;
+		dir->p_pos[1] = x;
+	}
+	return (TRUE);
+}
 int	check_wall(char *map, int len)
 {
 	int	i;
-	
-	i = is_whitespace(map);
-	if (map[i] != 1 || map[len - 1] != 1) // 양 끝부분 1로 돼있음?
-		return (-1);
-	return(1);
-}
 
-// 추가적으로 맵 중간에 빈줄이 있으면 안되게 -> 얘는 gnl 총 라인 개수랑 
-// validation 후의 개수를 비교해야될거같은데 어덕?????
-// gnl을 변형시켜야되나여
+	i = is_whitespace(map);
+	if (map[i] == '1' || map[len - 1] != '1')
+		return (TRUE);
+	return (FALSE);
+}
 
 int	all_around_wall(char **map) // 이차원이라 생각할게여
 {
-	int i;
+	int	i;
 	int	len;
 
 	i = 0;
@@ -78,81 +109,61 @@ int	all_around_wall(char **map) // 이차원이라 생각할게여
 	{
 		if (i == 0 || i == len - 1)
 		{
-			if (start_end_wall(map[i]) == -1)
+			if (start_end_wall(map[i]) == FALSE)
 			{
 				ft_free(map);
-				return (-1);
+				return (FALSE);
 			}
 		}
 		else
 		{
-			if (check_wall(map[i], ft_strlen(map[i])) == -1)
+			if (check_wall(map[i], ft_strlen(map[i])) == FALSE)
 			{
 				ft_free(map);
-				return (-1);
+				return (FALSE);
 			}
 		}
+		i++;
+	}
+	return (TRUE);
+}
+
+int	mid_context_check(char **map, t_game *dir) //WASD, 1, 0만 있어야댐
+{
+	int	i;
+	int	j;
+	int	col;
+
+	col = ft_str_col(map);
+	i = 1;
+	while (map[i] && i < col)
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (context_check(map[i][j], dir, j, i) == FALSE)
+			{
+				ft_free(map);
+				printf("%d %d\n", j, i);
+				return (-1);
+			}
+			j++;
+		}
+		i++;
+	}
+	if (dir->w == 0 && dir->a == 0 && dir->s == 0 && dir->d == 0)
+	{
+		ft_free(map);
+		ft_err("player count err\n");
+		return (-1);
 	}
 	return (1);
 }
 
-// int	context_check(char context, t_game *dir)
-// {
-// 	if (context != '0' && context != '1' && context != 'W' \
-// 		&& context != 'S' && context != 'A' && context != 'D' \
-// 		&& !whitespace(context))
-// 		return (-1);
-// 	if (context == 'W')
-// 		dir->w++;
-// 	else if (context == 'A')
-// 		dir->a++;
-// 	else if (context == 'S')
-// 		dir->s++;
-// 	else if (context == 'D')
-// 		dir->d++;
-// 	if (dir->w >= 2 || dir->a >= 2 || dir->s >= 2 || dir->d >= 2)
-// 	{
-// 		ft_err("player count err\n");
-// 		return (-1);
-// 	}
-// 	return (1);
-// }
-
-// int	mid_context_check(char **map, t_game *dir) //WASD, 1, 0만 있어야댐
-// {
-// 	int	i;
-// 	int	j;
-// 	int	col;
-
-// 	col = ft_str_col(map);
-// 	i = 1;
-// 	while (map[i] && i < col)
-// 	{
-// 		j = 0;
-// 		while (map[i][j])
-// 		{
-// 			if (context_check(map[i][j], dir) == -1)
-// 			{
-// 				ft_free(map);
-// 				return (-1);
-// 			}
-// 		}
-// 		i++;
-// 	}
-// 	if (dir->w == 0 && dir->a == 0 && dir->s == 0 && dir->d == 0)
-// 	{
-// 		ft_free(map);
-// 		ft_err("player count err\n");
-// 		return (-1);
-// 	}
-// 	return (1);
-// }
-
-
 int	over_len(char **map)
 {
 	int	prev_len;
-	int curr_len;
+	int	curr_len;
 	int	i;
 
 	prev_len = ft_strlen(map[0]);
@@ -163,32 +174,34 @@ int	over_len(char **map)
 		curr_len = ft_strlen(map[i]);
 		if (curr_len > prev_len)
 		{
-			//prev_len의 끝지점부터 cur_len의 끝지점의 context들이 모두 1 혹은 공백?
 			while (map[i][prev_len])
 			{
 				if (map[i][prev_len] != ' ' && map[i][prev_len] != '1')
-					return (-1);
+					return (FALSE);
 				prev_len++;
 			}
 		}
 		prev_len = ft_strlen(map[i]);
 		i++;
 	}
-	return (1);
+	return (TRUE);
 }
-int	validate_all(char *map_join)
+
+int	validate_all(char *map_join, t_game *game)
 {
-	char **map;
+	char	**map;
 
 	map = ft_split(map_join, '\n');
 	if (!map)
-		return (-1);
-	if (bfs(map) == 1 && over_len(map) == 1 && all_around_wall(map) == 1)
-		return (1);
+		return (FALSE);
+	if (bfs(map) == TRUE && over_len(map) == TRUE
+		&& all_around_wall(map) == TRUE && mid_context_check(map, game) == TRUE)
+		return (TRUE);
+	return (FALSE);
+}
+
 	// 플레이어가 있는지에 대한 판단여부만 해주면 끝!
 	// 추가적으로 맵 끝났는데 엔터나 헛소리 들어오는거 봐야댐?
-	return (-1);
-}
 
 // int main()
 // {
@@ -197,6 +210,9 @@ int	validate_all(char *map_join)
 // 	fd = open(file, O_RDONLY);
 // 	char *join = ft_strdup("");
 // 	char *line;
+// 	t_game *a;
+// 	a = (t_game *)malloc(sizeof(t_game));
+// 	ft_memset(a, 0, sizeof(a));
 // 	while (1)
 // 	{
 // 		line = get_next_line(fd);
@@ -205,14 +221,15 @@ int	validate_all(char *map_join)
 // 		join = ft_strjoin(join, line);
 // 		free(line);
 // 	}
-// 	char **map = ft_split(join, '\n');
-// 	int i = 0;
-// 	while(map[i])
-// 	{
-// 		printf("map : %s\n", map[i]);
-// 		i++;
-// 	}
-// 	int a = over_len(map);
-// 	int b = bfs(map);
-// 	printf("over len : %d bfs : %d\n", a, b);
+// 	// char **map = ft_split(join, '\n');
+// 	// int i = 0;
+// 	// while(map[i])
+// 	// {
+// 	// 	printf("map : %s\n", map[i]);
+// 	// 	i++;
+// 	// }
+// 	int qqq = validate_all(join, a);
+// 	printf("validate : %d\n", qqq);
+// 	printf("%d %d %d %d %d %d\n", a->p_pos[0], a->p_pos[1], a->a, a->d, a->s, a->w);
+// 	// printf("all _Wall : %d\n", all_around_wall(map));
 // }
