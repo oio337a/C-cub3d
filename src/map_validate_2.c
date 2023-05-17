@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validate_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:35:04 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/16 17:58:12 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/17 16:35:13 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,6 @@ int	is_whitespace(char *str)
 	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
 		i++;
 	return (i);
-}
-
-int	whitespace(char c)
-{
-	if ((c >= 9 && c <= 13) || c == 32)
-		return (1);
-	return (0);
 }
 
 int	start_end_wall(char *map)
@@ -83,7 +76,7 @@ int	all_around_wall(char **map) // 이차원이라 생각할게여
 	len = ft_str_col(map);
 	while (map[i])
 	{
-		if (i == 0 || i == len)
+		if (i == 0 || i == len - 1)
 		{
 			if (start_end_wall(map[i]) == -1)
 			{
@@ -193,32 +186,33 @@ int	validate_all(char *map_join)
 	if (bfs(map) == 1 && over_len(map) == 1 && all_around_wall(map) == 1)
 		return (1);
 	// 플레이어가 있는지에 대한 판단여부만 해주면 끝!
+	// 추가적으로 맵 끝났는데 엔터나 헛소리 들어오는거 봐야댐?
 	return (-1);
 }
-//
-//int main()
-//{
-//	int fd;
-//	char *file = "test.txt";
-//	fd = open(file, O_RDONLY);
-//	char *join = ft_strdup("");
-//	char *line;
-//	while (1)
-//	{
-//		line = get_next_line(fd);
-//		if (!line)
-//			break ;
-//		join = ft_strjoin(join, line);
-//		free(line);
-//	}
-//	char **map = ft_split(join, '\n');
-//	int i = 0;
-//	while(map[i])
-//	{
-//		printf("map : %s\n", map[i]);
-//		i++;
-//	}
-//	int a = over_len(map);
-//	int b = bfs(map);
-//	printf("over len : %d bfs : %d\n", a, b);
-//}
+
+// int main()
+// {
+// 	int fd;
+// 	char *file = "test.txt";
+// 	fd = open(file, O_RDONLY);
+// 	char *join = ft_strdup("");
+// 	char *line;
+// 	while (1)
+// 	{
+// 		line = get_next_line(fd);
+// 		if (!line)
+// 			break ;
+// 		join = ft_strjoin(join, line);
+// 		free(line);
+// 	}
+// 	char **map = ft_split(join, '\n');
+// 	int i = 0;
+// 	while(map[i])
+// 	{
+// 		printf("map : %s\n", map[i]);
+// 		i++;
+// 	}
+// 	int a = over_len(map);
+// 	int b = bfs(map);
+// 	printf("over len : %d bfs : %d\n", a, b);
+// }

@@ -3,24 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   use_bfs.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:24:16 by suhwpark          #+#    #+#             */
-/*   Updated: 2023/05/16 18:57:19 by hyecheon         ###   ########.fr       */
+/*   Updated: 2023/05/17 16:18:34 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
-
-static int	ft_strlen2(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
 
 static t_visit	*init_visited(char **map)
 {
@@ -66,20 +56,27 @@ void	append_space_index(char **map, t_queue *q)
 void	visit_four_direction(char **map, t_queue *q, t_visit *visit)
 {
 	t_node	*pop;
+	int		col;
+	int 	row;
 
+	row = 0;
+	col = ft_str_col(map);
 	while (!is_empty(q))
 	{
 		pop = dequeue(q);
+		row = ft_strlen(map[pop->y]);
 		if (pop->x - 1 >= 0)
 			if (visit->visited[pop->y][pop->x - 1] == 0)
 				visit_l(map, visit, q, pop);
-		if (pop->x + 1 < ft_strlen2(map[pop->y]))
+		if (pop->x + 1 < row)
+		{
 			if (visit->visited[pop->y][pop->x + 1] == 0)
 				visit_r(map, visit, q, pop);
-		if (pop->y - 1 >= 0)
+		}
+		if (pop->y - 1 >= 0 && ft_strlen(map[pop->y - 1]) >= ft_strlen(map[pop->y]))
 			if (visit->visited[pop->y - 1][pop->x] == 0)
 				visit_d(map, visit, q, pop);
-		if (pop->y + 1 < ft_str_col(map))
+		if (pop->y + 1 < col && ft_strlen(map[pop->y + 1]) >= ft_strlen(map[pop->y]))
 			if (visit->visited[pop->y + 1][pop->x] == 0)
 				visit_up(map, visit, q, pop);
 		free(pop);
@@ -93,11 +90,17 @@ int	bfs(char **map)
 
 	visit = init_visited(map);
 	if (!visit)
+	{
+		printf("here\n");
 		return (-1);
+	}
 	q = init_queue();
 	append_space_index(map, q);
 	visit_four_direction(map, q, visit);
 	if (visit->zero_cnt != 0)
+	{
+		printf("zero : %d\n", visit->zero_cnt);
 		return (-1);
+	}
 	return (1);
 }

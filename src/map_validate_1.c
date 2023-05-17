@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validate_1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:19:07 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/15 21:35:34 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/17 18:02:33 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ char	*is_strdup(const char *s, int size)
 	return (dst);
 }
 
+// 혹시 필요하면..?
 char	**freeall(char **str, int cnt)
 {
 	int	i;
@@ -81,7 +82,7 @@ char	**is_split(char const *s)
 	cnt = word_cnt(s);
 	dest = (char **)malloc(sizeof(char *) * (cnt + 1));
 	if (!dest)
-		return (0);
+		ft_err("malloc");
 	while (i < cnt)
 	{
 		while (*s && ft_isspace(*s) == 1)
@@ -89,7 +90,7 @@ char	**is_split(char const *s)
 		len = word_len(s);
 		dest[i] = is_strdup(s, len);
 		if (!dest[i])
-			return (freeall(dest, i));
+			ft_err("malloc");
 		s += len;
 		i++;
 	}
@@ -129,15 +130,16 @@ char	*read_file(int fd, t_game *game)
 			break ;
 		if (cnt_info_flag(game) == 6)
 		{
+			//join전에 맵 아닌 부분 없애고 보내주는것 만들지 고민....!
 			tmp = join;
 			join = ft_strjoin(join, line);
 			free(tmp);
 		}
-		if (cnt_info_flag(game) != 6 && *line != '\n')
+		else
 			read_map_info(line, game);
 		free(line);
 	}
-//	printf("%s\n", join);
+	printf("%s\n", join);
 	return (join);
 }
 
@@ -169,6 +171,8 @@ static void	init_texture(char **str, t_game *game, int type)
 	}
 }
 
+//rgb 값 16진수로 바꿔주는 함수 만들고 값 담아주기
+
 static void	init_color(char **str, t_game *game, int type)
 {
 	char	**color;
@@ -181,6 +185,7 @@ static void	init_color(char **str, t_game *game, int type)
 	//rgc 요소사이에 공백 안들어오게 처리
 	//atoi에서 +,-부호 한개씩만 있을때도 처리해주기 ->아토이 일단 주석처리하고 제것 넣어놨어요.
 	//줄수 줄이기 위해 일단 변수 지웠음...
+	// 255 넘어가는지 체크 해야함~~!!!!!
 	if (ft_atoi(color[0]) == -1 || ft_atoi(color[1]) == -1 || \
 	ft_atoi(color[2]) == -1)
 		ft_err("Color range (0 ~ 255)\n");
@@ -190,7 +195,6 @@ static void	init_color(char **str, t_game *game, int type)
 		game->map.f[0] = ft_atoi(color[0]);
 		game->map.f[1] = ft_atoi(color[1]);
 		game->map.f[2] = ft_atoi(color[2]);
-//		printf("%d %d %d\n", game->map.f[0], game->map.f[1], game->map.f[2]);
 	}
 	else
 	{
@@ -198,7 +202,6 @@ static void	init_color(char **str, t_game *game, int type)
 		game->map.c[0] = ft_atoi(color[0]);
 		game->map.c[1] = ft_atoi(color[1]);
 		game->map.c[2] = ft_atoi(color[2]);
-//		printf("%d %d %d\n", game->map.c[0], game->map.c[1], game->map.c[2]);
 	}
 	ft_free(color);
 }
@@ -208,10 +211,9 @@ int	read_map_info(char *str, t_game *game)
 	char	**temp;
 
 	temp = is_split(str);
-	if (!temp)
-		ft_err("split error\n");
-	// split 고쳤는데 테스트 해봐야함. split 고치면서 ft_strchr 도 고침 같이 확인 필요...
-	// 마지막에 널까지 확인하기 위해 글자수 +1해줌
+	if (!temp[0])
+		return (0);
+	printf("%s %s\n", temp[0], temp[1]);
 	//이 부분에서 segmentation fault ->구조체 수정
 	if (!ft_strncmp(temp[0], "NO", 3))
 		init_texture(temp, game, 1);
@@ -225,7 +227,7 @@ int	read_map_info(char *str, t_game *game)
 		init_color(temp, game, 5);
 	else if (!ft_strncmp(temp[0], "C", 2))
 		init_color(temp, game, 6);
-	else if (temp[0] != NULL)
+	else
 	{
 		ft_free(temp);
 		ft_err("map info error\n");
