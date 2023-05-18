@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validate_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sohyupar <sohyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:35:04 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/18 16:56:00 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/18 17:20:50 by sohyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	context_check(char context, t_game *dir, int x, int y)
 {
 	if (context != '0' && context != '1' && context != 'W' \
 		&& context != 'S' && context != 'E' && context != 'N' \
-		&& !ft_isspace(context))
+		&& context != ' ')
 		return (FALSE);
 	if (context == 'W')
 	{
@@ -92,15 +92,15 @@ int	context_check(char context, t_game *dir, int x, int y)
 	return (TRUE);
 }
 
-int	is_pft_layer_space(t_game *dir, char **map)
+int	is_player_space(t_game *dir, char **map)
 {
-	if (ft_isspace(map[dir->info->p_pos[0] - 1][dir->info->p_pos[1]]))
+	if (map[dir->info->p_pos[0] - 1][dir->info->p_pos[1]] == ' ')
 		return (FALSE);
-	if (ft_isspace(map[dir->info->p_pos[0] + 1][dir->info->p_pos[1]]))
+	if (map[dir->info->p_pos[0] + 1][dir->info->p_pos[1]] == ' ')
 		return (FALSE);
-	if (ft_isspace(map[dir->info->p_pos[0]][dir->info->p_pos[1] - 1]))
+	if (map[dir->info->p_pos[0]][dir->info->p_pos[1] - 1] == ' ')
 		return (FALSE);
-	if (isspace(map[dir->info->p_pos[0]][dir->info->p_pos[1] + 1]))
+	if (map[dir->info->p_pos[0]][dir->info->p_pos[1] + 1] == ' ')
 		return (FALSE);
 	return (TRUE);
 }
@@ -182,8 +182,7 @@ int	over_len(char **map)
 		{
 			while (map[i][prev_len])
 			{
-				// if (map[i][prev_len] != ' ' && map[i][prev_len] != '1')
-				if (!ft_isspace(map[i][prev_len]) && map[i][prev_len] != '1')
+				if (map[i][prev_len] != ' ' && map[i][prev_len] != '1')
 					return (FALSE);
 				prev_len++;
 			}
@@ -205,7 +204,7 @@ int	validate_all(char *map_join, t_game *game)
 	if (!map)
 		return (FALSE);
 	if (bfs(map) == TRUE && over_len(map) == TRUE
-		&& all_around_wall(map) == TRUE && mid_context_check(map, game) == TRUE && is_player_space(game, map))
+		&& all_around_wall(map) == TRUE && mid_context_check(map, game) == TRUE && is_player_space(game, map) == TRUE)
 	{
 		game->info->map = map;
 		return (TRUE);
