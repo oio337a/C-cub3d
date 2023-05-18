@@ -6,7 +6,7 @@
 /*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:35:04 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/18 15:36:44 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/18 16:56:00 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	start_end_wall(char *map)
 	i = is_whitespace(map);
 	while (map[i])
 	{
-		if (map[i] != '1' && map[i] != ' ')
+		if (map[i] != '1' && !ft_isspace(map[i]))
 			return (FALSE);
 		i++;
 	}
@@ -58,7 +58,7 @@ int	start_end_wall(char *map)
 int	context_check(char context, t_game *dir, int x, int y)
 {
 	if (context != '0' && context != '1' && context != 'W' \
-		&& context != 'S' && context != 'A' && context != 'D' \
+		&& context != 'S' && context != 'E' && context != 'N' \
 		&& !ft_isspace(context))
 		return (FALSE);
 	if (context == 'W')
@@ -68,9 +68,9 @@ int	context_check(char context, t_game *dir, int x, int y)
 		dir->info->p_pos[1] = x;
 		dir->info->player++;
 	}
-	else if (context == 'A')
+	else if (context == 'E')
 	{
-		dir->info->a++;
+		dir->info->e++;
 		dir->info->p_pos[0] = y;
 		dir->info->p_pos[1] = x;
 		dir->info->player++;
@@ -82,13 +82,26 @@ int	context_check(char context, t_game *dir, int x, int y)
 		dir->info->p_pos[1] = x;
 		dir->info->player++;
 	}
-	else if (context == 'D')
+	else if (context == 'N')
 	{
-		dir->info->d++;
+		dir->info->n++;
 		dir->info->p_pos[0] = y;
 		dir->info->p_pos[1] = x;
 		dir->info->player++;
 	}
+	return (TRUE);
+}
+
+int	is_pft_layer_space(t_game *dir, char **map)
+{
+	if (ft_isspace(map[dir->info->p_pos[0] - 1][dir->info->p_pos[1]]))
+		return (FALSE);
+	if (ft_isspace(map[dir->info->p_pos[0] + 1][dir->info->p_pos[1]]))
+		return (FALSE);
+	if (ft_isspace(map[dir->info->p_pos[0]][dir->info->p_pos[1] - 1]))
+		return (FALSE);
+	if (isspace(map[dir->info->p_pos[0]][dir->info->p_pos[1] + 1]))
+		return (FALSE);
 	return (TRUE);
 }
 
@@ -169,7 +182,8 @@ int	over_len(char **map)
 		{
 			while (map[i][prev_len])
 			{
-				if (map[i][prev_len] != ' ' && map[i][prev_len] != '1')
+				// if (map[i][prev_len] != ' ' && map[i][prev_len] != '1')
+				if (!ft_isspace(map[i][prev_len]) && map[i][prev_len] != '1')
 					return (FALSE);
 				prev_len++;
 			}
@@ -191,7 +205,7 @@ int	validate_all(char *map_join, t_game *game)
 	if (!map)
 		return (FALSE);
 	if (bfs(map) == TRUE && over_len(map) == TRUE
-		&& all_around_wall(map) == TRUE && mid_context_check(map, game) == TRUE)
+		&& all_around_wall(map) == TRUE && mid_context_check(map, game) == TRUE && is_player_space(game, map))
 	{
 		game->info->map = map;
 		return (TRUE);

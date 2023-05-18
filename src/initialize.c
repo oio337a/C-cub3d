@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 21:06:01 by suhwpark          #+#    #+#             */
-/*   Updated: 2023/05/17 22:35:09 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/18 16:41:12 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ t_game	*init_game(void)
 	game = (t_game *)safe_malloc(sizeof(t_game));
 	info = (t_info *)safe_malloc(sizeof(t_info));
 	img = (t_img *)safe_malloc(sizeof(t_img));
-	info->a = 0;
-	info->d = 0;
+	info->e = 0;
+	info->n = 0;
 	info->s = 0;
 	info->w = 0;
 	game->window = NULL;

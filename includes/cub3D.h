@@ -6,7 +6,7 @@
 /*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:17:25 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/18 15:21:36 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/18 16:47:03 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ typedef struct s_info // 맵에 대한 정보 담긴 구조체
 	char	**map;
 	int		info_flag[6];
 	int		w;
-	int		a;
+	int		e;
 	int		s;
-	int		d;
+	int		n;
 	int		p_pos[2];
 	int		player;
 	int		f[3];

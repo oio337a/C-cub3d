@@ -1,21 +1,16 @@
-#include "../includes/cub3D.h"
-
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test2.c                                            :+:      :+:    :+:   */
+/*   map_validate_3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 09:36:29 by sohyupar          #+#    #+#             */
-/*   Updated: 2023/05/17 20:37:41 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/18 16:33:01 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "../includes/cub3D.h"
 
 static int	ft_strlen2(char *s)
 {
@@ -107,15 +102,14 @@ char	**ft_split2(char const *s, char c)
 		return (0);
 	while (i < count)
 	{
-		if (*s && *s == c)
+		while (*s && *s == c)
 			s++;
 		wordlen = word_len2(s, c);
-		// printf("now x : %d idx : %d\n", wordlen, i);
 		if (wordlen == 0)
 		{
 			len = ft_strlen2(word[i - 1]);
 			word[i] = (char *)malloc(sizeof(char) * len + 1);
-			memset(word[i], ' ', len);
+			ft_memset(word[i], ' ', len);
 			word[i][len] = '\0';
 		}
 		else
@@ -129,15 +123,3 @@ char	**ft_split2(char const *s, char c)
 	word[count] = 0;
 	return (word);
 }
-
-// int	main()
-// {
-// 	char *str = "hello123123123123000thisis0test";
-// 	char **res = ft_split(str, '0');
-// 	int i = 0;
-// 	while (res[i])
-// 	{
-// 		printf("%s\n", res[i]);
-// 		i++;
-// 	}
-// }

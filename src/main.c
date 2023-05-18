@@ -6,7 +6,7 @@
 /*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 18:08:44 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/18 15:43:41 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/18 15:54:13 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	main(int ac, char *av[])
 	printf("map start\n");
 	while(game->info->map[i])
 	{
-		printf("%s", game->info->map[i]);
+		printf("%s\n", game->info->map[i]);
 		i++;
 	}
 	// printf("%s\n", join);
