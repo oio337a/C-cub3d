@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 18:08:44 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/17 22:35:36 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/18 15:43:41 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,15 @@ int	main(int ac, char *av[])
 	if (validate_all(read_file(fd, game), game) == FALSE)
 		ft_err("map error!");
 	close(fd);
-	printf("%d %d %d %d %d %d %d\n", game->info->player, game->info->w, game->info->a, game->info->d, game->info->s, game->info->p_pos[0], game->info->p_pos[1]);
-	printf("%d %d %d %d %d %d\n", game->info->f[0], game->info->f[1], game->info->f[2], game->info->c[0], game->info->c[1], game->info->c[2]);
-	// int i = 0;
-	// while(game->info->map[i])
-	// {
-	// 	printf("%s\n", game->info->map[i]);
-	// 	i++;
-	// }
+	// printf("%d %d %d %d %d %d %d\n", game->info->player, game->info->w, game->info->a, game->info->d, game->info->s, game->info->p_pos[0], game->info->p_pos[1]);
+	// printf("%d %d %d %d %d %d\n", game->info->f[0], game->info->f[1], game->info->f[2], game->info->c[0], game->info->c[1], game->info->c[2]);
+	int i = 0;
+	printf("map start\n");
+	while(game->info->map[i])
+	{
+		printf("%s", game->info->map[i]);
+		i++;
+	}
 	// printf("%s\n", join);
 	// free(join);
 	//ac, .cub으로 끝나는지, 맵 하나씩

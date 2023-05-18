@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:17:25 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/17 22:30:10 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/18 15:21:36 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,17 +70,17 @@ int		ft_isspace(char c);
 void	ft_err(char *str);
 
 /*validation*/
-int	ft_str_col(char **map);
-int	is_whitespace(char *str);
-int	whitespace(char c);
-int	start_end_wall(char *map);
-int	mid_context_check(char **map, t_game *dir); //WASD, 1, 0만 있어야댐
-int	context_check(char context, t_game *dir, int x, int y);
-int	check_wall(char *map, int len);
-int	all_around_wall(char **map); // 이차원이라 생각할게여
+int		ft_str_col(char **map);
+int		is_whitespace(char *str);
+int		whitespace(char c);
+int		start_end_wall(char *map);
+int		mid_context_check(char **map, t_game *dir);
+int		context_check(char context, t_game *dir, int x, int y);
+int		check_wall(char *map, int len);
+int		all_around_wall(char **map);
 void	append_space_index(char **map, t_queue *q);
-int	bfs(char **map);
-int	validate_all(char *map_join, t_game *game);
+int		bfs(char **map);
+int		validate_all(char *map_join, t_game *game);
 /*map_validate_1.c*/
 int		word_cnt(char const *s);
 int		word_len(char const *s);
@@ -91,10 +91,10 @@ char	**is_split(char const *s);
 int		cnt_info_flag(t_game *game);
 char	*read_file(int fd, t_game *game);
 int		read_map_info(char *str, t_game *game);
-int	validate_all(char *map_join, t_game *game);
+int		validate_all(char *map_join, t_game *game);
 //gnl
 char	*get_next_line(int fd);
-
+char	**ft_split2(char const *s, char c);
 //init
 t_game	*init_game(void);
 

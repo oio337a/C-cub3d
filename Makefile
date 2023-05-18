@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+         #
+#    By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/16 17:14:23 by yongmipa          #+#    #+#              #
-#    Updated: 2023/05/17 21:15:19 by suhwpark         ###   ########.fr        #
+#    Updated: 2023/05/18 15:37:03 by yongmipa         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= cub3D
 
 CC			= cc
-FLAGS		= -Wall -Werror -Wextra -g3
+FLAGS		= -Wall -Werror -Wextra
 AR			= ar rcs
 RM			= rm -f
 
@@ -32,8 +32,9 @@ SRC			=	get_next_line.c \
 				map_validate_1.c \
 				main.c\
 				map_validate_2.c \
+				map_validate_3.c \
 				use_bfs.c \
-				initialize.c
+				initialize.c \
 
 LIBS		=	$(addprefix $(LIB_DIR), $(LIB_NAME))
 SRCS		=	$(addprefix $(SRCS_DIR), $(SRC))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validate_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:35:04 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/17 22:25:05 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/18 15:36:44 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ int	all_around_wall(char **map) // 이차원이라 생각할게여
 	return (TRUE);
 }
 
-int	mid_context_check(char **map, t_game *dir) //WASD, 1, 0만 있어야댐
+int	mid_context_check(char **map, t_game *dir)
 {
 	int	i;
 	int	j;
@@ -184,7 +184,10 @@ int	validate_all(char *map_join, t_game *game)
 {
 	char	**map;
 
-	map = ft_split(map_join, '\n');
+	printf("before split\n");
+	map = ft_split2(map_join, '\n');
+	printf("after split\n");
+
 	if (!map)
 		return (FALSE);
 	if (bfs(map) == TRUE && over_len(map) == TRUE
