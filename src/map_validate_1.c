@@ -6,11 +6,12 @@
 /*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:19:07 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/18 18:59:53 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/18 21:16:18 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
+#include "../mlx/mlx.h"
 
 int	word_cnt(char const *s)
 {
@@ -143,28 +144,29 @@ char	*read_file(int fd, t_game *game)
 
 static void	init_texture(char **str, t_game *game, int type)
 {
+	int	w;
+	int	h;
+
 	if (ft_size(str) != 2)
 		ft_err("information error");
-	//일단 mlx연결 전이라 테스트를 위해 img구조체 char *로 바꿨습니다.
 	if (type == 1)
 	{
-		// mlx_xpm_file_to_image 로 이어줘야하는지 몰겠음...
-		game->img->north = ft_strdup(str[1]);
+		game->img->north = mlx_xpm_file_to_image(game->mlx, str[1], &w, &h);
 		game->info->info_flag[0]++;
 	}
 	else if (type == 2)
 	{
+		game->img->south = mlx_xpm_file_to_image(game->mlx, str[1], &w, &h);
 		game->info->info_flag[1]++;
-		game->img->south = ft_strdup(str[1]);
 	}
 	else if (type == 3)
 	{
-		game->img->west = ft_strdup(str[1]);
+		game->img->west = mlx_xpm_file_to_image(game->mlx, str[1], &w, &h);
 		game->info->info_flag[2]++;
 	}
 	else if (type == 4)
 	{
-		game->img->east = ft_strdup(str[1]);
+		game->img->east = mlx_xpm_file_to_image(game->mlx, str[1], &w, &h);
 		game->info->info_flag[3]++;
 	}
 }

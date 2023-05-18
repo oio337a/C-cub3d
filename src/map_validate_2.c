@@ -6,7 +6,7 @@
 /*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:35:04 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/18 19:32:37 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/18 21:07:29 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,24 +188,20 @@ int	validate_all(char *map_join, t_game *game)
 {
 	char	**map;
 
-	printf("before split\n");
+	printf("안들어와?%sdfddddf", map_join);
 	map = ft_split2(map_join, '\n');
-	printf("after split\n");
-	int i = 0;
-	printf("map start\n");
-	while(map[i])
-	{
-		printf("%s\n", map[i]);
-		i++;
-	}
+	printf("난가?\n");
 	if (!map)
 		return (FALSE);
 	if (bfs(map) == TRUE && over_len(map) == TRUE
-		&& all_around_wall(map) == TRUE && mid_context_check(map, game) == TRUE && is_player_space(game, map) == TRUE)
+		&& all_around_wall(map) == TRUE && mid_context_check(map, game) == TRUE
+		&& is_player_space(game, map) == TRUE)
 	{
 		game->info->map = map;
 		return (TRUE);
 	}
+	if (!game->img->north || !game->img->south || !game->img->east || !game->img->west)
+		return (FALSE);
 	ft_free(map);
 	return (FALSE);
 }

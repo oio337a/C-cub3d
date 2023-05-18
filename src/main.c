@@ -6,11 +6,13 @@
 /*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 18:08:44 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/18 15:54:13 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/18 21:02:53 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
+#include "../mlx/mlx.h"
+
 
 int	check_extension(char *filename)
 {
@@ -25,10 +27,10 @@ int	check_extension(char *filename)
 	return (0);
 }
 
-void	leak(void)
-{
-	system("leaks cub3D");
-}
+// void	leak(void)
+// {
+// 	system("leaks cub3D");
+// }
 
 int	main(int ac, char *av[])
 {
@@ -49,15 +51,7 @@ int	main(int ac, char *av[])
 	if (validate_all(read_file(fd, game), game) == FALSE)
 		ft_err("map error!");
 	close(fd);
-	// printf("%d %d %d %d %d %d %d\n", game->info->player, game->info->w, game->info->a, game->info->d, game->info->s, game->info->p_pos[0], game->info->p_pos[1]);
-	// printf("%d %d %d %d %d %d\n", game->info->f[0], game->info->f[1], game->info->f[2], game->info->c[0], game->info->c[1], game->info->c[2]);
-	int i = 0;
-	printf("map start\n");
-	while(game->info->map[i])
-	{
-		printf("%s\n", game->info->map[i]);
-		i++;
-	}
+	
 	// printf("%s\n", join);
 	// free(join);
 	//ac, .cub으로 끝나는지, 맵 하나씩

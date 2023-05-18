@@ -6,20 +6,12 @@
 /*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 09:36:29 by sohyupar          #+#    #+#             */
-/*   Updated: 2023/05/18 19:37:34 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/18 21:16:36 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-static int	ft_strlen2(char *s)
-{
-	int i = 0;
-	
-	while (s[i])
-		i++;
-	return (i);
-}
 static int	word_count(char const *s, char c)
 {
 	int	i;
@@ -95,8 +87,9 @@ char	**ft_split2(char const *s, char c)
 
 	len = 0;
 	i = 0;
+	if (!*s)
+		return (NULL);
 	count = word_count(s, c) + 1;
-	printf("%d\n", count);
 	while (*s && *s == c)
 		s++;
 	word = (char **)malloc(sizeof(char *) * (count + 1));
@@ -109,7 +102,7 @@ char	**ft_split2(char const *s, char c)
 		wordlen = word_len2(s, c);
 		if (wordlen == 0)
 		{
-			len = ft_strlen2(word[i - 1]);
+			len = ft_strlen(word[i - 1]);
 			word[i] = (char *)malloc(sizeof(char) * len + 1);
 			ft_memset(word[i], ' ', len);
 			word[i][len] = '\0';
@@ -118,7 +111,6 @@ char	**ft_split2(char const *s, char c)
 			word[i] = ft_strndup(s, wordlen);
 		if (!word[i])
 			return (ft_free2(word, i));
-		printf("one line : %s\n", word[i]);
 		s += wordlen;
 		i++;
 	}

@@ -6,11 +6,12 @@
 /*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 21:06:01 by suhwpark          #+#    #+#             */
-/*   Updated: 2023/05/18 16:41:12 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/18 20:58:57 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
+#include "../mlx/mlx.h"
 
 t_game	*init_game(void)
 {
@@ -35,5 +36,6 @@ t_game	*init_game(void)
 	img->south = NULL;
 	game->info = info;
 	game->img = img;
+	game->mlx = mlx_init();
 	return (game);
 }

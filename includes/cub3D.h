@@ -6,7 +6,7 @@
 /*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:17:25 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/18 16:47:03 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/18 20:41:30 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,10 @@ typedef struct s_info // 맵에 대한 정보 담긴 구조체
 
 typedef struct s_img //이미지, 해상도 담긴 구조체
 {
-	char	*north;
-	char	*south;
-	char	*west;
-	char	*east;
-	void	*img_north;
-	void	*img_south;
-	void	*img_west;
-	void	*img_east;
+	void	*north;
+	void	*south;
+	void	*west;
+	void	*east;
 }	t_img;
 
 typedef struct s_game

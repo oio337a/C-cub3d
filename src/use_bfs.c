@@ -6,7 +6,7 @@
 /*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:24:16 by suhwpark          #+#    #+#             */
-/*   Updated: 2023/05/18 16:36:21 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/18 20:13:05 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,17 +90,11 @@ int	bfs(char **map)
 
 	visit = init_visited(map);
 	if (!visit)
-	{
-		printf("here\n");
 		return (-1);
-	}
 	q = init_queue();
 	append_space_index(map, q);
 	visit_four_direction(map, q, visit);
 	if (visit->zero_cnt != 0)
-	{
-		printf("zero : %d\n", visit->zero_cnt);
 		return (-1);
-	}
 	return (1);
 }
