@@ -6,7 +6,7 @@
 /*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 09:36:29 by sohyupar          #+#    #+#             */
-/*   Updated: 2023/05/18 16:33:01 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/18 19:37:34 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,12 +97,14 @@ char	**ft_split2(char const *s, char c)
 	i = 0;
 	count = word_count(s, c) + 1;
 	printf("%d\n", count);
+	while (*s && *s == c)
+		s++;
 	word = (char **)malloc(sizeof(char *) * (count + 1));
 	if (!word)
 		return (0);
 	while (i < count)
 	{
-		while (*s && *s == c)
+		if (*s && *s == c)
 			s++;
 		wordlen = word_len2(s, c);
 		if (wordlen == 0)

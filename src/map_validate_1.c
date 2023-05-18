@@ -6,7 +6,7 @@
 /*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:19:07 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/18 15:48:01 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/18 18:59:53 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,6 @@ static void	check_color(int *map_info, char **color)
 	while (i < 3)
 	{
 		map_info[i] = ft_atoi(color[i]);
-		printf("color: %d\n", map_info[i]);
 		if (map_info[i] < 0 || 255 < map_info[i])
 			ft_err("Color range (0 ~ 255)");
 		i++;

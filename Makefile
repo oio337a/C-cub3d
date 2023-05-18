@@ -6,7 +6,7 @@
 #    By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/16 17:14:23 by yongmipa          #+#    #+#              #
-#    Updated: 2023/05/18 15:37:03 by yongmipa         ###   ########seoul.kr   #
+#    Updated: 2023/05/18 19:29:37 by yongmipa         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,8 @@ fclean : clean
 	make -C $(LIB_DIR) fclean
 	$(RM) $(NAME)
 
-re : fclean all
+re :
+	make fclean
+	make all
 
 PHONY	: all clean fclean re

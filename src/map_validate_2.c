@@ -6,20 +6,11 @@
 /*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:35:04 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/18 16:56:00 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/18 19:32:37 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
-// 여기서 맵 context에 대한 검수를 하면 될거같아요
-/*
-맵 파싱
-2. 벽에 다 둘러 싸이게
-2. cub 파일의 마지막에 위치하도록 -> 맵 마지막줄 뒤에 EOF 검수?
-3. 제시된 콘텐츠 외에 다른게 들어오면 안됨
-4. 제시된 콘텐츠가 부족해도 안됨 벽과 벽을 제외한 콘텐츠에서 공백 안됨
-5. 직사각형이 아닌 맵 1 검수 -> whitespace가 아닌 문자를 처음 만났을 때 1, 개행 전에 1인지?
-*/
 
 int	ft_str_col(char **map)
 {
@@ -48,7 +39,7 @@ int	start_end_wall(char *map)
 	i = is_whitespace(map);
 	while (map[i])
 	{
-		if (map[i] != '1' && !ft_isspace(map[i]))
+		if (map[i] != '1' && map[i] != ' ')
 			return (FALSE);
 		i++;
 	}
@@ -59,7 +50,7 @@ int	context_check(char context, t_game *dir, int x, int y)
 {
 	if (context != '0' && context != '1' && context != 'W' \
 		&& context != 'S' && context != 'E' && context != 'N' \
-		&& !ft_isspace(context))
+		&& context != ' ')
 		return (FALSE);
 	if (context == 'W')
 	{
@@ -92,15 +83,15 @@ int	context_check(char context, t_game *dir, int x, int y)
 	return (TRUE);
 }
 
-int	is_pft_layer_space(t_game *dir, char **map)
+int	is_player_space(t_game *dir, char **map)
 {
-	if (ft_isspace(map[dir->info->p_pos[0] - 1][dir->info->p_pos[1]]))
+	if (map[dir->info->p_pos[0] - 1][dir->info->p_pos[1]] == ' ')
 		return (FALSE);
-	if (ft_isspace(map[dir->info->p_pos[0] + 1][dir->info->p_pos[1]]))
+	if (map[dir->info->p_pos[0] + 1][dir->info->p_pos[1]] == ' ')
 		return (FALSE);
-	if (ft_isspace(map[dir->info->p_pos[0]][dir->info->p_pos[1] - 1]))
+	if (map[dir->info->p_pos[0]][dir->info->p_pos[1] - 1] == ' ')
 		return (FALSE);
-	if (isspace(map[dir->info->p_pos[0]][dir->info->p_pos[1] + 1]))
+	if (map[dir->info->p_pos[0]][dir->info->p_pos[1] + 1] == ' ')
 		return (FALSE);
 	return (TRUE);
 }
@@ -115,7 +106,7 @@ int	check_wall(char *map, int len)
 	return (FALSE);
 }
 
-int	all_around_wall(char **map) // 이차원이라 생각할게여
+int	all_around_wall(char **map)
 {
 	int	i;
 	int	len;
@@ -182,8 +173,7 @@ int	over_len(char **map)
 		{
 			while (map[i][prev_len])
 			{
-				// if (map[i][prev_len] != ' ' && map[i][prev_len] != '1')
-				if (!ft_isspace(map[i][prev_len]) && map[i][prev_len] != '1')
+				if (map[i][prev_len] != ' ' && map[i][prev_len] != '1')
 					return (FALSE);
 				prev_len++;
 			}
@@ -201,11 +191,17 @@ int	validate_all(char *map_join, t_game *game)
 	printf("before split\n");
 	map = ft_split2(map_join, '\n');
 	printf("after split\n");
-
+	int i = 0;
+	printf("map start\n");
+	while(map[i])
+	{
+		printf("%s\n", map[i]);
+		i++;
+	}
 	if (!map)
 		return (FALSE);
 	if (bfs(map) == TRUE && over_len(map) == TRUE
-		&& all_around_wall(map) == TRUE && mid_context_check(map, game) == TRUE && is_player_space(game, map))
+		&& all_around_wall(map) == TRUE && mid_context_check(map, game) == TRUE && is_player_space(game, map) == TRUE)
 	{
 		game->info->map = map;
 		return (TRUE);
@@ -213,37 +209,3 @@ int	validate_all(char *map_join, t_game *game)
 	ft_free(map);
 	return (FALSE);
 }
-
-	// 플레이어가 있는지에 대한 판단여부만 해주면 끝!
-	// 추가적으로 맵 끝났는데 엔터나 헛소리 들어오는거 봐야댐?
-
-// int main()
-// {
-// 	int fd;
-// 	char *file = "test.txt";
-// 	fd = open(file, O_RDONLY);
-// 	char *join = ft_strdup("");
-// 	char *line;
-// 	t_game *a;
-// 	a = (t_game *)malloc(sizeof(t_game));
-// 	ft_memset(a, 0, sizeof(a));
-// 	while (1)
-// 	{
-// 		line = get_next_line(fd);
-// 		if (!line)
-// 			break ;
-// 		join = ft_strjoin(join, line);
-// 		free(line);
-// 	}
-// 	// char **map = ft_split(join, '\n');
-// 	// int i = 0;
-// 	// while(map[i])
-// 	// {
-// 	// 	printf("map : %s\n", map[i]);
-// 	// 	i++;
-// 	// }
-// 	int qqq = validate_all(join, a);
-// 	printf("validate : %d\n", qqq);
-// 	printf("%d %d %d %d %d %d\n", a->p_pos[0], a->p_pos[1], a->a, a->d, a->s, a->w);
-// 	// printf("all _Wall : %d\n", all_around_wall(map));
-// }
