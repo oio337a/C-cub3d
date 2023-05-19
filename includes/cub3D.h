@@ -6,7 +6,7 @@
 /*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:17:25 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/19 15:51:40 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/19 17:19:22 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 # define TRUE 1
 # define FALSE 0
+# define DESTROY_NOTIFY 17
 
 # include "queue.h"
 # include "../libft/libft.h"

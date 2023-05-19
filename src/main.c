@@ -6,16 +6,22 @@
 /*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 18:08:44 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/19 17:06:58 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/19 17:25:55 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-void	leak(void)
+static int	exit_game(t_game *game)
 {
-	system("leaks cub3D");
+	mlx_destroy_window(game->mlx, game->window);
+	exit(0);
 }
+
+// void	leak(void)
+// {
+// 	system("leaks cub3D");
+// }
 
 int	main(int ac, char *av[])
 {
@@ -36,16 +42,19 @@ int	main(int ac, char *av[])
 	if (!validate_all(read_file(fd, game), game))
 		ft_err("map error!", game);
 	close(fd);
-	int	i = 0;
-	while (game->info->map[i])
-	{
-		printf("player map : %s\n", game->info->map[i]);
-		i++;
-	}
+	game->window = mlx_new_window(game->mlx, 1920, 1080, "cub3D");
+	// int	i = 0;
+	// while (game->info->map[i])
+	// {
+	// 	printf("player map : %s\n", game->info->map[i]);
+	// 	i++;
+	// }
 	// printf("%s\n", join);
 	// free(join);
 	//ac, .cub으로 끝나는지, 맵 하나씩
-	exit (0);
+	mlx_hook(game->window, DESTROY_NOTIFY, 0, exit_game, game);
+	mlx_loop(game->mlx);
+	return (0);
 }
 
 /*
