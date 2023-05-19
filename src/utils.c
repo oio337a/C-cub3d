@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 15:17:38 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/17 16:02:12 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/19 14:28:01 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
+
+void	ft_struct_game_free(t_game *game)
+{
+	free(game->info);
+	free(game->img);
+	free(game);
+}
 
 void	ft_free(char **str)
 {

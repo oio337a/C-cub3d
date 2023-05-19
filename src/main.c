@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 18:08:44 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/18 21:02:53 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/19 14:27:41 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,18 @@ int	main(int ac, char *av[])
 	// ft_memset(&game, 0, sizeof(game));
 	game = init_game();
 	if (validate_all(read_file(fd, game), game) == FALSE)
+	{
+		// free(구조체);
 		ft_err("map error!");
+	}
 	close(fd);
-	
+	player_map(game->info->map, game);
+	int	i = 0;
+	while (game->info->map[i])
+	{
+		printf("player map : %s\n", game->info->map[i]);
+		i++;
+	}
 	// printf("%s\n", join);
 	// free(join);
 	//ac, .cub으로 끝나는지, 맵 하나씩

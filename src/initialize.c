@@ -3,15 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 21:06:01 by suhwpark          #+#    #+#             */
-/*   Updated: 2023/05/18 20:58:57 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/19 14:03:24 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 #include "../mlx/mlx.h"
+
+static void	initialize_array(int arr[], int len)
+{
+	int	i;
+
+	i = -1;
+	while (++i < len)
+		arr[i] = 0;
+}
 
 t_game	*init_game(void)
 {
@@ -26,6 +35,10 @@ t_game	*init_game(void)
 	info->n = 0;
 	info->s = 0;
 	info->w = 0;
+	initialize_array(info->info_flag, 6);
+	initialize_array(info->p_pos, 2);
+	initialize_array(info->c, 3);
+	initialize_array(info->f, 3);
 	game->window = NULL;
 	game->mlx = NULL;
 	info->player = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validate_1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:19:07 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/18 21:16:18 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/19 14:26:53 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,16 @@ char	*is_strdup(const char *s, int size)
 }
 
 // 혹시 필요하면..?
-//char	**freeall(char **str, int cnt)
-//{
-//	int	i;
-//
-//	i = 0;
-//	while (i < cnt)
-//		free(str[i++]);
-//	free(str);
-//	return (0);
-//}
+int	freeall(char **str, int cnt)
+{
+	int	i;
+
+	i = 0;
+	while (i < cnt)
+		free(str[i++]);
+	free(str);
+	return (0);
+}
 
 char	**is_split(char const *s)
 {
@@ -83,7 +83,7 @@ char	**is_split(char const *s)
 	cnt = word_cnt(s);
 	dest = (char **)malloc(sizeof(char *) * (cnt + 1));
 	if (!dest)
-		ft_err("malloc");
+		return (NULL);
 	while (i < cnt)
 	{
 		while (*s && ft_isspace(*s) == 1)
@@ -91,7 +91,10 @@ char	**is_split(char const *s)
 		len = word_len(s);
 		dest[i] = is_strdup(s, len);
 		if (!dest[i])
-			ft_err("malloc");
+		{
+			freeall(dest, i);
+			return (NULL);
+		}
 		s += len;
 		i++;
 	}

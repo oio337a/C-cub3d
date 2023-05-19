@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validate_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:35:04 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/18 21:07:29 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/19 14:28:02 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,9 +188,7 @@ int	validate_all(char *map_join, t_game *game)
 {
 	char	**map;
 
-	printf("안들어와?%sdfddddf", map_join);
 	map = ft_split2(map_join, '\n');
-	printf("난가?\n");
 	if (!map)
 		return (FALSE);
 	if (bfs(map) == TRUE && over_len(map) == TRUE

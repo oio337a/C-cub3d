@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:17:25 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/18 20:41:30 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/19 14:32:49 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,10 @@ typedef struct s_game
 /* utils.c */
 void	ft_free(char **str);
 int		ft_size(char **str);
-int		ft_isspace(char c);
 void	ft_err(char *str);
+void	ft_struct_game_free(t_game *game);
+void	*safe_malloc(size_t	size);
+
 
 /*validation*/
 int		ft_str_col(char **map);
@@ -78,20 +80,22 @@ void	append_space_index(char **map, t_queue *q);
 int		bfs(char **map);
 int		validate_all(char *map_join, t_game *game);
 /*map_validate_1.c*/
+int		freeall(char **str, int cnt);
 int		word_cnt(char const *s);
 int		word_len(char const *s);
 char	*is_strdup(const char *s, int size);
 int		read_map_info(char *str, t_game *game);
-char	**freeall(char **str, int cnt);
 char	**is_split(char const *s);
 int		cnt_info_flag(t_game *game);
 char	*read_file(int fd, t_game *game);
 int		read_map_info(char *str, t_game *game);
 int		validate_all(char *map_join, t_game *game);
+
 //gnl
 char	*get_next_line(int fd);
 char	**ft_split2(char const *s, char c);
 //init
 t_game	*init_game(void);
+void	player_map(char **map, t_game *pos);
 
 #endif
