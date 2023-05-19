@@ -6,17 +6,17 @@
 /*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 18:08:44 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/19 17:25:55 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/19 17:31:11 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-static int	exit_game(t_game *game)
-{
-	mlx_destroy_window(game->mlx, game->window);
-	exit(0);
-}
+// static int	exit_game(t_game *game)
+// {
+// 	mlx_destroy_window(game->mlx, game->window);
+// 	exit(0);
+// }
 
 // void	leak(void)
 // {
@@ -29,7 +29,7 @@ int	main(int ac, char *av[])
 	int		fd;
 	// char	*join;
 
-	atexit(leak);
+	// atexit(leak);
 	if (ac != 2)
 		ft_err("invalid argument count", 0);
 	if (!check_extension(av[1], ".cub"))
@@ -42,18 +42,16 @@ int	main(int ac, char *av[])
 	if (!validate_all(read_file(fd, game), game))
 		ft_err("map error!", game);
 	close(fd);
-	game->window = mlx_new_window(game->mlx, 1920, 1080, "cub3D");
-	// int	i = 0;
-	// while (game->info->map[i])
-	// {
-	// 	printf("player map : %s\n", game->info->map[i]);
-	// 	i++;
-	// }
-	// printf("%s\n", join);
-	// free(join);
+	// game->window = mlx_new_window(game->mlx, 1920, 1080, "cub3D");
+	int	i = 0;
+	while (game->info->map[i])
+	{
+		printf("player map : %s\n", game->info->map[i]);
+		i++;
+	}
 	//ac, .cub으로 끝나는지, 맵 하나씩
-	mlx_hook(game->window, DESTROY_NOTIFY, 0, exit_game, game);
-	mlx_loop(game->mlx);
+	// mlx_hook(game->window, DESTROY_NOTIFY, 0, exit_game, game);
+	// mlx_loop(game->mlx);
 	return (0);
 }
 
