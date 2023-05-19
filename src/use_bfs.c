@@ -6,7 +6,7 @@
 /*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:24:16 by suhwpark          #+#    #+#             */
-/*   Updated: 2023/05/19 14:47:24 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/19 17:09:25 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static t_visit	*init_visited(char **map)
 	int		j;
 
 	i = 0;
-	visit = (t_visit *)malloc(sizeof(t_visit));
+	visit = (t_visit *)safe_malloc(sizeof(t_visit));
 	visit->visited = (int **)safe_malloc(sizeof(int *) * (ft_str_col(map) + 1));
 	while (map[i])
 	{
@@ -87,14 +87,27 @@ int	bfs(char **map)
 {
 	t_visit	*visit;
 	t_queue	*q;
+	int		i;
 
+	i = 0;
 	visit = init_visited(map);
 	if (!visit)
 		return (-1);
 	q = init_queue();
 	append_space_index(map, q);
 	visit_four_direction(map, q, visit);
+	clear_queue(q);
 	if (visit->zero_cnt != 0)
+	{
+		while (visit->visited[i])
+			free(visit->visited[i++]);
+		free(visit->visited);
+		free(visit);
 		return (-1);
+	}
+	while (visit->visited[i])
+		free(visit->visited[i++]);
+	free(visit->visited);
+	free(visit);
 	return (1);
 }

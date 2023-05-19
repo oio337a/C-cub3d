@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   queue_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 13:58:23 by suhwpark          #+#    #+#             */
-/*   Updated: 2023/05/16 13:58:24 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/19 17:00:41 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
