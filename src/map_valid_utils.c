@@ -1,34 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_validate_2.c                                   :+:      :+:    :+:   */
+/*   map_valid_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/15 14:35:04 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/19 16:12:10 by yongmipa         ###   ########seoul.kr  */
+/*   Created: 2023/05/19 15:21:52 by sohyupar          #+#    #+#             */
+/*   Updated: 2023/05/19 15:52:25 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-int	validate_all(char *map_join, t_game *game)
+int	ft_str_col(char **map)
 {
-	char	**map;
+	int	i;
 
-	// if (!game->img->north || !game->img->south || !game->img->east || !game->img->west)
-	// 	return (FALSE);
-	map = ft_split2(map_join, '\n');
-	if (!map)
-		return (FALSE);
-	if (bfs(map) && over_len(map) && all_around_wall(map)
-		&& mid_context_check(map, game))
+	i = 0;
+	while (map[i])
+		i++;
+	return (i);
+}
+
+int	is_whitespace(char *str)
+{
+	int	i;
+
+	i = 0;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
+		i++;
+	return (i);
+}
+
+int	start_end_wall(char *map)
+{
+	int	i;
+
+	i = is_whitespace(map);
+	while (map[i])
 	{
-		free(map_join);
-		game->info->map = map;
-		return (TRUE);
+		if (map[i] != '1' && map[i] != ' ')
+			return (FALSE);
+		i++;
 	}
-	free(map_join);
-	ft_free(map);
-	return (FALSE);
+	return (TRUE);
 }

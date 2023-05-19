@@ -6,12 +6,11 @@
 /*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 13:57:11 by suhwpark          #+#    #+#             */
-/*   Updated: 2023/05/18 16:56:39 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/19 14:47:19 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/queue.h"
-#include <stdio.h>
 
 void	visit_l(char **map, t_visit *visit_info, t_queue *queue, t_node *point)
 {

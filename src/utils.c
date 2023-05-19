@@ -3,21 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 15:17:38 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/19 14:28:01 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/19 15:28:40 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
-
-void	ft_struct_game_free(t_game *game)
-{
-	free(game->info);
-	free(game->img);
-	free(game);
-}
 
 void	ft_free(char **str)
 {
@@ -57,8 +50,14 @@ int	ft_size(char **str) // 2차원 사이즈 카운트 함수
 	return (size);
 }
 
-void	ft_err(char *str)
+void	ft_err(char *str, t_game *game)
 {
+	if (game)
+	{	
+		free(game->info);
+		free(game->img);
+		free(game);
+	}
 	write(2, "Error\n", 6);
 	write(2, str, ft_strlen(str));
 	write(2, "\n", 1);

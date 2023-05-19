@@ -3,34 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 18:08:44 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/19 14:27:41 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/19 16:20:43 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
-#include "../mlx/mlx.h"
 
-
-int	check_extension(char *filename)
+void	leak(void)
 {
-	int	i;
-
-	i = 0;
-	while (filename && filename[i] != '\0')
-		i++;
-	if (filename[i - 4] != '.' || filename[i - 3] != 'c' || \
-		filename[i - 2] != 'u' || filename[i - 1] != 'b')
-		return (1);
-	return (0);
+	system("leaks cub3D");
 }
-
-// void	leak(void)
-// {
-// 	system("leaks cub3D");
-// }
 
 int	main(int ac, char *av[])
 {
@@ -38,23 +23,19 @@ int	main(int ac, char *av[])
 	int		fd;
 	// char	*join;
 
-	// atexit(leak);
+	atexit(leak);
 	if (ac != 2)
-		ft_err("invalid argument count");
-	if (check_extension(av[1]))
-		ft_err("invalid file argument extention");
+		ft_err("invalid argument count", 0);
+	if (!check_extension(av[1], ".cub"))
+		ft_err("invalid file argument extention", 0);
 	fd = open(av[1], O_RDONLY);
 	if (fd < 0)
-		ft_err("Failed to open file");
+		ft_err("Failed to open file", 0);
 	// ft_memset(&game, 0, sizeof(game));
 	game = init_game();
-	if (validate_all(read_file(fd, game), game) == FALSE)
-	{
-		// free(구조체);
-		ft_err("map error!");
-	}
+	if (!validate_all(read_file(fd, game), game))
+		ft_err("map error!", game);
 	close(fd);
-	player_map(game->info->map, game);
 	int	i = 0;
 	while (game->info->map[i])
 	{
@@ -64,7 +45,7 @@ int	main(int ac, char *av[])
 	// printf("%s\n", join);
 	// free(join);
 	//ac, .cub으로 끝나는지, 맵 하나씩
-	return (0);
+	exit (0);
 }
 
 /*

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+         #
+#    By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/16 17:14:23 by yongmipa          #+#    #+#              #
-#    Updated: 2023/05/19 14:10:29 by suhwpark         ###   ########.fr        #
+#    Updated: 2023/05/19 15:56:07 by yongmipa         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,9 @@ SRC			=	get_next_line.c \
 				map_validate_3.c \
 				use_bfs.c \
 				initialize.c \
-				get_player_map.c 
+				map_valid_utils.c \
+				map_context_check.c \
+				map_wall_check.c
 
 LIBS		=	$(addprefix $(LIB_DIR), $(LIB_NAME))
 SRCS		=	$(addprefix $(SRCS_DIR), $(SRC))

@@ -6,7 +6,7 @@
 /*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:24:16 by suhwpark          #+#    #+#             */
-/*   Updated: 2023/05/18 20:13:05 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/19 14:47:24 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	visit_four_direction(char **map, t_queue *q, t_visit *visit)
 {
 	t_node	*pop;
 	int		col;
-	int 	row;
+	int		row;
 
 	row = 0;
 	col = ft_str_col(map);

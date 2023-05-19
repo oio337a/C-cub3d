@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   map_validate_1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:19:07 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/19 14:26:53 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/19 15:58:32 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
-#include "../mlx/mlx.h"
 
 int	word_cnt(char const *s)
 {
@@ -60,8 +59,7 @@ char	*is_strdup(const char *s, int size)
 	return (dst);
 }
 
-// 혹시 필요하면..?
-int	freeall(char **str, int cnt)
+char	**freeall(char **str, int cnt)
 {
 	int	i;
 
@@ -69,7 +67,7 @@ int	freeall(char **str, int cnt)
 	while (i < cnt)
 		free(str[i++]);
 	free(str);
-	return (0);
+	return (NULL);
 }
 
 char	**is_split(char const *s)
@@ -91,10 +89,7 @@ char	**is_split(char const *s)
 		len = word_len(s);
 		dest[i] = is_strdup(s, len);
 		if (!dest[i])
-		{
-			freeall(dest, i);
-			return (NULL);
-		}
+			return (freeall(dest, i));
 		s += len;
 		i++;
 	}
@@ -102,7 +97,7 @@ char	**is_split(char const *s)
 	return (dest);
 }
 
-int	cnt_info_flag(t_game *game)
+int	cnt_info_flag(t_game *game, char *line)
 {
 	int	i;
 	int	cnt;
@@ -112,7 +107,10 @@ int	cnt_info_flag(t_game *game)
 	while (i < 6)
 	{
 		if (game->info->info_flag[i] > 1)
-			ft_err("Duplicate information");
+		{
+			free(line);
+			ft_err("Duplicate information", game);
+		}
 		if (game->info->info_flag[i] == 1)
 			cnt++;
 		i++;
@@ -132,7 +130,7 @@ char	*read_file(int fd, t_game *game)
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		if (cnt_info_flag(game) == 6)
+		if (cnt_info_flag(game, line) == 6)
 		{
 			tmp = join;
 			join = ft_strjoin(join, line);
@@ -145,13 +143,34 @@ char	*read_file(int fd, t_game *game)
 	return (join);
 }
 
+int	check_extension(char *filename, char *str)
+{
+	int	i;
+
+	i = 0;
+	while (filename && filename[i] != '\0')
+		i++;
+	if (filename[i - 4] != str[0] || filename[i - 3] != str[1] || \
+		filename[i - 2] != str[2] || filename[i - 1] != str[3])
+		return (FALSE);
+	return (TRUE);
+}
+
 static void	init_texture(char **str, t_game *game, int type)
 {
 	int	w;
 	int	h;
 
 	if (ft_size(str) != 2)
-		ft_err("information error");
+	{
+		ft_free(str);
+		ft_err("infomation", game);
+	}
+	if (!check_extension(str[1], ".xpm"))
+	{
+		ft_free(str);
+		ft_err("img extention must .xpm", game);
+	}
 	if (type == 1)
 	{
 		game->img->north = mlx_xpm_file_to_image(game->mlx, str[1], &w, &h);
@@ -174,9 +193,7 @@ static void	init_texture(char **str, t_game *game, int type)
 	}
 }
 
-//rgc 요소사이에 공백 안들어오게 처리
-//atoi에서 +,-부호 한개씩만 있을때도 처리해주기 ->아토이 일단 주석처리하고 제것 넣어놨어요.
-static void	check_color(int *map_info, char **color)
+static void	check_color(int *map_info, char **color, t_game *game)
 {
 	int	i;
 
@@ -185,7 +202,10 @@ static void	check_color(int *map_info, char **color)
 	{
 		map_info[i] = ft_atoi(color[i]);
 		if (map_info[i] < 0 || 255 < map_info[i])
-			ft_err("Color range (0 ~ 255)");
+		{
+			ft_free(color);
+			ft_err("Color range (0 ~ 255)", game);
+		}
 		i++;
 	}
 }
@@ -195,29 +215,45 @@ static void	init_color(char **str, t_game *game, int type)
 	char	**color;
 
 	if (ft_size(str) != 2)
-		ft_err("information error");
+	{
+		ft_free(str);
+		ft_err("information", game);
+	}
 	color = ft_split(str[1], ',');
+	if (!color)
+	{
+		ft_free(str);
+		ft_err("malloc", game);
+	}
 	if (ft_size(color) != 3)
-		ft_err("we need 3 color");
+	{
+		ft_free(str);
+		ft_free(color);
+		ft_err("we need 3 color", game);
+	}
 	if (type == 5)
 	{
 		game->info->info_flag[4]++;
-		check_color(game->info->f, color);
+		check_color(game->info->f, color, game);
 	}
 	else
 	{
 		game->info->info_flag[5]++;
-		check_color(game->info->c, color);
+		check_color(game->info->c, color, game);
 	}
 	ft_free(color);
 }
 
-//texture, color segmentation fault ->구조체 수정
-int	read_map_info(char *str, t_game *game)
+void	read_map_info(char *str, t_game *game)
 {
 	char	**temp;
 
 	temp = is_split(str);
+	if (!temp)
+	{
+		free(str);
+		ft_err("malloc failed", game);
+	}
 	if (temp[0])
 	{
 		if (!ft_strncmp(temp[0], "NO", 3))
@@ -235,9 +271,8 @@ int	read_map_info(char *str, t_game *game)
 		else
 		{
 			ft_free(temp);
-			ft_err("map info error");
+			ft_err("map info error", game);
 		}
 	}
 	ft_free(temp);
-	return (0);
 }

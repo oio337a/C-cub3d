@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:17:25 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/19 14:32:49 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/19 15:51:40 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,16 @@
 # endif
 
 # define TRUE 1
-# define FALSE -1
+# define FALSE 0
 
 # include "queue.h"
 # include "../libft/libft.h"
+# include "../mlx/mlx.h"
 # include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
-
 
 typedef struct s_info // 맵에 대한 정보 담긴 구조체
 {
@@ -62,10 +62,9 @@ typedef struct s_game
 /* utils.c */
 void	ft_free(char **str);
 int		ft_size(char **str);
-void	ft_err(char *str);
+void	ft_err(char *str, t_game *game);
 void	ft_struct_game_free(t_game *game);
 void	*safe_malloc(size_t	size);
-
 
 /*validation*/
 int		ft_str_col(char **map);
@@ -80,15 +79,15 @@ void	append_space_index(char **map, t_queue *q);
 int		bfs(char **map);
 int		validate_all(char *map_join, t_game *game);
 /*map_validate_1.c*/
-int		freeall(char **str, int cnt);
+char	**freeall(char **str, int cnt);
 int		word_cnt(char const *s);
 int		word_len(char const *s);
 char	*is_strdup(const char *s, int size);
-int		read_map_info(char *str, t_game *game);
+int		check_extension(char *filename, char *str);
 char	**is_split(char const *s);
-int		cnt_info_flag(t_game *game);
+int		cnt_info_flag(t_game *game, char *line);
 char	*read_file(int fd, t_game *game);
-int		read_map_info(char *str, t_game *game);
+void		read_map_info(char *str, t_game *game);
 int		validate_all(char *map_join, t_game *game);
 
 //gnl
@@ -96,6 +95,7 @@ char	*get_next_line(int fd);
 char	**ft_split2(char const *s, char c);
 //init
 t_game	*init_game(void);
-void	player_map(char **map, t_game *pos);
+int	over_len(char **map);
+
 
 #endif

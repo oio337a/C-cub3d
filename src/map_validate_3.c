@@ -6,7 +6,7 @@
 /*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 09:36:29 by sohyupar          #+#    #+#             */
-/*   Updated: 2023/05/18 21:16:36 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/19 16:05:51 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,20 +63,6 @@ static char	*ft_strndup(const char *s, size_t n)
 	return (word);
 }
 
-static char	**ft_free2(char **list, size_t j)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < j)
-	{
-		free(list[i]);
-		i++;
-	}
-	free(list);
-	return (0);
-}
-
 char	**ft_split2(char const *s, char c)
 {
 	int		i;
@@ -110,7 +96,7 @@ char	**ft_split2(char const *s, char c)
 		else
 			word[i] = ft_strndup(s, wordlen);
 		if (!word[i])
-			return (ft_free2(word, i));
+			return (freeall(word, i));
 		s += wordlen;
 		i++;
 	}

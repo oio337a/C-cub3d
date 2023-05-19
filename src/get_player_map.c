@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_player_map.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 14:22:42 by suhwpark          #+#    #+#             */
-/*   Updated: 2023/05/19 14:33:07 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/19 16:23:46 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ static int	down_line(char **map, t_game *pos)
 	while (map[p_y])
 	{
 		if (is_all_space(map[p_y]) == 1) // 중간 섬이 playermap
-			return (p_y);
+			return (p_y - 1);
 		p_y++;
 	}
-	return (p_y); // 마지막 섬이 playermap
+	return (p_y - 1); // 마지막 섬이 playermap
 }
 
 static int	up_line(char **map, t_game *pos)
@@ -63,10 +63,10 @@ static int	up_line(char **map, t_game *pos)
 	while (map[p_y])
 	{
 		if (is_all_space(map[p_y]) == 1)
-			return (p_y);
+			return (p_y - 1);
 		p_y--;
 	}
-	return (p_y);
+	return (p_y - 1);
 }
 
 void	player_map(char **map, t_game *pos)
@@ -77,13 +77,23 @@ void	player_map(char **map, t_game *pos)
 	int		i;
 	int		len;
 
+	/*
+		map의 몇번 째 줄인가? strdup를 몇번째 줄을 해야대? 얘 길이는 몇이야?
+		start, end는 p_pos 기준 몇개의 줄을 올라가거나, 내려가거나를 반환한다.
+
+		엥 그럼 start, end 둘 다 map의 idx 반환이 낫지않냐?????????
+	*/
 	i = 0;
 	len = 0;
 	start = 0;
 	end = 0;
+	// printf("%d %d\n", up_line(map, pos), down_line(map, pos));
+	start = up_line(map, pos); // pos 기준 윗줄 시작점
+	end = down_line(map, pos); // pos 기준 아랫줄 끝점
 	tmp = (char **)malloc(sizeof(char *) * (end - start + 1));
-	start = up_line(map, pos);
-	end = down_line(map, pos);
+	// !tmp
+	printf("up : %d, down : %d\n", start, end);
+	printf("player pos : %d\n", pos->info->p_pos[0]);
 	while (start <= end)
 	{
 		len = ft_strlen(map[start]);
@@ -94,7 +104,7 @@ void	player_map(char **map, t_game *pos)
 		i++;
 		start++;
 	}
-	tmp[end + 1] = 0;
+	tmp[end + 1] = NULL;
 	ft_free(map);
 	pos->info->map = tmp;
 }
