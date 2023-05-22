@@ -6,7 +6,7 @@
 /*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:35:04 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/22 15:29:55 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/22 17:19:02 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,12 @@ int	validate_all(char *map_join, t_game *game)
 {
 	char	**map;
 
-	// if (!game->img->north || !game->img->south || !game->img->east || !game->img->west)
-	// 	return (FALSE);
+	if (!game->img->north || !game->img->south
+		|| !game->img->east || !game->img->west)
+	{
+		free(map_join);
+		ft_err("image path", game);
+	}
 	map = ft_split2(map_join, '\n');
 	if (!map)
 		return (FALSE);

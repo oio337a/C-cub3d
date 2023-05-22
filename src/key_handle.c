@@ -6,7 +6,7 @@
 /*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:49:23 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/22 15:33:44 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/22 16:24:17 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,16 @@ int	exit_game(t_game *game)
 	exit(0);
 }
 
-static size_t	find_move_position(t_info *info, int keycode)
+static int	find_move_position(t_info *info, int keycode)
 {
-	// 이게 맞는지 몰겠음.
-	size_t	i;
-
 	if (keycode == KEY_W)
-		i = info->p_pos[0] - 1;
+		info->p_pos[0]--;
 	else if (keycode == KEY_A)
-		i = info->p_pos[1] - 1;
+		info->p_pos[1]--;
 	else if (keycode == KEY_S)
-		i = info->p_pos[0] + 1;
+		info->p_pos[0]++;
 	else if (keycode == KEY_D)
-		i = info->p_pos[1] + 1;
+		info->p_pos[1]++;
 	/*
 	else if (keycode == KEY_LEFT)
 		raycast();
@@ -38,31 +35,40 @@ static size_t	find_move_position(t_info *info, int keycode)
 		raycast();
 	*/
 	else
-		i = INVALID_KEYCODE;
-	return (i);
+		return (FALSE);
+	return (TRUE);
 }
 
+static int	cant_move_forward(t_info *info, int b_pos[])
+{
+	if (info->map[info->p_pos[0]][info->p_pos[1]] == '1')
+	{
+		info->p_pos[0] = b_pos[0];
+		info->p_pos[1] = b_pos[1];
+		return (FALSE);
+	}
+	return (TRUE);
+}
 
 int	press_key(int keycode, t_game *game)
 {
 	t_info	*info;
-	size_t	i;
-	size_t	j;
+	int		b_pos[2];
 
+	info = game->info;
+	b_pos[0] = info->p_pos[0];
+	b_pos[1] = info->p_pos[1];
 	if (keycode == KEY_ESC)
 		exit_game(game);
-	info = game->info;
-	i = find_move_position(info, keycode);
-	j = find_move_position(info, keycode);
-	printf("i: %zu j: %zu\n", i, j);
-	if (i == INVALID_KEYCODE)
+	if (!find_move_position(info, keycode))
 		return (0);
-	else if (info->map[i][j] != '1')
+	if (!cant_move_forward(game->info, b_pos))
+		return (0);
+	else if (info->map[info->p_pos[0]][info->p_pos[1]] != '1')
 	{
-		info->map[info->p_pos[0]][info->p_pos[1]] = '0';
-		info->map[i][j] = 'P';
-		info->p_pos[0] = i;
-		info->p_pos[1] = j;
+		info->map[b_pos[0]][b_pos[1]] = '0';
+		info->map[info->p_pos[0]][info->p_pos[1]] = 'P';
+		printf("%d %d\n",info->p_pos[0], info->p_pos[1]);
 		// draw_map(game->info, game->img, game->mlx, game->window);
 	}
 	return (0);
