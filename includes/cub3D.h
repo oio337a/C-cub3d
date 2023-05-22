@@ -6,20 +6,28 @@
 /*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:17:25 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/19 17:19:22 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/22 15:30:55 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10000
-# endif
+# define BUFFER_SIZE 10000
+
+# define KEY_PRESS			2
+# define DESTROY_NOTIFY		17
+# define KEY_ESC			53
+# define KEY_W				13
+# define KEY_A				0
+# define KEY_S				1
+# define KEY_D				2
+# define KEY_LEFT			123
+# define KEY_RIGHT			124
+# define INVALID_KEYCODE	0
 
 # define TRUE 1
 # define FALSE 0
-# define DESTROY_NOTIFY 17
 
 # include "queue.h"
 # include "../libft/libft.h"
@@ -88,15 +96,19 @@ int		check_extension(char *filename, char *str);
 char	**is_split(char const *s);
 int		cnt_info_flag(t_game *game, char *line);
 char	*read_file(int fd, t_game *game);
-void		read_map_info(char *str, t_game *game);
+void	read_map_info(char *str, t_game *game);
 int		validate_all(char *map_join, t_game *game);
-
+int		overlen_check(char **map);
 //gnl
 char	*get_next_line(int fd);
 char	**ft_split2(char const *s, char c);
 //init
 t_game	*init_game(void);
-int	over_len(char **map);
+int		over_len(char **map);
+int		is_player_space(t_game *dir, char **map);
+//key_handle.c
+int		press_key(int keycode, t_game *game);
+int		exit_game(t_game *game);
 
 
 #endif

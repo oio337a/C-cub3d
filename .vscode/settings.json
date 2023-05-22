@@ -8,6 +8,7 @@
 		"unordered_map": "c",
 		"stdio.h": "c",
 		"libft.h": "c",
-		"mlx.h": "c"
+		"mlx.h": "c",
+		"sstream": "c"
 	}
 }

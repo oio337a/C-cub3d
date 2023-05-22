@@ -6,7 +6,7 @@
 #    By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/16 17:14:23 by yongmipa          #+#    #+#              #
-#    Updated: 2023/05/19 15:56:07 by yongmipa         ###   ########seoul.kr   #
+#    Updated: 2023/05/22 15:21:00 by yongmipa         ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,8 @@ SRC			=	get_next_line.c \
 				initialize.c \
 				map_valid_utils.c \
 				map_context_check.c \
-				map_wall_check.c
+				map_wall_check.c \
+				key_handle.c
 
 LIBS		=	$(addprefix $(LIB_DIR), $(LIB_NAME))
 SRCS		=	$(addprefix $(SRCS_DIR), $(SRC))
