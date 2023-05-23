@@ -1,21 +1,24 @@
-
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   04_floor_ceiling_macos.c                           :+:      :+:    :+:   */
+/*   이건지우지마세요.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yohlee <yohlee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/29 19:53:20 by yohlee            #+#    #+#             */
-/*   Updated: 2020/07/21 08:11:30 by yohlee           ###   ########.fr       */
+/*   Created: 2023/05/23 20:43:16 by yongmipa          #+#    #+#             */
+/*   Updated: 2023/05/23 20:43:21 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mlx/mlx.h"
 #include "key_macos.h"
-#include "../includes/cub3D.h"
-
+#include <math.h>
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#define X_EVENT_KEY_PRESS	2
+# define X_EVENT_KEY_RELEASE	3
+#define X_EVENT_KEY_EXIT	17
 #define texWidth 64
 #define texHeight 64
 #define mapWidth 24
@@ -35,29 +38,29 @@ typedef struct	s_img
 	int		img_height;
 }				t_img;
 
-// typedef struct	s_info
-// {
-// 	double posX;
-// 	double posY;
-// 	double dirX;
-// 	double dirY;
-// 	double planeX;
-// 	double planeY;
-// 	void	*mlx;
-// 	void	*win;
-// 	int		key_a;
-// 	int		key_w;
-// 	int		key_s;
-// 	int		key_d;
-// 	int		key_esc;
-// 	t_img	img;
-// 	int		buf[height][width];
-// 	int		**texture;
-// 	double	moveSpeed;
-// 	double	rotSpeed;
-// }				t_info;
+typedef struct	s_info
+{
+	double posX;
+	double posY;
+	double dirX;
+	double dirY;
+	double planeX;
+	double planeY;
+	void	*mlx;
+	void	*win;
+	int		key_a;
+	int		key_w;
+	int		key_s;
+	int		key_d;
+	int		key_esc;
+	t_img	img;
+	int		buf[height][width];
+	int		**texture;
+	double	moveSpeed;
+	double	rotSpeed;
+}				t_info;
 
-int	worldmap[mapWidth][mapHeight] =
+int	worldMap[mapWidth][mapHeight] =
 									{
 										{8,8,8,8,8,8,8,8,8,8,8,4,4,6,4,4,6,4,6,4,4,4,6,4},
 										{8,0,0,0,0,0,0,0,0,0,8,4,0,0,0,0,0,0,0,0,0,0,0,4},
@@ -96,8 +99,6 @@ void	draw(t_info *info)
 	}
 	mlx_put_image_to_window(info->mlx, info->win, info->img.img, 0, 0);
 }
-//구조체, 함수 기능별로 잘 나눠야될듯..
-
 
 void	calc(t_info *info)
 {
@@ -224,7 +225,7 @@ void	calc(t_info *info)
 				side = 1;
 			}
 			//Check if ray has hit a wall
-			if (worldmap[mapX][mapY] > 0) hit = 1;
+			if (worldMap[mapX][mapY] > 0) hit = 1;
 		}
 		if (side == 0)
 			perpWallDist = (mapX - info->posX + (1 - stepX) / 2) / rayDirX;
@@ -243,7 +244,7 @@ void	calc(t_info *info)
 			drawEnd = height - 1;
 
 		// texturing calculations
-		int texNum = worldmap[mapX][mapY] - 1;
+		int texNum = worldMap[mapX][mapY] - 1;
 
 		// calculate value of wallX
 		double wallX;
@@ -340,107 +341,84 @@ void	calc(t_info *info)
 	}
 }
 
-void	key_update(t_ray *ray, t_info *info)
+void	key_update(t_info *info)
 {
-	// p_pos[1] 이 X 축이라고 생각하고 변경함
-	if (ray->key_w)
+	if (info->key_w)
 	{
-		if (!info->map[(int)(info->p_pos[1] + ray->dirX * ray->move_speed)][(int)(info->p_pos[0])])
-			info->p_pos[1] += ray->dirX * ray->move_speed;
-		if (!info->map[(int)(info->p_pos[1])][(int)(info->p_pos[0] + ray->dirY * ray->move_speed)])
-			info->p_pos[0] += ray->dirY * ray->move_speed;
+		if (!worldMap[(int)(info->posX + info->dirX * info->moveSpeed)][(int)(info->posY)])
+			info->posX += info->dirX * info->moveSpeed;
+		if (!worldMap[(int)(info->posX)][(int)(info->posY + info->dirY * info->moveSpeed)])
+			info->posY += info->dirY * info->moveSpeed;
 	}
 	//move backwards if no wall behind you
-	if (ray->key_s)
+	if (info->key_s)
 	{
-		if (!info->map[(int)(info->p_pos[1] - ray->dirX * ray->move_speed)][(int)(info->p_pos[0])])
-			info->p_pos[1] -= ray->dirX * ray->move_speed;
-		if (!info->map[(int)(info->p_pos[1])][(int)(info->p_pos[0] - ray->dirY * ray->move_speed)])
-			info->p_pos[0] -= ray->dirY * ray->move_speed;
-	}
-	if (ray->key_a)
-	{
-		if (!info->map[(int)(info->p_pos[1] - ray->dirX * ray->move_speed)][(int)(info->p_pos[0])])
-			info->p_pos[1] -= ray->dirX * ray->move_speed;
-		if (!info->map[(int)(info->p_pos[1])][(int)(info->p_pos[0] - ray->dirY * ray->move_speed)])
-			info->p_pos[0] -= ray->dirY * ray->move_speed;
-	}
-	if (ray->key_d)
-	{
-		if (!info->map[(int)(info->p_pos[1] - ray->dirX * ray->move_speed)][(int)(info->p_pos[0])])
-			info->p_pos[1] -= ray->dirX * ray->move_speed;
-		if (!info->map[(int)(info->p_pos[1])][(int)(info->p_pos[0] - ray->dirY * ray->move_speed)])
-			info->p_pos[0] -= ray->dirY * ray->move_speed;
+		if (!worldMap[(int)(info->posX - info->dirX * info->moveSpeed)][(int)(info->posY)])
+			info->posX -= info->dirX * info->moveSpeed;
+		if (!worldMap[(int)(info->posX)][(int)(info->posY - info->dirY * info->moveSpeed)])
+			info->posY -= info->dirY * info->moveSpeed;
 	}
 	//rotate to the right
-	if (ray->key_r)
+	if (info->key_d)
 	{
 		//both camera direction and camera plane must be rotated
-		double oldDirX = ray->dirX;
-		ray->dirX = ray->dirX * cos(-ray->rot_speed) - ray->dirY * sin(-ray->rot_speed);
-		ray->dirY = oldDirX * sin(-ray->rot_speed) + ray->dirY * cos(-ray->rot_speed);
-		double oldPlaneX = ray->planeX;
-		ray->planeX = ray->planeX * cos(-ray->rot_speed) - ray->planeY * sin(-ray->rot_speed);
-		ray->planeY = oldPlaneX * sin(-ray->rot_speed) + ray->planeY * cos(-ray->rot_speed);
+		double oldDirX = info->dirX;
+		info->dirX = info->dirX * cos(-info->rotSpeed) - info->dirY * sin(-info->rotSpeed);
+		info->dirY = oldDirX * sin(-info->rotSpeed) + info->dirY * cos(-info->rotSpeed);
+		double oldPlaneX = info->planeX;
+		info->planeX = info->planeX * cos(-info->rotSpeed) - info->planeY * sin(-info->rotSpeed);
+		info->planeY = oldPlaneX * sin(-info->rotSpeed) + info->planeY * cos(-info->rotSpeed);
 	}
 	//rotate to the left
-	if (ray->key_l)
+	if (info->key_a)
 	{
 		//both camera direction and camera plane must be rotated
-		double oldDirX = ray->dirX;
-		ray->dirX = ray->dirX * cos(ray->rot_speed) - ray->dirY * sin(ray->rot_speed);
-		ray->dirY = oldDirX * sin(ray->rot_speed) + ray->dirY * cos(ray->rot_speed);
-		double oldPlaneX = ray->planeX;
-		ray->planeX = ray->planeX * cos(ray->rot_speed) - ray->planeY * sin(ray->rot_speed);
-		ray->planeY = oldPlaneX * sin(ray->rot_speed) + ray->planeY * cos(ray->rot_speed);
+		double oldDirX = info->dirX;
+		info->dirX = info->dirX * cos(info->rotSpeed) - info->dirY * sin(info->rotSpeed);
+		info->dirY = oldDirX * sin(info->rotSpeed) + info->dirY * cos(info->rotSpeed);
+		double oldPlaneX = info->planeX;
+		info->planeX = info->planeX * cos(info->rotSpeed) - info->planeY * sin(info->rotSpeed);
+		info->planeY = oldPlaneX * sin(info->rotSpeed) + info->planeY * cos(info->rotSpeed);
 	}
-	// if (ray->key_esc)
-	// 	exit(0);
+	if (info->key_esc)
+		exit(0);
 }
 
-int	main_loop(t_game *game)
+int	main_loop(t_info *info)
 {
-	calc(game);
-	draw(game);
-	key_update(game->ray, game->info);
+	calc(info);
+	draw(info);
+	key_update(info);
 	return (0);
 }
 
-int		key_press(int key, t_ray *ray)
+int		key_press(int key, t_info *info)
 {
 	if (key == K_ESC)
 		exit(0);
 	else if (key == K_W)
-		ray->key_w = 1;
+		info->key_w = 1;
 	else if (key == K_A)
-		ray->key_a = 1;
+		info->key_a = 1;
 	else if (key == K_S)
-		ray->key_s = 1;
+		info->key_s = 1;
 	else if (key == K_D)
-		ray->key_d = 1;
-	else if (key == K_L)
-		ray->key_l = 1;
-	else if (key == K_R)
-		ray->key_r = 1;
+		info->key_d = 1;
 	return (0);
 }
 
-int		key_release(int key, t_ray *ray)
+int		key_release(int key, t_info *info)
 {
 	if (key == K_ESC)
 		exit(0);
 	else if (key == K_W)
-		ray->key_w = 0;
+		info->key_w = 0;
 	else if (key == K_A)
-		ray->key_a = 0;
+		info->key_a = 0;
 	else if (key == K_S)
-		ray->key_s = 0;
+		info->key_s = 0;
 	else if (key == K_D)
-		ray->key_d = 0;
-	else if (key == K_L)
-		ray->key_l = 0;
-	else if (key == K_R)
-		ray->key_r = 0;
+		info->key_d = 0;
 	return (0);
 }
 
@@ -472,42 +450,53 @@ void	load_texture(t_info *info)
 	load_image(info, info->texture[7], "asset/colorstone.xpm", &img);
 }
 
-
-void	init_dir(t_game *game)
+int	main(void)
 {
-	if (game->info->w == 1)
-	{
-		game->ray->dirX = -1.0;
-		game->ray->dirY = 0.0;
-	}
-	else if (game->info->e == 1)
-	{
-		game->ray->dirX = 1.0;
-		game->ray->dirY = 0.0;
-	}
-	else if (game->info->s == 1)
-	{
-		game->ray->dirX = 0.0;
-		game->ray->dirY = -1.0;
-	}
-	else if (game->info->n == 1)
-	{
-		game->ray->dirX = 0.0;
-		game->ray->dirY = 1.0;
-	}
-}
+	t_info info;
+	info.mlx = mlx_init();
 
-void	hi_cute_3d(t_game *game)
-{
-	game->ray = (t_ray *)malloc(sizeof(t_ray));
-	ft_memset(game->ray, 0, sizeof(t_ray));
-	game->ray->planeX = 0.0;
-	game->ray->planeY = 0.66;
-	game->ray->move_speed = 0.05;
-	game->ray->rot_speed = 0.05;
-	init_dir(game);
-	mlx_loop_hook(game->mlx, &main_loop, &game);
-	mlx_hook(game->window, X_EVENT_KEY_PRESS, 0, &key_press, &game->ray);
-	mlx_hook(game->window, X_EVENT_KEY_RELEASE, 0, &key_release, &game->ray);
-	mlx_loop(game->mlx);
+	info.posX = 22.0;
+	info.posY = 11.5;
+	info.dirX = -1.0;
+	info.dirY = 0.0;
+	info.planeX = 0.0;
+	info.planeY = 0.66;
+
+	for (int i = 0; i < height; i++)
+	{
+		for (int j = 0; j < width; j++)
+		{
+			info.buf[i][j] = 0;
+		}
+	}
+
+	if (!(info.texture = (int **)malloc(sizeof(int *) * 8)))
+		return (-1);
+	for (int i = 0; i < 8; i++)
+	{
+		if (!(info.texture[i] = (int *)malloc(sizeof(int) * (texHeight * texWidth))))
+			return (-1);
+	}
+	for (int i = 0; i < 8; i++)
+	{
+		for (int j = 0; j < texHeight * texWidth; j++)
+		{
+			info.texture[i][j] = 0;
+		}
+	}
+
+	load_texture(&info);
+
+	info.moveSpeed = 0.06;
+	info.rotSpeed = 0.06;
+
+	info.win = mlx_new_window(info.mlx, width, height, "mlx");
+
+	info.img.img = mlx_new_image(info.mlx, width, height);
+	info.img.data = (int *)mlx_get_data_addr(info.img.img, &info.img.bpp, &info.img.size_l, &info.img.endian);
+
+	mlx_loop_hook(info.mlx, &main_loop, &info);
+	mlx_hook(info.win, X_EVENT_KEY_PRESS, 0, &key_press, &info);
+	mlx_hook(info.win, X_EVENT_KEY_RELEASE, 0, &key_release, &info);
+	mlx_loop(info.mlx);
 }

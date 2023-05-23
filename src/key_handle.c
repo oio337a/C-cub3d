@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_handle.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:49:23 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/23 17:57:04 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/23 20:56:02 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ static void	find_rotate(t_ray *ray, int keycode)
 
 	olddirx = ray->dirX;
 	oldplanex = ray->planeX;
-	if (keycode == KEY_LEFT)
+	if (keycode == K_L)
 	{
 		ray->dirX = ray->dirX * cos(ray->rot_speed) - ray->dirY * sin(ray->rot_speed);
 		ray->dirY = olddirx * sin(ray->rot_speed) + ray->dirY * cos(ray->rot_speed);
 		ray->planeX = ray->planeX * cos(-ray->rot_speed) - ray->planeY * sin(ray->rot_speed);
 		ray->planeY = oldplanex * sin(ray->rot_speed) + ray->planeY * cos(ray->rot_speed);
 	}
-	else if (keycode == KEY_RIGHT)
+	else if (keycode == K_R)
 	{
 		ray->dirX = ray->dirX * cos(-ray->rot_speed) - ray->dirY * sin(-ray->rot_speed);
 		ray->dirY = olddirx * sin(-ray->rot_speed) + ray->dirY * cos(-ray->rot_speed);
@@ -46,18 +46,29 @@ int	find_move_position(t_game *game, int keycode)
 	t_ray	*ray;
 
 	ray = game->ray;
-
-	if (keycode == KEY_W)
-		game->info->p_pos[0]--;
-	else if (keycode == KEY_A)
-		game->info->p_pos[1]--;
-	else if (keycode == KEY_S)
-		game->info->p_pos[0]++;
-	else if (keycode == KEY_D)
-		game->info->p_pos[1]++;
-	else if (keycode == KEY_LEFT)
+	if (keycode == K_W)
+	{
+		game->info->p_pos[0] += ray->dirY * ray->move_speed;
+		game->info->p_pos[1] += ray->dirX * ray->move_speed;
+	}
+	else if (keycode == K_S)
+	{
+		game->info->p_pos[0] -= ray->dirY * ray->move_speed;
+		game->info->p_pos[1] -= ray->dirX * ray->move_speed;
+	}
+	else if (keycode == K_A)
+	{
+		game->info->p_pos[0] += ray->dirX * ray->move_speed;
+		game->info->p_pos[1] += -ray->dirY * ray->move_speed;
+	}
+	else if (keycode == K_D)
+	{
+		game->info->p_pos[0] += -ray->dirX * ray->move_speed;
+		game->info->p_pos[1] += ray->dirY * ray->move_speed;
+	}
+	else if (keycode == K_L)
 		find_rotate(game->ray, keycode);
-	else if (keycode == KEY_RIGHT)
+	else if (keycode == K_R)
 		find_rotate(game->ray, keycode);
 	else
 		return (FALSE);
@@ -83,7 +94,7 @@ int	press_key(int keycode, t_game *game)
 	info = game->info;
 	b_pos[0] = info->p_pos[0];
 	b_pos[1] = info->p_pos[1];
-	if (keycode == KEY_ESC)
+	if (keycode == K_ESC)
 		exit_game(game);
 	if (!find_move_position(game, keycode))
 		return (0);

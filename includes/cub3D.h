@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:17:25 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/23 17:55:53 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/23 20:47:14 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,20 @@
 
 # define BUFFER_SIZE 10000
 
-# define KEY_PRESS			2
-# define DESTROY_NOTIFY		17
-# define KEY_ESC			53
-# define KEY_W				13
-# define KEY_A				0
-# define KEY_S				1
-# define KEY_D				2
-# define KEY_LEFT			123
-# define KEY_RIGHT			124
-# define INVALID_KEYCODE	0
+# define KEY_PRESS				2
+# define DESTROY_NOTIFY			17
+# define K_ESC					53
+# define K_W					13
+# define K_A					0
+# define K_S					1
+# define K_D					2
+# define K_L					123
+# define K_R					124
+# define INVALID_KEYCODE		0
+# define X_EVENT_KEY_PRESS		2
+# define X_EVENT_KEY_RELEASE	3
+# define X_EVENT_KEY_EXIT		17
+
 
 # define TRUE 1
 # define FALSE 0
@@ -71,6 +75,15 @@ typedef struct s_ray
 	
 	int		hit;
 	int		side;
+
+
+	// 여기서 부터는 내꺼 ------
+	int		key_w;
+	int		key_s;
+	int		key_d;
+	int		key_a;
+	int		key_l;
+	int		key_r;
 }	t_ray;
 
 typedef struct s_info // 맵에 대한 정보 담긴 구조체
