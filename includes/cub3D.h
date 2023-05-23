@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:17:25 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/23 16:33:58 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/23 17:55:53 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 
 # define TRUE 1
 # define FALSE 0
+# define W 1280
+# define H 920
 
 # include "queue.h"
 # include "../libft/libft.h"
@@ -67,7 +69,7 @@ typedef struct s_ray
 	int		draw_end;
 	int		color;
 	
-	int		hit; //was there a wall hit?
+	int		hit;
 	int		side;
 }	t_ray;
 
