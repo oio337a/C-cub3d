@@ -1,16 +1,16 @@
-SO                                            ./asset/Water_1.xpm
+SO                                            ./asset/bluestone.xpm
 
-WE                                        ./asset/Water_6.xpm
+WE                                        ./asset/colorstone.xpm
 
-EA  ./asset/Water_11.xpm
-
-
+EA  ./asset/eagle.xpm
 
 
 
-NO  ./asset/Water_10.xpm
+
+
+NO  ./asset/redbrick.xpm
 C   0,+0000000159,247
-F   24,100,255
+F   24,100,171
 
                   111
             111111101                                                  111

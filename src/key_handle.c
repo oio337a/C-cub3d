@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_handle.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:49:23 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/23 16:28:02 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/23 17:57:04 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	find_rotate(t_ray *ray, int keycode)
 {
 	double	olddirx;
 	double	oldplanex;
-	
+
 	olddirx = ray->dirX;
 	oldplanex = ray->planeX;
 	if (keycode == KEY_LEFT)
@@ -77,7 +77,7 @@ static int	cant_move_forward(t_info *info, double b_pos[])
 
 int	press_key(int keycode, t_game *game)
 {
-	t_info	*info;
+	t_info		*info;
 	double		b_pos[2];
 
 	info = game->info;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_context_check.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 15:24:39 by sohyupar          #+#    #+#             */
-/*   Updated: 2023/05/23 15:46:37 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/23 16:57:29 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ static void	west_east(char context, t_game *dir, int x, int y)
 		dir->info->p_pos[0] = y;
 		dir->info->p_pos[1] = x;
 		dir->info->player++;
-		dir->info->w++;
 	}
 	else if (context == 'E')
 	{
@@ -50,7 +49,6 @@ static void	west_east(char context, t_game *dir, int x, int y)
 		dir->info->p_pos[0] = y;
 		dir->info->p_pos[1] = x;
 		dir->info->player++;
-		dir->info->e++;
 	}
 }
 
@@ -62,7 +60,6 @@ static void	south_north(char context, t_game *dir, int x, int y)
 		dir->info->p_pos[0] = y;
 		dir->info->p_pos[1] = x;
 		dir->info->player++;
-		dir->info->s++;
 	}
 	else if (context == 'N')
 	{
@@ -70,7 +67,6 @@ static void	south_north(char context, t_game *dir, int x, int y)
 		dir->info->p_pos[0] = y;
 		dir->info->p_pos[1] = x;
 		dir->info->player++;
-		dir->info->n++;
 	}
 }
 

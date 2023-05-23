@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 18:08:44 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/23 16:33:24 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/23 17:41:05 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,14 @@ int	main(int ac, char *av[])
 	if (!validate_all(read_file(fd, game), game))
 		ft_err("map error!", game);
 	close(fd);
-	game->window = mlx_new_window(game->mlx, 1920, 1080, "cub3D");
+	game->window = mlx_new_window(game->mlx, W, H, "cub3D");
 	// mlx_hook(game->window, KEY_PRESS, 0, press_key, game);
 	// mlx_hook(game->window, DESTROY_NOTIFY, 0, exit_game, game);
 	ray_main(game);
-	mlx_loop_hook(game->mlx, &main_loop, game);
-	mlx_hook(game->window, 2, 0, &press_key, game);
-	mlx_loop(game->mlx);
+	// mlx_loop_hook(game->mlx, main_loop, game);
+	// // mlx_hook(game->window, 17, 0, main_loop, game);
+	// mlx_hook(game->window, 17, 0, press_key, game);
+	// mlx_loop(game->mlx);
 	return (0);
 }
 
