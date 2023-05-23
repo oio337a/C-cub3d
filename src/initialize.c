@@ -6,13 +6,22 @@
 /*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 21:06:01 by suhwpark          #+#    #+#             */
-/*   Updated: 2023/05/22 16:53:41 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/23 15:54:33 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
 static void	initialize_array(int arr[], int len)
+{
+	int	i;
+
+	i = -1;
+	while (++i < len)
+		arr[i] = 0;
+}
+
+static void	position_array(double arr[], int len)
 {
 	int	i;
 
@@ -35,7 +44,7 @@ t_game	*init_game(void)
 	info->s = 0;
 	info->w = 0;
 	initialize_array(info->info_flag, 6);
-	initialize_array(info->p_pos, 2);
+	position_array(info->p_pos, 2);
 	initialize_array(info->c, 3);
 	initialize_array(info->f, 3);
 	game->window = NULL;

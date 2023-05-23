@@ -9,6 +9,7 @@
 		"stdio.h": "c",
 		"libft.h": "c",
 		"mlx.h": "c",
-		"sstream": "c"
+		"sstream": "c",
+		"key_macos.h": "c"
 	}
 }

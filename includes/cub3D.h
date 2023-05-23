@@ -6,7 +6,7 @@
 /*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:17:25 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/22 15:30:55 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/23 16:33:58 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,39 @@
 # include <unistd.h>
 # include <fcntl.h>
 
+typedef struct s_ray
+{
+	double	dirX;
+	double	dirY;
+	double	planeX;
+	double	planeY;
+	double	move_speed;
+	double	rot_speed;
+	double	cameraX;
+	double 	rayDirX;
+	double 	rayDirY;
+		//length of ray from current position to next x or y-side
+	double 	sideDistX;
+	double 	sideDistY;
+		
+	//length of ray from one x or y-side to next x or y-side
+	double 	deltaDistX;
+	double 	deltaDistY;
+	double 	perpWallDist;
+		
+	//what direction to step in x or y-direction (either +1 or -1)
+	int		stepX;
+	int		stepY;
+	
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+	int		color;
+	
+	int		hit; //was there a wall hit?
+	int		side;
+}	t_ray;
+
 typedef struct s_info // 맵에 대한 정보 담긴 구조체
 {
 	char	**map;
@@ -46,7 +79,7 @@ typedef struct s_info // 맵에 대한 정보 담긴 구조체
 	int		e;
 	int		s;
 	int		n;
-	int		p_pos[2];
+	double	p_pos[2];
 	int		player;
 	int		f[3];
 	int		c[3];
@@ -66,6 +99,7 @@ typedef struct s_game
 	void	*window;
 	t_img	*img;
 	t_info	*info;
+	t_ray	*ray;
 }	t_game;
 
 /* utils.c */
@@ -107,8 +141,11 @@ t_game	*init_game(void);
 int		over_len(char **map);
 int		is_player_space(t_game *dir, char **map);
 //key_handle.c
+int		find_move_position(t_game *game, int keycode);
 int		press_key(int keycode, t_game *game);
 int		exit_game(t_game *game);
 
-
+//ray_cast
+void ray_main(t_game *game);
+int main_loop(t_game *game);
 #endif

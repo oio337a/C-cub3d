@@ -6,7 +6,7 @@
 /*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 15:24:39 by sohyupar          #+#    #+#             */
-/*   Updated: 2023/05/19 15:35:41 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/23 15:46:37 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 int	is_player_space(t_game *dir, char **map)
 {
-	if (map[dir->info->p_pos[0] - 1][dir->info->p_pos[1]] == ' ')
+	if (map[(int)dir->info->p_pos[0] - 1][(int)dir->info->p_pos[1]] == ' ')
 		return (FALSE);
-	if (map[dir->info->p_pos[0] + 1][dir->info->p_pos[1]] == ' ')
+	if (map[(int)dir->info->p_pos[0] + 1][(int)dir->info->p_pos[1]] == ' ')
 		return (FALSE);
-	if (map[dir->info->p_pos[0]][dir->info->p_pos[1] - 1] == ' ')
+	if (map[(int)dir->info->p_pos[0]][(int)dir->info->p_pos[1] - 1] == ' ')
 		return (FALSE);
-	if (map[dir->info->p_pos[0]][dir->info->p_pos[1] + 1] == ' ')
+	if (map[(int)dir->info->p_pos[0]][(int)dir->info->p_pos[1] + 1] == ' ')
 		return (FALSE);
 	return (TRUE);
 }
@@ -42,6 +42,7 @@ static void	west_east(char context, t_game *dir, int x, int y)
 		dir->info->p_pos[0] = y;
 		dir->info->p_pos[1] = x;
 		dir->info->player++;
+		dir->info->w++;
 	}
 	else if (context == 'E')
 	{
@@ -49,6 +50,7 @@ static void	west_east(char context, t_game *dir, int x, int y)
 		dir->info->p_pos[0] = y;
 		dir->info->p_pos[1] = x;
 		dir->info->player++;
+		dir->info->e++;
 	}
 }
 
@@ -60,6 +62,7 @@ static void	south_north(char context, t_game *dir, int x, int y)
 		dir->info->p_pos[0] = y;
 		dir->info->p_pos[1] = x;
 		dir->info->player++;
+		dir->info->s++;
 	}
 	else if (context == 'N')
 	{
@@ -67,6 +70,7 @@ static void	south_north(char context, t_game *dir, int x, int y)
 		dir->info->p_pos[0] = y;
 		dir->info->p_pos[1] = x;
 		dir->info->player++;
+		dir->info->n++;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 14:22:42 by suhwpark          #+#    #+#             */
-/*   Updated: 2023/05/19 16:23:46 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/23 14:37:48 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	down_line(char **map, t_game *pos)
 	// player 기준의 i(y값)을 받아오고 걔부터 돌아
 	int	p_y;
 
-	p_y = pos->info->p_pos[0];
+	p_y = (int)pos->info->p_pos[0];
 	while (map[p_y])
 	{
 		if (is_all_space(map[p_y]) == 1) // 중간 섬이 playermap
@@ -57,7 +57,7 @@ static int	up_line(char **map, t_game *pos)
 {
 	int	p_y;
 
-	p_y = pos->info->p_pos[0];
+	p_y = (int)pos->info->p_pos[0];
 	if (p_y == 0)
 		return (p_y);
 	while (map[p_y])
@@ -99,7 +99,7 @@ void	player_map(char **map, t_game *pos)
 		len = ft_strlen(map[start]);
 		tmp[i] = (char *)malloc(sizeof(char) * len + 1);
 		if (!tmp[i])
-			ft_err("real map malloc err\n");
+			ft_err("real map malloc err\n", pos);
 		tmp[i] = ft_strdup(map[start]);
 		i++;
 		start++;

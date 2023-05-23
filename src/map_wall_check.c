@@ -6,7 +6,7 @@
 /*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 15:51:44 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/22 15:34:22 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/23 14:41:18 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,29 +106,6 @@ int	overlen_check(char **map)
 	}
 	return (TRUE);
 }
-
-// int	over_len(char **map, int curr_len, int id)
-// {
-// 	int	next_len;
-	
-// 	next_len = 0;
-// 	next_len = ft_strlen(map[id + 1]);
-// 	if (curr_len < next_len)
-// 	{
-// 		while (map[id + 1][next_len])
-// 		{
-// 			if (map[id + 1][curr_len] != '1')
-// 				return (FALSE);
-// 			curr_len++;
-// 		}
-// 	}
-// 	return (TRUE);
-// }
-
-// int	short_len(char **map, int curr_len, int id)
-// {
-
-// }
 
 int	check_wall(char *map, int len)
 {
