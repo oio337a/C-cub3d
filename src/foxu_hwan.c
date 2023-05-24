@@ -6,7 +6,7 @@
 /*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 16:48:18 by suhwpark          #+#    #+#             */
-/*   Updated: 2023/05/24 18:16:34 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/24 19:17:27 by hyecheon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,14 @@ int	main_loop(t_game *game)
 	return (0);
 }
 
-void	load_image(t_game *game, int *texture, char *path)
+void	load_image(t_game *game, int *texture, void *xpm_img)
 {
 	t_img	*img;
 	int		x;
 	int		y;
 
 	img = game->img;
-	img->img = mlx_xpm_file_to_image(game->mlx, path, &game->img->width, &game->img->height);
-	img->data = (int *)mlx_get_data_addr(img->img, &img->bpp, &img->size_l, &img->endian);
+	img->data = (int *)mlx_get_data_addr(xpm_img, &img->bpp, &img->size_l, &img->endian);
 	y = 0;
 	while (y < img->height)
 	{
@@ -76,7 +75,7 @@ void	load_image(t_game *game, int *texture, char *path)
 		}
 		y++;
 	}
-	mlx_destroy_image(game->mlx, img->img);
+	mlx_destroy_image(game->mlx, xpm_img);
 }
 
 void	load_texture(t_game *game)
@@ -87,28 +86,28 @@ void	load_texture(t_game *game)
 	load_image(game, game->ray->texture[3], game->img->east);
 }
 
-void    init_dir(t_game *game)
+void	init_dir(t_game *game)
 {
-    if (game->info->w == 1)
-    {
-        game->ray->dirX = -1.0;
-        game->ray->dirY = 0.0;
-    }
-    else if (game->info->e == 1)
-    {
-        game->ray->dirX = 1.0;
-        game->ray->dirY = 0.0;
-    }
-    else if (game->info->s == 1)
-    {
-        game->ray->dirX = 0.0;
-        game->ray->dirY = -1.0;
-    }
-    else if (game->info->n == 1)
-    {
-        game->ray->dirX = 0.0;
-        game->ray->dirY = 1.0;
-    }
+	if (game->info->w == 1)
+	{
+		game->ray->dirX = -1.0;
+		game->ray->dirY = 0.0;
+	}
+	else if (game->info->e == 1)
+	{
+		game->ray->dirX = 1.0;
+		game->ray->dirY = 0.0;
+	}
+	else if (game->info->s == 1)
+	{
+		game->ray->dirX = 0.0;
+		game->ray->dirY = -1.0;
+	}
+	else if (game->info->n == 1)
+	{
+		game->ray->dirX = 0.0;
+		game->ray->dirY = 1.0;
+	}
 }
 
 void	init_buf(t_game *game)
