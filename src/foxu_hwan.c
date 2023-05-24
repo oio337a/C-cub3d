@@ -12,17 +12,17 @@
 
 #include "../includes/cub3D.h"
 
-void	ver_line(t_game *game, int x, int y1, int y2)
-{
-	int	y;
-
-	y = y1;
-	while (y <= y2)
-	{
-		mlx_pixel_put(game->mlx, game->window, x, y, game->ray->color);
-		y++;
-	}
-}
+//void	ver_line(t_game *game, int x, int y1, int y2)
+//{
+//	int	y;
+//
+//	y = y1;
+//	while (y <= y2)
+//	{
+//		mlx_pixel_put(game->mlx, game->window, x, y, game->ray->color);
+//		y++;
+//	}
+//}
 
 void	draw_map(t_game *game)
 {
@@ -45,7 +45,7 @@ void	draw_map(t_game *game)
 
 void	calculate(t_game *game)
 {
-	// floor_casting(game);
+	floor_casting(game);
 	wall_casting(game);
 }
 
@@ -56,16 +56,15 @@ int	main_loop(t_game *game)
 	return (0);
 }
 
-void	load_image(t_game *game, int *texture, void *xpm_img)
+void	load_image(t_game *game, int *texture, char *path)
 {
 	t_img	*img;
 	int		x;
 	int		y;
 
 	img = game->img;
-	// img->img = xpm_img;
-	// printf("%s\n", (char *)xpm_img);
-	img->data = (int *)mlx_get_data_addr(xpm_img, &img->bpp, &img->size_l, &img->endian);
+	img->img = mlx_xpm_file_to_image(game->mlx, path, &game->img->width, &game->img->height);
+	img->data = (int *)mlx_get_data_addr(img->img, &img->bpp, &img->size_l, &img->endian);
 	y = 0;
 	while (y < img->height)
 	{
@@ -77,7 +76,7 @@ void	load_image(t_game *game, int *texture, void *xpm_img)
 		}
 		y++;
 	}
-	mlx_destroy_image(game->mlx, xpm_img);
+	mlx_destroy_image(game->mlx, img->img);
 }
 
 void	load_texture(t_game *game)

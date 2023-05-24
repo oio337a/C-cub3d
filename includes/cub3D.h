@@ -144,10 +144,10 @@ typedef struct s_wall
 
 typedef struct s_img //이미지, 해상도 담긴 구조체
 {
-	void	*north;
-	void	*south;
-	void	*west;
-	void	*east;
+	char	*north;
+	char	*south;
+	char	*west;
+	char	*east;
 	void	*img;
 
 	int		size_l;

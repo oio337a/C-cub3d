@@ -173,22 +173,26 @@ static void	init_texture(char **str, t_game *game, int type)
 	}
 	if (type == 1)
 	{
-		game->img->north = mlx_xpm_file_to_image(game->mlx, str[1], &game->img->width, &game->img->height);
+//		game->img->north = mlx_xpm_file_to_image(game->mlx, str[1], &game->img->width, &game->img->height);
+		game->img->north = ft_strdup(str[1]);
 		game->info->info_flag[0]++;
 	}
 	else if (type == 2)
 	{
-		game->img->south = mlx_xpm_file_to_image(game->mlx, str[1], &game->img->width, &game->img->height);
+//		game->img->south = mlx_xpm_file_to_image(game->mlx, str[1], &game->img->width, &game->img->height);
+		game->img->south = ft_strdup(str[1]);
 		game->info->info_flag[1]++;
 	}
 	else if (type == 3)
 	{
-		game->img->west = mlx_xpm_file_to_image(game->mlx, str[1], &game->img->width, &game->img->height);
+//		game->img->west = mlx_xpm_file_to_image(game->mlx, str[1], &game->img->width, &game->img->height);
+		game->img->west = ft_strdup(str[1]);
 		game->info->info_flag[2]++;
 	}
 	else if (type == 4)
 	{
-		game->img->east = mlx_xpm_file_to_image(game->mlx, str[1], &game->img->width, &game->img->height);
+//		game->img->east = mlx_xpm_file_to_image(game->mlx, str[1], &game->img->width, &game->img->height);
+		game->img->east = ft_strdup(str[1]);
 		game->info->info_flag[3]++;
 	}
 }
