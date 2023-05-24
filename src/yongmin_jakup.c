@@ -360,17 +360,17 @@ void	key_update(t_ray *ray, t_info *info)
 	}
 	if (ray->key_a)
 	{
-		if (!info->map[(int)(info->p_pos[1] - ray->dirX * ray->move_speed)][(int)(info->p_pos[0])])
-			info->p_pos[1] -= ray->dirX * ray->move_speed;
 		if (!info->map[(int)(info->p_pos[1])][(int)(info->p_pos[0] - ray->dirY * ray->move_speed)])
+			info->p_pos[1] -= ray->dirX * ray->move_speed;
+		if (!info->map[(int)(info->p_pos[1] - ray->dirX * ray->move_speed)][(int)(info->p_pos[0])])
 			info->p_pos[0] -= ray->dirY * ray->move_speed;
 	}
 	if (ray->key_d)
 	{
-		if (!info->map[(int)(info->p_pos[1] - ray->dirX * ray->move_speed)][(int)(info->p_pos[0])])
-			info->p_pos[1] -= ray->dirX * ray->move_speed;
-		if (!info->map[(int)(info->p_pos[1])][(int)(info->p_pos[0] - ray->dirY * ray->move_speed)])
-			info->p_pos[0] -= ray->dirY * ray->move_speed;
+		if (!info->map[(int)(info->p_pos[1])][(int)(info->p_pos[0] + ray->dirY * ray->move_speed)])
+			info->p_pos[1] += ray->dirX * ray->move_speed;
+		if (!info->map[(int)(info->p_pos[1] + ray->dirY * ray->move_speed)][(int)(info->p_pos[0])])
+			info->p_pos[0] += ray->dirY * ray->move_speed;
 	}
 	//rotate to the right
 	if (ray->key_r)

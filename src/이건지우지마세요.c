@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   이건지우지마세요.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 20:43:16 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/23 20:43:21 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/24 17:43:16 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,10 @@ typedef struct	s_info
 	int		key_w;
 	int		key_s;
 	int		key_d;
+	// test ----
+	int		key_l;
+	int		key_r;
+	// ---- 여기까지
 	int		key_esc;
 	t_img	img;
 	int		buf[height][width];
@@ -141,7 +145,7 @@ void	calc(t_info *info)
 			int ty = (int)(texHeight * (floorY - cellY)) & (texHeight - 1);
 
 			floorX += floorStepX;
-			floorY += floorStepY;
+			floorY += floorStepY; 
 
 			// choose texture and draw the pixel
 			int floorTexture = 3;
@@ -242,7 +246,6 @@ void	calc(t_info *info)
 		int drawEnd = lineHeight / 2 + height / 2;
 		if(drawEnd >= height)
 			drawEnd = height - 1;
-
 		// texturing calculations
 		int texNum = worldMap[mapX][mapY] - 1;
 
@@ -353,13 +356,29 @@ void	key_update(t_info *info)
 	//move backwards if no wall behind you
 	if (info->key_s)
 	{
+		printf("dirx: %f, diry: %f\n", info->dirX, info->dirY);
 		if (!worldMap[(int)(info->posX - info->dirX * info->moveSpeed)][(int)(info->posY)])
 			info->posX -= info->dirX * info->moveSpeed;
 		if (!worldMap[(int)(info->posX)][(int)(info->posY - info->dirY * info->moveSpeed)])
 			info->posY -= info->dirY * info->moveSpeed;
 	}
-	//rotate to the right
+	if (info->key_a)
+	{
+		printf("posX: %f, posX: %f\n", info->posX, info->posY);
+		if (!worldMap[(int)(info->posX)][(int)(info->posY - info->dirY * info->moveSpeed)])
+			info->posX += 1 * cos(info->moveSpeed) - info->dirY * sin(info->moveSpeed);
+		if (!worldMap[(int)(info->posX - info->dirX * info->moveSpeed)][(int)(info->posY)])
+			info->posY += 1 * sin(info->moveSpeed) + info->dirY * cos(info->moveSpeed);
+	}
 	if (info->key_d)
+	{
+		if (!worldMap[(int)(info->posX)][(int)(info->posY + info->dirX * info->moveSpeed)])
+			info->posX -= info->dirX * cos(info->moveSpeed) - info->dirY * sin(info->moveSpeed);
+		if (!worldMap[(int)(info->posX + info->dirY * info->moveSpeed)][(int)(info->posY)])
+			info->posY -= info->dirX * sin(info->moveSpeed) + info->dirY * cos(info->moveSpeed);
+	}
+	//rotate to the right
+	if (info->key_r)
 	{
 		//both camera direction and camera plane must be rotated
 		double oldDirX = info->dirX;
@@ -370,7 +389,7 @@ void	key_update(t_info *info)
 		info->planeY = oldPlaneX * sin(-info->rotSpeed) + info->planeY * cos(-info->rotSpeed);
 	}
 	//rotate to the left
-	if (info->key_a)
+	if (info->key_l)
 	{
 		//both camera direction and camera plane must be rotated
 		double oldDirX = info->dirX;
@@ -404,6 +423,12 @@ int		key_press(int key, t_info *info)
 		info->key_s = 1;
 	else if (key == K_D)
 		info->key_d = 1;
+	// test -----
+	else if (key == K_AR_R)
+		info->key_r = 1;
+	else if (key == K_AR_L)
+		info->key_l = 1;
+	// 여기까지
 	return (0);
 }
 
@@ -419,6 +444,12 @@ int		key_release(int key, t_info *info)
 		info->key_s = 0;
 	else if (key == K_D)
 		info->key_d = 0;
+	// test -----
+	else if (key == K_AR_R)
+		info->key_r = 0;
+	else if (key == K_AR_L)
+		info->key_l = 0;
+	// 여기까지
 	return (0);
 }
 

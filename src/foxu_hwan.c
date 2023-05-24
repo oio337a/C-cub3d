@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   foxu_hwan.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 16:48:18 by suhwpark          #+#    #+#             */
-/*   Updated: 2023/05/23 19:38:46 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/24 18:16:34 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,90 +24,69 @@ void	ver_line(t_game *game, int x, int y1, int y2)
 	}
 }
 
-void	calculate(t_game *game)
+void	draw_map(t_game *game)
 {
-	int		x;
-	int		map_x;
-	int		map_y;
-	t_ray	*ray;
+	int	y;
+	int	x;
 
-	x = 0;
-	ray = game->ray;
-	while (x < W)
+	y = 0;
+	while (y < H)
 	{
-		ray->cameraX = 2 * x / (double)W - 1;
-		ray->rayDirX = ray->dirX + ray->planeX * ray->cameraX;
-		ray->rayDirY = ray->dirY + ray->planeY * ray->cameraX;
-		map_x = (int)game->info->p_pos[1];
-		map_y = (int)game->info->p_pos[0];
-		ray->deltaDistX = fabs(1 / ray->rayDirX);
-		ray->deltaDistY = fabs(1 / ray->rayDirY);
-		ray->hit = 0;
-		if (ray->rayDirX < 0)
+		x = 0;
+		while (x < W)
 		{
-			ray->stepX = -1;
-			ray->sideDistX = (game->info->p_pos[1] - map_x) * ray->deltaDistX;
+			game->img->data[y * W + x] = game->ray->buf[y][x];
+			x++;
 		}
-		else
-		{ 
-			ray->stepX = 1;
-			ray->sideDistX = (map_x + 1.0 - game->info->p_pos[1]) * ray->deltaDistX;
-		}
-		if (ray->rayDirY < 0)
-		{
-			ray->stepY = -1;
-			ray->sideDistY = (game->info->p_pos[0] - map_y) * ray->deltaDistY;
-		}
-		else
-		{
-			ray->stepY = 1;
-			ray->sideDistY = (map_y + 1.0 - game->info->p_pos[0]) * ray->deltaDistY;
-		}
-		while (ray->hit == 0)
-		{
-			if (ray->sideDistX < ray->sideDistY)
-			{
-				ray->sideDistX += ray->deltaDistX;
-				map_x += ray->stepX;
-				ray->side = 0;
-			}
-			else
-			{
-				ray->sideDistY += ray->deltaDistY;
-				map_y += ray->stepY;
-				ray->side = 1;
-			}
-			if (game->info->map[map_y][map_x] == '1')
-				ray->hit = 1;
-		}
-		if (ray->side == 0)
-			ray->perpWallDist = (map_x - game->info->p_pos[1] + (1 - ray->stepX) / 2) / ray->rayDirX;
-		else
-			ray->perpWallDist = (map_y - game->info->p_pos[0] + (1 - ray->stepY) / 2) / ray->rayDirY;
-		ray->line_height = (int)(H / ray->perpWallDist);
-		ray->draw_start = H / 2 - (ray->line_height / 2);
-        if (ray->draw_start < 0)
-            ray->draw_start = 0;
-		ray->draw_end = H / 2 + (ray->line_height / 2);
-		if (ray->draw_end >= H)
-			ray->draw_end = H - 1;
-		if (game->info->map[map_y][map_x] == '1')
-			ray->color = 0x00FF22;
-		else
-			ray->color = 0xFFFF00;
-		if (ray->side == 1)
-			ray->color = ray->color / 2;
-		ver_line(game, x, ray->draw_start, ray->draw_end);
-		x++;
+		y++;
 	}
+	mlx_put_image_to_window(game->mlx, game->window, game->img->img, 0, 0);
 }
 
-int main_loop(t_game *game)
+void	calculate(t_game *game)
+{
+	// floor_casting(game);
+	wall_casting(game);
+}
+
+int	main_loop(t_game *game)
 {
 	calculate(game);
+	draw_map(game);
 	return (0);
 }
 
+void	load_image(t_game *game, int *texture, void *xpm_img)
+{
+	t_img	*img;
+	int		x;
+	int		y;
+
+	img = game->img;
+	// img->img = xpm_img;
+	// printf("%s\n", (char *)xpm_img);
+	img->data = (int *)mlx_get_data_addr(xpm_img, &img->bpp, &img->size_l, &img->endian);
+	y = 0;
+	while (y < img->height)
+	{
+		x = 0;
+		while (x < img->width)
+		{
+			texture[img->width * y + x] = img->data[img->width * y + x];
+			x++;
+		}
+		y++;
+	}
+	mlx_destroy_image(game->mlx, xpm_img);
+}
+
+void	load_texture(t_game *game)
+{
+	load_image(game, game->ray->texture[0], game->img->north);
+	load_image(game, game->ray->texture[1], game->img->south);
+	load_image(game, game->ray->texture[2], game->img->west);
+	load_image(game, game->ray->texture[3], game->img->east);
+}
 
 void    init_dir(t_game *game)
 {
@@ -133,7 +112,33 @@ void    init_dir(t_game *game)
     }
 }
 
-void ray_main(t_game *game)
+void	init_buf(t_game *game)
+{
+	int	i;
+
+	i = 0;
+	game->ray->buf = (int **)malloc(sizeof(int *) * (H + 1));
+	while (i < H)
+	{
+		game->ray->buf[i] = (int *)malloc(sizeof(int) * W + 1);
+		ft_memset(game->ray->buf[i], 0, W);
+		game->ray->buf[i][W] = '\0';
+		i++;
+	}
+	game->ray->buf[i] = NULL;
+	game->ray->texture = (int **)malloc(sizeof(int *) * 5);
+	i = 0;
+	while (i < 5)
+	{
+		game->ray->texture[i] = (int *)malloc(sizeof(int) * (64 * 64));
+		ft_memset(game->ray->texture[i], 0, (64 * 64));
+		game->ray->texture[i][64 * 64] = '\0';
+		i++;
+	}
+	game->ray->texture[i] = NULL;
+}
+
+void	ray_main(t_game *game)
 {
 	game->ray = (t_ray *)malloc(sizeof(t_ray));
 	ft_memset(game->ray, 0, sizeof(t_ray));
@@ -142,11 +147,14 @@ void ray_main(t_game *game)
 	game->ray->move_speed = 0.05;
 	game->ray->rot_speed = 0.05;
 
-    init_dir(game);
+	init_buf(game);
+	init_dir(game);
+	load_texture(game);
+
+	game->img->img = mlx_new_image(game->mlx, W, H);
+	game->img->data = (int *)mlx_get_data_addr(game->img->img, &game->img->bpp, &game->img->size_l, &game->img->endian);
 	mlx_loop_hook(game->mlx, main_loop, game);
 	mlx_hook(game->window, 2, 0, press_key, game);
 	mlx_loop(game->mlx);
+	// printf("!!!!!!!!!\n");
 }
-/*
-dir
-*/

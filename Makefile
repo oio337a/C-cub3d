@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/16 17:14:23 by yongmipa          #+#    #+#              #
-#    Updated: 2023/05/23 16:26:31 by yongmipa         ###   ########seoul.kr   #
+#    Updated: 2023/05/24 17:14:011 by suhwpark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,8 +39,8 @@ SRC			=	get_next_line.c \
 				map_context_check.c \
 				map_wall_check.c \
 				key_handle.c \
-				foxu_hwan.c
-
+				foxu_hwan.c \
+				ray_casting.c
 LIBS		=	$(addprefix $(LIB_DIR), $(LIB_NAME))
 SRCS		=	$(addprefix $(SRCS_DIR), $(SRC))
 OBJS		=	$(SRCS:.c=.o)

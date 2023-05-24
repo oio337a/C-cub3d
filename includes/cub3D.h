@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:17:25 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/23 20:47:14 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/24 17:10:58 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ typedef struct s_ray
 	int		hit;
 	int		side;
 
-
+	int		**buf;
+	int		**texture;
 	// 여기서 부터는 내꺼 ------
 	int		key_w;
 	int		key_s;
@@ -100,12 +101,61 @@ typedef struct s_info // 맵에 대한 정보 담긴 구조체
 	int		c[3];
 }	t_info;
 
+typedef struct s_floor
+{
+	float	DirX0;
+	float	DirX1;
+	float	DirY0;
+	float	DirY1;
+
+	float	rowDist;
+
+	float	floorStepX;
+	float	floorStepY;
+
+	float	floorX;
+	float	floorY;
+}	t_floor;
+
+typedef struct s_wall
+{
+	double	wall_x;
+	int		tex_x;
+	double	step;
+	double	tex_pos;
+	int	tex_y;
+	double	floor_x_wall;
+	double	floor_y_wall;
+	
+	double	dist_wall;
+	double	dist_p;
+	double	curr_dist;
+
+	double	weight;
+	double	curr_floor_x;
+	double	curr_floor_y;
+
+	int		floor_tex_x;
+	int		floor_tex_y;
+	int		check_borad;
+	int		floor_tex;
+}	t_wall;
+
+
 typedef struct s_img //이미지, 해상도 담긴 구조체
 {
 	void	*north;
 	void	*south;
 	void	*west;
 	void	*east;
+	void	*img;
+
+	int		size_l;
+	int		bpp;
+	int		endian;
+	int		width;
+	int		height;
+	int		*data;
 }	t_img;
 
 typedef struct s_game
@@ -115,6 +165,8 @@ typedef struct s_game
 	t_img	*img;
 	t_info	*info;
 	t_ray	*ray;
+	t_floor	*floor;
+	t_wall	*wall;
 }	t_game;
 
 /* utils.c */
@@ -156,11 +208,14 @@ t_game	*init_game(void);
 int		over_len(char **map);
 int		is_player_space(t_game *dir, char **map);
 //key_handle.c
-int		find_move_position(t_game *game, int keycode);
+int		find_move(t_game *game, int keycode);
+void	find_move_position(t_game *game, int keycode);
 int		press_key(int keycode, t_game *game);
 int		exit_game(t_game *game);
 
 //ray_cast
 void ray_main(t_game *game);
 int main_loop(t_game *game);
+void	floor_casting(t_game *game);
+void	wall_casting(t_game *game);
 #endif
