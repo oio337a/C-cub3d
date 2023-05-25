@@ -21,6 +21,13 @@
 	// floor->floorStepY = floor->rowDist * (floor->DirY1 - floor->DirY0) / W;
 	// floor->floorX = game->info->p_pos[1] + floor->rowDist * floor->DirX0;
 	// floor->floorY = game->info->p_pos[0] + floor->rowDist * floor->DirY0;
+static int	get_rgb_color(int arr[])
+{
+	int	rgb;
+
+	rgb = arr[0] * 65536 + arr[1] * 256 + arr[2];
+	return (rgb);
+}
 
 void	floor_casting(t_game *game)
 {
@@ -34,8 +41,8 @@ void	floor_casting(t_game *game)
 		x = 0;
 		while (x < W)
 		{
-			game->ray->buf[y][x] = 0xFF0000;
-			game->ray->buf[H - y - 1][x] = 0x00FF00;
+			game->ray->buf[y][x] = get_rgb_color(game->info->f);
+			game->ray->buf[H - y - 1][x] = get_rgb_color(game->info->c);
 			x++;
 		}
 		y++;
