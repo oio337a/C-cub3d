@@ -31,7 +31,7 @@ static void	draw_map(t_game *game)
 	mlx_put_image_to_window(game->mlx, game->window, game->img->img, 0, 0);
 }
 
-static int	main_loop(t_game *game)
+int	main_loop(t_game *game)
 {
 	floor_casting(game);
 	wall_casting(game);

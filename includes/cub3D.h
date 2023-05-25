@@ -78,6 +78,8 @@ typedef struct s_ray
 
 	int		**buf;
 	int		**texture;
+	int		map_x;
+	int		map_y;
 	// 여기서 부터는 내꺼 ------
 	int		key_w;
 	int		key_s;
@@ -101,21 +103,21 @@ typedef struct s_info // 맵에 대한 정보 담긴 구조체
 	int		c[3];
 }	t_info;
 
-typedef struct s_floor
-{
-	float	DirX0;
-	float	DirX1;
-	float	DirY0;
-	float	DirY1;
+// typedef struct s_floor
+// {
+// 	float	DirX0;
+// 	float	DirX1;
+// 	float	DirY0;
+// 	float	DirY1;
 
-	float	rowDist;
+// 	float	rowDist;
 
-	float	floorStepX;
-	float	floorStepY;
+// 	float	floorStepX;
+// 	float	floorStepY;
 
-	float	floorX;
-	float	floorY;
-}	t_floor;
+// 	float	floorX;
+// 	float	floorY;
+// }	t_floor;
 
 typedef struct s_wall
 {
@@ -165,7 +167,7 @@ typedef struct s_game
 	t_img	*img;
 	t_info	*info;
 	t_ray	*ray;
-	t_floor	*floor;
+	// t_floor	*floor;
 	t_wall	*wall;
 }	t_game;
 
@@ -200,22 +202,34 @@ char	*read_file(int fd, t_game *game);
 void	read_map_info(char *str, t_game *game);
 int		validate_all(char *map_join, t_game *game);
 int		overlen_check(char **map);
+int		is_player_space(t_game *dir, char **map);
 //gnl
 char	*get_next_line(int fd);
 char	**ft_split2(char const *s, char c);
 //init
 t_game	*init_game(void);
 int		over_len(char **map);
-int		is_player_space(t_game *dir, char **map);
+void	init_dir(t_game *game);
+void	init_buf(t_game *game);
 //key_handle.c
 int		find_move(t_game *game, int keycode);
 void	find_move_position(t_game *game, int keycode);
 int		press_key(int keycode, t_game *game);
 int		exit_game(t_game *game);
+void	find_rotate_right(t_ray *ray);
+void	find_rotate_left(t_ray *ray);
+int	cant_move_forward(t_info *info, double y, double x);
 
 //ray_cast
-void ray_main(t_game *game);
-int main_loop(t_game *game);
+void	raycasting(t_game *game);
+int 	main_loop(t_game *game);
 void	floor_casting(t_game *game);
 void	wall_casting(t_game *game);
+void	set_ray_values(t_game *game, int x);
+void	set_side_dist(t_game *game);
+void	set_draw_values(t_game *game);
+void	set_wall_values(t_game *game);
+void	set_colors_values(t_game *game, int x);
+void	set_hit_values(t_game *game);
+void	set_textures_values(t_game *game);
 #endif
