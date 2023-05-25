@@ -117,13 +117,13 @@ void	set_colors_values(t_game *game, int x)
 		wall->tex_y = (int)wall->tex_pos & (64 - 1);
 		wall->tex_pos += wall->step;
 		if (ray->side == 0 && ray->rayDirX > 0)
-			ray->color = ray->texture[0][wall->tex_y * 64 + wall->tex_x];
-		else if (ray->side == 0 && ray->rayDirX < 0)
-			ray->color = ray->texture[1][wall->tex_y * 64 + wall->tex_x];
-		else if (ray->side == 1 && ray->rayDirY > 0)
 			ray->color = ray->texture[3][wall->tex_y * 64 + wall->tex_x];
-		else if (ray->side == 1 && ray->rayDirY < 0)
+		else if (ray->side == 0 && ray->rayDirX < 0)
 			ray->color = ray->texture[2][wall->tex_y * 64 + wall->tex_x];
+		else if (ray->side == 1 && ray->rayDirY > 0)
+			ray->color = ray->texture[0][wall->tex_y * 64 + wall->tex_x];
+		else if (ray->side == 1 && ray->rayDirY < 0)
+			ray->color = ray->texture[1][wall->tex_y * 64 + wall->tex_x];
 		ray->buf[y][x] = ray->color;
 		y++;
 	}

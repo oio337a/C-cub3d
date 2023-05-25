@@ -6,7 +6,7 @@
 /*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 21:23:04 by suhwpark          #+#    #+#             */
-/*   Updated: 2023/05/25 21:36:40 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/26 02:51:45 by hyecheon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	find_rotate_left(t_ray *ray)
 				- ray->dirY * sin(ray->rot_speed);
 	ray->dirY = olddirx * sin(ray->rot_speed) \
 				+ ray->dirY * cos(ray->rot_speed);
-	ray->planeX = ray->planeX * cos(-ray->rot_speed) \
+	ray->planeX = ray->planeX * cos(ray->rot_speed) \
 				- ray->planeY * sin(ray->rot_speed);
 	ray->planeY = oldplanex * sin(ray->rot_speed) \
 				+ ray->planeY * cos(ray->rot_speed);

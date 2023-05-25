@@ -6,7 +6,7 @@
 /*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 21:06:01 by suhwpark          #+#    #+#             */
-/*   Updated: 2023/05/25 22:34:03 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/26 02:02:19 by hyecheon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ static t_ray	*init_ray(void)
 
 	ray = (t_ray *)safe_malloc(sizeof(t_ray));
 	ft_memset(ray, 0, sizeof(t_ray));
-	ray->planeX = 0.0;
-	ray->planeY = 0.66;
+//	ray->planeX = 0.0;
+//	ray->planeY = 0.66;
 	ray->move_speed = 0.05;
 	ray->rot_speed = 0.05;
 	return (ray);
@@ -31,21 +31,29 @@ void	init_dir(t_game *game)
 	{
 		game->ray->dirX = -1.0;
 		game->ray->dirY = 0.0;
+		game->ray->planeX = 0.0;
+		game->ray->planeY = 0.66;
 	}
 	else if (game->info->e == 1)
 	{
 		game->ray->dirX = 1.0;
 		game->ray->dirY = 0.0;
+		game->ray->planeX = 0.0;
+		game->ray->planeY = -0.66;
 	}
 	else if (game->info->s == 1)
 	{
 		game->ray->dirX = 0.0;
 		game->ray->dirY = -1.0;
+		game->ray->planeX = 0.66;
+		game->ray->planeY = 0.0;
 	}
 	else if (game->info->n == 1)
 	{
 		game->ray->dirX = 0.0;
 		game->ray->dirY = 1.0;
+		game->ray->planeX = -0.66;
+		game->ray->planeY = 0.0;
 	}
 }
 
