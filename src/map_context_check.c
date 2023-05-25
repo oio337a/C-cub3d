@@ -6,7 +6,7 @@
 /*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 15:24:39 by sohyupar          #+#    #+#             */
-/*   Updated: 2023/05/23 16:57:29 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/25 21:41:17 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,15 @@ static void	west_east(char context, t_game *dir, int x, int y)
 	if (context == 'W')
 	{
 		dir->info->w++;
-		dir->info->p_pos[0] = y;
-		dir->info->p_pos[1] = x;
+		dir->info->p_pos[0] = y + 0.49;
+		dir->info->p_pos[1] = x + 0.49;
 		dir->info->player++;
 	}
 	else if (context == 'E')
 	{
 		dir->info->e++;
-		dir->info->p_pos[0] = y;
-		dir->info->p_pos[1] = x;
+		dir->info->p_pos[0] = y + 0.49;
+		dir->info->p_pos[1] = x + 0.49;
 		dir->info->player++;
 	}
 }
@@ -57,15 +57,15 @@ static void	south_north(char context, t_game *dir, int x, int y)
 	if (context == 'S')
 	{
 		dir->info->s++;
-		dir->info->p_pos[0] = y;
-		dir->info->p_pos[1] = x;
+		dir->info->p_pos[0] = y + 0.49;
+		dir->info->p_pos[1] = x + 0.49;
 		dir->info->player++;
 	}
 	else if (context == 'N')
 	{
 		dir->info->n++;
-		dir->info->p_pos[0] = y;
-		dir->info->p_pos[1] = x;
+		dir->info->p_pos[0] = y + 0.49;
+		dir->info->p_pos[1] = x + 0.49;
 		dir->info->player++;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   use_bfs.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:24:16 by suhwpark          #+#    #+#             */
-/*   Updated: 2023/05/22 14:49:10 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/25 22:33:09 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,11 @@ void	append_space_index(char **map, t_queue *q)
 	}
 }
 
-void	visit_four_direction(char **map, t_queue *q, t_visit *visit)
+static void	visit_four_direction(char **map, t_queue *q, t_visit *visit, int c)
 {
 	t_node	*pop;
-	int		col;
 	int		row;
 
-	row = 0;
-	col = ft_str_col(map);
 	while (!is_empty(q))
 	{
 		pop = dequeue(q);
@@ -73,10 +70,12 @@ void	visit_four_direction(char **map, t_queue *q, t_visit *visit)
 			if (visit->visited[pop->y][pop->x + 1] == 0)
 				visit_r(map, visit, q, pop);
 		}
-		if (pop->y - 1 >= 0 && pop->y - 1 < (int)ft_strlen(map[pop->y]))
+		if (pop->y - 1 >= 0
+			&& (int)ft_strlen(map[pop->y - 1]) >= (int)ft_strlen(map[pop->y]))
 			if (visit->visited[pop->y - 1][pop->x] == 0)
 				visit_up(map, visit, q, pop);
-		if (pop->y + 1 < col && pop->y + 1 > (int)ft_strlen(map[pop->y]))
+		if (pop->y + 1 < c
+			&& (int)ft_strlen(map[pop->y + 1]) >= (int)ft_strlen(map[pop->y]))
 			if (visit->visited[pop->y + 1][pop->x] == 0)
 				visit_d(map, visit, q, pop);
 		free(pop);
@@ -95,7 +94,7 @@ int	bfs(char **map)
 		return (-1);
 	q = init_queue();
 	append_space_index(map, q);
-	visit_four_direction(map, q, visit);
+	visit_four_direction(map, q, visit, ft_str_col(map));
 	clear_queue(q);
 	if (visit->zero_cnt != 0)
 	{

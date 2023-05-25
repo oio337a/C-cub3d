@@ -6,28 +6,73 @@
 /*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 21:06:01 by suhwpark          #+#    #+#             */
-/*   Updated: 2023/05/24 17:34:29 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/25 22:34:03 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-static void	initialize_array(int arr[], int len)
+static t_ray	*init_ray(void)
 {
-	int	i;
+	t_ray	*ray;
 
-	i = -1;
-	while (++i < len)
-		arr[i] = 0;
+	ray = (t_ray *)safe_malloc(sizeof(t_ray));
+	ft_memset(ray, 0, sizeof(t_ray));
+	ray->planeX = 0.0;
+	ray->planeY = 0.66;
+	ray->move_speed = 0.05;
+	ray->rot_speed = 0.05;
+	return (ray);
 }
 
-static void	position_array(double arr[], int len)
+void	init_dir(t_game *game)
+{
+	if (game->info->w == 1)
+	{
+		game->ray->dirX = -1.0;
+		game->ray->dirY = 0.0;
+	}
+	else if (game->info->e == 1)
+	{
+		game->ray->dirX = 1.0;
+		game->ray->dirY = 0.0;
+	}
+	else if (game->info->s == 1)
+	{
+		game->ray->dirX = 0.0;
+		game->ray->dirY = -1.0;
+	}
+	else if (game->info->n == 1)
+	{
+		game->ray->dirX = 0.0;
+		game->ray->dirY = 1.0;
+	}
+}
+
+void	init_buf(t_game *game)
 {
 	int	i;
 
-	i = -1;
-	while (++i < len)
-		arr[i] = 0;
+	i = 0;
+	game->ray->buf = (int **)malloc(sizeof(int *) * (H + 1));
+	while (i < H)
+	{
+		game->ray->buf[i] = (int *)malloc(sizeof(int) * W + 1);
+		ft_memset(game->ray->buf[i], 0, W);
+		game->ray->buf[i][W] = '\0';
+		i++;
+	}
+	game->ray->buf[i] = NULL;
+	game->ray->texture = (int **)malloc(sizeof(int *) * 5);
+	i = 0;
+	while (i < 5)
+	{
+		game->ray->texture[i] = (int *)malloc(sizeof(int) * (64 * 64));
+		ft_memset(game->ray->texture[i], 0, (64 * 64));
+		game->ray->texture[i][64 * 64] = '\0';
+		i++;
+	}
+	game->ray->texture[i] = NULL;
 }
 
 t_game	*init_game(void)
@@ -35,35 +80,19 @@ t_game	*init_game(void)
 	t_game	*game;
 	t_info	*info;
 	t_img	*img;
-	t_floor *floor;
 	t_wall	*wall;
 
 	game = (t_game *)safe_malloc(sizeof(t_game));
 	info = (t_info *)safe_malloc(sizeof(t_info));
 	img = (t_img *)safe_malloc(sizeof(t_img));
-	floor = (t_floor *)safe_malloc(sizeof(t_floor));
-	ft_memset(floor, 0, sizeof(t_floor));
 	wall = (t_wall *)safe_malloc(sizeof(t_wall));
+	ft_memset(game, 0, sizeof(t_game));
+	ft_memset(info, 0, sizeof(t_info));
+	ft_memset(img, 0, sizeof(t_img));
 	ft_memset(wall, 0, sizeof(t_wall));
-	info->e = 0;
-	info->n = 0;
-	info->s = 0;
-	info->w = 0;
-	initialize_array(info->info_flag, 6);
-	position_array(info->p_pos, 2);
-	initialize_array(info->c, 3);
-	initialize_array(info->f, 3);
-	game->window = NULL;
-	game->mlx = NULL;
-	info->player = 0;
-	info->map = NULL;
-	img->east = NULL;
-	img->west = NULL;
-	img->north = NULL;
-	img->south = NULL;
 	game->info = info;
 	game->img = img;
-	game->floor = floor;
+	game->ray = init_ray();
 	game->wall = wall;
 	game->mlx = mlx_init();
 	return (game);

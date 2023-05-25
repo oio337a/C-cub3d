@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 15:17:38 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/22 17:18:30 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/25 21:03:40 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void	ft_err(char *str, t_game *game)
 	{	
 		free(game->info);
 		free(game->img);
+		free(game->ray);
+		free(game->wall);
 	}
 	write(2, "Error\n", 6);
 	write(2, str, ft_strlen(str));

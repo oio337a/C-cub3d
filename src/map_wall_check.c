@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_wall_check.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 15:51:44 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/23 14:41:18 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/25 22:31:55 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,46 +63,42 @@ int	all_around_wall(char **map)
 	return (TRUE);
 }
 
+static int	check_two_line(char **map, int i, int curr)
+{
+	while (map[i][curr])
+	{
+		if (map[i][curr] != ' ' && map[i][curr] != '1')
+			return (FALSE);
+		curr++;
+	}
+	return (TRUE);
+}
+
 int	overlen_check(char **map)
 {
 	int	next;
 	int	curr_len;
 	int	i;
 	int	len;
-	
+
 	next = 0;
 	curr_len = 0;
-	i = 0;
+	i = -1;
 	len = ft_str_col(map);
-	while (i < len - 1)
+	while (++i < len - 1)
 	{
 		curr_len = ft_strlen(map[i]);
 		next = ft_strlen(map[i + 1]);
-		if (curr_len > next) // next가 더 짧네?
+		if (curr_len > next)
 		{
-			while (map[i][next])
-			{
-				if (map[i][next] != ' ' && map[i][next] != '1')
-				{
-					// printf("i : %d next :%d", i, next);
-					return (FALSE);
-				}
-				next++;
-			}
+			if (!check_two_line(map, i, next))
+				return (FALSE);
 		}
 		else if (curr_len < next)
 		{
-			while (map[i + 1][curr_len])
-			{
-				if (map[i + 1][curr_len] != ' ' && map[i + 1][curr_len] != '1')
-				{
-					// printf("i + 1 : %d curlen : %d", i + 1, curr_len);
-					return (FALSE);
-				}
-				curr_len++;
-			}
+			if (!check_two_line(map, i + 1, curr_len))
+				return (FALSE);
 		}
-		i++;
 	}
 	return (TRUE);
 }

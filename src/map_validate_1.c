@@ -6,7 +6,7 @@
 /*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:19:07 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/24 19:15:25 by hyecheon         ###   ########.fr       */
+/*   Updated: 2023/05/25 21:26:39 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,17 +57,6 @@ char	*is_strdup(const char *s, int size)
 	}
 	dst[i] = '\0';
 	return (dst);
-}
-
-char	**freeall(char **str, int cnt)
-{
-	int	i;
-
-	i = 0;
-	while (i < cnt)
-		free(str[i++]);
-	free(str);
-	return (NULL);
 }
 
 char	**is_split(char const *s)

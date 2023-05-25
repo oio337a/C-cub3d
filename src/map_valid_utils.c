@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_valid_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 15:21:52 by sohyupar          #+#    #+#             */
-/*   Updated: 2023/05/19 15:52:25 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/25 21:26:44 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,17 @@ int	ft_str_col(char **map)
 	while (map[i])
 		i++;
 	return (i);
+}
+
+char	**freeall(char **str, int cnt)
+{
+	int	i;
+
+	i = 0;
+	while (i < cnt)
+		free(str[i++]);
+	free(str);
+	return (NULL);
 }
 
 int	is_whitespace(char *str)

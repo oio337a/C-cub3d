@@ -6,7 +6,7 @@
 /*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 18:08:44 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/24 17:35:36 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/25 19:49:00 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,7 @@ int	main(int ac, char *av[])
 		ft_err("map error!", game);
 	close(fd);
 	game->window = mlx_new_window(game->mlx, W, H, "cub3D");
-	// hi_cute_3d(game);
-	// mlx_hook(game->window, KEY_PRESS, 0, press_key, game);
-	// mlx_hook(game->window, DESTROY_NOTIFY, 0, exit_game, game);
-	ray_main(game); // 이거 주석되어있어서 그럴듯요!!!
-	// mlx_loop_hook(game->mlx, main_loop, game);
-	// // mlx_hook(game->window, 17, 0, main_loop, game);
-	// mlx_hook(game->window, 17, 0, press_key, game);
-	// mlx_loop(game->mlx);
+	raycasting(game);
 	return (0);
 }
 
