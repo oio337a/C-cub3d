@@ -6,7 +6,7 @@
 /*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:17:25 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/26 15:26:22 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/26 17:59:10 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define CUB3D_H
 
 # define BUFFER_SIZE 10000
-
 # define KEY_PRESS				2
 # define DESTROY_NOTIFY			17
 # define K_ESC					53
@@ -28,7 +27,6 @@
 # define X_EVENT_KEY_PRESS		2
 # define X_EVENT_KEY_RELEASE	3
 # define X_EVENT_KEY_EXIT		17
-
 
 # define TRUE 1
 # define FALSE 0
@@ -46,41 +44,32 @@
 
 typedef struct s_ray
 {
-	double	dirX;
-	double	dirY;
-	double	planeX;
-	double	planeY;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
 	double	move_speed;
 	double	rot_speed;
-	double	cameraX;
-	double 	rayDirX;
-	double 	rayDirY;
-		//length of ray from current position to next x or y-side
-	double 	sideDistX;
-	double 	sideDistY;
-		
-	//length of ray from one x or y-side to next x or y-side
-	double 	deltaDistX;
-	double 	deltaDistY;
-	double 	perpWallDist;
-		
-	//what direction to step in x or y-direction (either +1 or -1)
-	int		stepX;
-	int		stepY;
-	
+	double	camera_x;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	perp_wall_dist;
+	int		step_x;
+	int		step_y;
 	int		line_height;
 	int		draw_start;
 	int		draw_end;
 	int		color;
-	
 	int		hit;
 	int		side;
-
 	int		**buf;
 	int		**texture;
 	int		map_x;
 	int		map_y;
-	// 여기서 부터는 내꺼 ------
 	int		key_w;
 	int		key_s;
 	int		key_d;
@@ -89,7 +78,7 @@ typedef struct s_ray
 	int		key_r;
 }	t_ray;
 
-typedef struct s_info // 맵에 대한 정보 담긴 구조체
+typedef struct s_info
 {
 	char	**map;
 	int		info_flag[6];
@@ -103,32 +92,16 @@ typedef struct s_info // 맵에 대한 정보 담긴 구조체
 	int		c[3];
 }	t_info;
 
-// typedef struct s_floor
-// {
-// 	float	DirX0;
-// 	float	DirX1;
-// 	float	DirY0;
-// 	float	DirY1;
-
-// 	float	rowDist;
-
-// 	float	floorStepX;
-// 	float	floorStepY;
-
-// 	float	floorX;
-// 	float	floorY;
-// }	t_floor;
-
 typedef struct s_wall
 {
 	double	wall_x;
 	int		tex_x;
 	double	step;
 	double	tex_pos;
-	int	tex_y;
+	int		tex_y;
 	double	floor_x_wall;
 	double	floor_y_wall;
-	
+
 	double	dist_wall;
 	double	dist_p;
 	double	curr_dist;
@@ -143,8 +116,7 @@ typedef struct s_wall
 	int		floor_tex;
 }	t_wall;
 
-
-typedef struct s_img //이미지, 해상도 담긴 구조체
+typedef struct s_img
 {
 	void	*north;
 	void	*south;
@@ -167,20 +139,16 @@ typedef struct s_game
 	t_img	*img;
 	t_info	*info;
 	t_ray	*ray;
-	// t_floor	*floor;
 	t_wall	*wall;
 }	t_game;
 
-/* utils.c */
 void	ft_free(char **str);
 void	ft_err(char *str, t_game *game);
 void	*safe_malloc(size_t	size);
 void	free_game(t_game *game);
 
-/*validation*/
 int		ft_str_col(char **map);
 int		is_whitespace(char *str);
-int		whitespace(char c);
 int		start_end_wall(char *map);
 int		mid_context_check(char **map, t_game *dir);
 int		context_check(char context, t_game *dir, int x, int y);
@@ -192,8 +160,6 @@ int		validate_all(char *map_join, t_game *game);
 char	**make_words(const char *s, char c, int i, char **word);
 void	img_check(char *map_join, t_game *game);
 
-
-/*map_validate_1.c*/
 char	**freeall(char **str, int cnt);
 int		word_cnt(char const *s);
 int		word_len(char const *s);
@@ -209,39 +175,41 @@ int		is_player_space(t_game *dir, char **map);
 void	check_color(int *map_info, char **color, t_game *game);
 void	init_texture(char **str, t_game *game, int type);
 void	init_color(char **str, t_game *game, int type);
-/*map_validate_1.1c*/
+
 void	check_init_texture(char **str, t_game *game);
 void	validate_color(char **str, char **color, t_game *game, int type);
 void	valid_case(char **temp, t_game *game);
 
+int		key_press(int key, t_game *game);
+int		key_release(int key, t_ray *ray);
 
-//gnl
 char	*get_next_line(int fd);
 char	**ft_split2(char const *s, char c);
-//init
+
 t_game	*init_game(void);
-int		over_len(char **map);
 void	init_dir(t_game *game);
 void	init_buf(t_game *game);
-//key_handle.c
-int		find_move(t_game *game, int keycode);
-void	find_move_position(t_game *game, int keycode);
-int		press_key(int keycode, t_game *game);
+
+int		find_move(t_game *game);
+int		press_key(t_game *game);
 int		exit_game(t_game *game);
 void	find_rotate_right(t_ray *ray);
 void	find_rotate_left(t_ray *ray);
-int		cant_move_forward(t_info *info, double y, double x);
+int		cant_move_check(t_info *info, double y, double x);
 
-//ray_cast
+void	up_down_case(t_game *game);
+void	side_case(t_game *game);
+
 void	raycasting(t_game *game);
 int		main_loop(t_game *game);
 void	floor_casting(t_game *game);
 void	wall_casting(t_game *game);
 void	set_ray_values(t_game *game, int x);
-void	set_side_dist(t_game *game);
+void	set_side_dist(t_game *game, double y, double x);
 void	set_draw_values(t_game *game);
 void	set_wall_values(t_game *game);
 void	set_colors_values(t_game *game, int x);
 void	set_hit_values(t_game *game);
 void	set_textures_values(t_game *game);
+
 #endif

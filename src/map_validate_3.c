@@ -6,7 +6,7 @@
 /*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 09:36:29 by sohyupar          #+#    #+#             */
-/*   Updated: 2023/05/26 15:00:48 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/26 15:38:44 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char	**ft_split2(char const *s, char c)
 	int		count;
 	char	**word;
 
-	i = 0;
+	i = -1;
 	while (*s && *s == c)
 		s++;
 	count = word_count(s, c) + 1;

@@ -42,9 +42,11 @@ SRC			=	get_next_line.c \
 				map_wall_check.c \
 				key_handle.c \
 				key_handle2.c \
+				key_handle_utils.c \
 				set_ray_values.c \
 				set_ray_values2.c \
 				main_loop.c \
+				main_loop_utils.c \
 				ray_casting.c
 LIBS		=	$(addprefix $(LIB_DIR), $(LIB_NAME))
 SRCS		=	$(addprefix $(SRCS_DIR), $(SRC))

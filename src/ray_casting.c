@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 19:45:10 by suhwpark          #+#    #+#             */
-/*   Updated: 2023/05/26 14:20:54 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/26 17:58:33 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-	// floor->DirX0 = game->ray->dirX - game->ray->planeX;
-	// floor->DirY0 = game->ray->dirY - game->ray->planeY;
-	// floor->DirX1 = game->ray->dirX + game->ray->planeX;
-	// floor->DirY1 = game->ray->dirY + game->ray->planeY;
+	// floor->DirX0 = game->ray->dir_x - game->ray->plane_x;
+	// floor->DirY0 = game->ray->dir_y - game->ray->plane_y;
+	// floor->DirX1 = game->ray->dir_x + game->ray->plane_x;
+	// floor->DirY1 = game->ray->dir_y + game->ray->plane_y;
 	// floor->rowDist = (float)(0.5 * H) / (int)(y - (H / 2));
 	// floor->floorStepX = floor->rowDist * (floor->DirX1 - floor->DirX0) / W;
 	// floor->floorStepY = floor->rowDist * (floor->DirY1 - floor->DirY0) / W;
@@ -56,7 +56,7 @@ void	wall_casting(t_game *game)
 	while (x < W)
 	{
 		set_ray_values(game, x);
-		set_side_dist(game);
+		set_side_dist(game, game->info->p_pos[0], game->info->p_pos[1]);
 		set_hit_values(game);
 		set_textures_values(game);
 		set_colors_values(game, x);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 16:48:18 by suhwpark          #+#    #+#             */
-/*   Updated: 2023/05/25 21:21:16 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/26 17:59:26 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	main_loop(t_game *game)
 	floor_casting(game);
 	wall_casting(game);
 	draw_map(game);
+	press_key(game);
 	return (0);
 }
 
@@ -79,7 +80,8 @@ void	raycasting(t_game *game)
 	game->img->data = (int *)mlx_get_data_addr(game->img->img, &game->img->bpp,
 			&game->img->size_l, &game->img->endian);
 	mlx_loop_hook(game->mlx, main_loop, game);
-	mlx_hook(game->window, X_EVENT_KEY_PRESS, 0, press_key, game);
+	mlx_hook(game->window, X_EVENT_KEY_PRESS, 0, key_press, game);
+	mlx_hook(game->window, X_EVENT_KEY_RELEASE, 0, key_release, game->ray);
 	mlx_hook(game->window, DESTROY_NOTIFY, 0, exit_game, game);
 	mlx_loop(game->mlx);
 }

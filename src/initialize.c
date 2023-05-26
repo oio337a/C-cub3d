@@ -6,7 +6,7 @@
 /*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 21:06:01 by suhwpark          #+#    #+#             */
-/*   Updated: 2023/05/26 14:46:41 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/26 17:44:45 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,42 +18,42 @@ static t_ray	*init_ray(void)
 
 	ray = (t_ray *)safe_malloc(sizeof(t_ray));
 	ft_memset(ray, 0, sizeof(t_ray));
-	// ray->planeX = 0.0;
-	// ray->planeY = 0.66;
 	ray->move_speed = 0.05;
 	ray->rot_speed = 0.05;
 	return (ray);
+}
+
+void	init_plane(t_game *game, double x, double y)
+{
+	game->ray->plane_x = x;
+	game->ray->plane_y = y;
 }
 
 void	init_dir(t_game *game)
 {
 	if (game->info->w == 1)
 	{
-		game->ray->dirX = -1.0;
-		game->ray->dirY = 0.0;
-		game->ray->planeX = 0.0;
-		game->ray->planeY = 0.66;
+		game->ray->dir_x = -1.0;
+		game->ray->dir_y = 0.0;
+		init_plane(game, 0.0, 0.66);
 	}
 	else if (game->info->e == 1)
 	{
-		game->ray->dirX = 1.0;
-		game->ray->dirY = 0.0;
-		game->ray->planeX = 0.0;
-		game->ray->planeY = -0.66;
+		game->ray->dir_x = 1.0;
+		game->ray->dir_y = 0.0;
+		init_plane(game, 0.0, -0.66);
 	}
 	else if (game->info->s == 1)
 	{
-		game->ray->dirX = 0.0;
-		game->ray->dirY = -1.0;
-		game->ray->planeX = 0.66;
-		game->ray->planeY = 0.0;
+		game->ray->dir_x = 0.0;
+		game->ray->dir_y = -1.0;
+		init_plane(game, 0.66, 0);
 	}
 	else if (game->info->n == 1)
 	{
-		game->ray->dirX = 0.0;
-		game->ray->dirY = 1.0;
-		game->ray->planeX = -0.66;
-		game->ray->planeY = 0.0;
+		game->ray->dir_x = 0.0;
+		game->ray->dir_y = 1.0;
+		init_plane(game, -0.66, 0.0);
 	}
 }
 
