@@ -6,7 +6,7 @@
 /*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:35:04 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/26 15:03:22 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/26 15:34:34 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	validate_all(char *map_join, t_game *game)
 		return (FALSE);
 	}
 	map = ft_split2(map_join, '\n');
+	printf("after split???\n");
 	if (!map)
 		return (FALSE);
 	if (bfs(map) && overlen_check(map) && all_around_wall(map)

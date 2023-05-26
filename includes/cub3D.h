@@ -6,7 +6,7 @@
 /*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:17:25 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/26 15:03:35 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/26 15:26:22 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,6 +207,8 @@ int		validate_all(char *map_join, t_game *game);
 int		overlen_check(char **map);
 int		is_player_space(t_game *dir, char **map);
 void	check_color(int *map_info, char **color, t_game *game);
+void	init_texture(char **str, t_game *game, int type);
+void	init_color(char **str, t_game *game, int type);
 /*map_validate_1.1c*/
 void	check_init_texture(char **str, t_game *game);
 void	validate_color(char **str, char **color, t_game *game, int type);

@@ -6,7 +6,7 @@
 /*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:19:07 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/26 14:59:20 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/26 15:24:14 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*read_file(int fd, t_game *game)
 	return (join);
 }
 
-static void	init_texture(char **str, t_game *game, int type)
+void	init_texture(char **str, t_game *game, int type)
 {
 	check_init_texture(str, game);
 	if (type == 1)
@@ -83,7 +83,7 @@ void	check_color(int *map_info, char **color, t_game *game)
 	}
 }
 
-static void	init_color(char **str, t_game *game, int type)
+void	init_color(char **str, t_game *game, int type)
 {
 	char	**color;
 

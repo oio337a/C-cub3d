@@ -36,6 +36,8 @@ SRC			=	get_next_line.c \
 				use_bfs.c \
 				initialize.c \
 				map_valid_utils.c \
+				map_valid_utils_1.c \
+				map_validate_1.1.c \
 				map_context_check.c \
 				map_wall_check.c \
 				key_handle.c \
