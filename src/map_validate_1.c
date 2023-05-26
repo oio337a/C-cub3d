@@ -6,7 +6,7 @@
 /*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:19:07 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/26 15:35:49 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/26 19:29:13 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,11 @@ void	init_color(char **str, t_game *game, int type)
 	{
 		ft_free(str);
 		ft_err("information", game);
+	}
+	if (!comma_getsu_is_ok(str[1]))
+	{
+		ft_free(str);
+		ft_err("to many comma", game);
 	}
 	color = ft_split(str[1], ',');
 	if (!color)

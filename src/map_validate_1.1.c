@@ -6,7 +6,7 @@
 /*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 14:46:06 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/26 15:01:21 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/26 19:29:22 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,22 @@ void	check_init_texture(char **str, t_game *game)
 		ft_free(str);
 		ft_err("img extention must .xpm", game);
 	}
+}
+
+int	comma_getsu_is_ok(char *str)
+{
+	int	i;
+	int	cnt;
+
+	i = 0;
+	cnt = 0;
+	while (str[i])
+	{
+		if (str[i] == ',')
+			cnt++;
+		i++;
+	}
+	if (cnt != 2)
+		return (FALSE);
+	return (TRUE);
 }

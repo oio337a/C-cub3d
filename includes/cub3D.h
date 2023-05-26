@@ -6,7 +6,7 @@
 /*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:17:25 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/26 17:59:10 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/26 19:27:26 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,5 +211,6 @@ void	set_wall_values(t_game *game);
 void	set_colors_values(t_game *game, int x);
 void	set_hit_values(t_game *game);
 void	set_textures_values(t_game *game);
+int		comma_getsu_is_ok(char *str);
 
 #endif
