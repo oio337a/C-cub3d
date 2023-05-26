@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   use_bfs.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sohyupar <sohyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:24:16 by suhwpark          #+#    #+#             */
-/*   Updated: 2023/05/26 15:37:00 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/26 19:12:59 by sohyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void	visit_four_direction(char **map, t_queue *q, t_visit *visit, int c)
 				visit_r(map, visit, q, pop);
 		}
 		if (pop->y - 1 >= 0
-			&& (int)ft_strlen(map[pop->y - 1]) >= (int)ft_strlen(map[pop->y]))
+			&& (int)ft_strlen(map[pop->y - 1]) >= (int)ft_strlen(map[pop->y])) // 다음에 한한번번더더생생각하기
 			if (visit->visited[pop->y - 1][pop->x] == 0)
 				visit_up(map, visit, q, pop);
 		if (pop->y + 1 < c
@@ -91,7 +91,7 @@ int	bfs(char **map)
 	i = 0;
 	visit = init_visited(map);
 	if (!visit)
-		return (-1);
+		return (FALSE);
 	q = init_queue();
 	append_space_index(map, q);
 	visit_four_direction(map, q, visit, ft_str_col(map));
