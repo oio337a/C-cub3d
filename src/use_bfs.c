@@ -6,7 +6,7 @@
 /*   By: sohyupar <sohyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:24:16 by suhwpark          #+#    #+#             */
-/*   Updated: 2023/05/26 19:46:02 by sohyupar         ###   ########.fr       */
+/*   Updated: 2023/05/26 20:34:02 by sohyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,10 @@ static void	visit_four_direction(char **map, t_queue *q, t_visit *visit, int c)
 			if (visit->visited[pop->y][pop->x + 1] == 0)
 				visit_r(map, visit, q, pop);
 		}
-		if (pop->y - 1 >= 0 && pop->y - 1 <= (int)ft_strlen(map[pop->y]))
+		if (pop->y - 1 >= 0 && pop->x <= (int)ft_strlen(map[pop->y - 1]))
 			if (visit->visited[pop->y - 1][pop->x] == 0)
 				visit_up(map, visit, q, pop);
-		if (pop->y + 1 < c && pop->y + 1 <= (int)ft_strlen(map[pop->y]))
+		if (pop->y + 1 < c && pop->x <= (int)ft_strlen(map[pop->y + 1]))
 			if (visit->visited[pop->y + 1][pop->x] == 0)
 				visit_d(map, visit, q, pop);
 		free(pop);
@@ -96,6 +96,7 @@ int	bfs(char **map)
 	clear_queue(q);
 	if (visit->zero_cnt != 0)
 	{
+		printf("zero count : %d\n", visit->zero_cnt);
 		while (visit->visited[i])
 			free(visit->visited[i++]);
 		free(visit->visited);
