@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validate_3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 09:36:29 by sohyupar          #+#    #+#             */
-/*   Updated: 2023/05/25 21:11:18 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/26 15:00:48 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,42 +63,50 @@ static char	*ft_strndup(const char *s, size_t n)
 	return (word);
 }
 
+char	**make_words(const char *s, char c, int i, char **word)
+{
+	int	len;
+	int	wordlen;
+
+	len = 0;
+	wordlen = word_len2(s, c);
+	if (wordlen == 0)
+	{
+		len = ft_strlen(word[i - 1]);
+		word[i] = (char *)malloc(sizeof(char) * len + 1);
+		ft_memset(word[i], ' ', len);
+		word[i][len] = '\0';
+	}
+	else
+		word[i] = ft_strndup(s, wordlen);
+	if (!word[i])
+		return (freeall(word, i));
+	return (word);
+}
+
 char	**ft_split2(char const *s, char c)
 {
 	int		i;
 	int		wordlen;
 	int		count;
 	char	**word;
-	int		len;
 
-	len = 0;
 	i = 0;
-	if (!*s)
-		return (NULL);
 	while (*s && *s == c)
 		s++;
 	count = word_count(s, c) + 1;
 	word = (char **)malloc(sizeof(char *) * (count + 1));
 	if (!word)
 		return (0);
-	while (i < count)
+	while (++i < count)
 	{
 		if (*s && *s == c)
 			s++;
 		wordlen = word_len2(s, c);
-		if (wordlen == 0)
-		{
-			len = ft_strlen(word[i - 1]);
-			word[i] = (char *)malloc(sizeof(char) * len + 1);
-			ft_memset(word[i], ' ', len);
-			word[i][len] = '\0';
-		}
-		else
-			word[i] = ft_strndup(s, wordlen);
-		if (!word[i])
-			return (freeall(word, i));
+		word = make_words(s, c, i, word);
+		if (!word)
+			return (NULL);
 		s += wordlen;
-		i++;
 	}
 	word[count] = 0;
 	return (word);

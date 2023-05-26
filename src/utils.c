@@ -3,14 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 15:17:38 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/25 21:03:40 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/26 14:58:10 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
+
+void	free_game(t_game *game)
+{
+	int	i;
+
+	i = 0;
+	while (game->ray->buf[i])
+		free(game->ray->buf[i++]);
+	free(game->ray->buf);
+	i = 0;
+	while (game->ray->texture[i])
+		free(game->ray->texture[i++]);
+	free(game->ray->texture);
+	ft_free(game->info->map);
+	free(game->ray);
+	free(game->wall);
+	free(game->info);
+	free(game->img);
+}
 
 void	ft_free(char **str)
 {
@@ -33,21 +52,6 @@ void	*safe_malloc(size_t	size)
 		exit(EXIT_FAILURE);
 	}
 	return (ret);
-}
-
-int	ft_size(char **str)
-{
-	int	i;
-	int	size;
-
-	i = -1;
-	size = 0;
-	while (str[++i])
-	{
-		if (str[i])
-			size++;
-	}
-	return (size);
 }
 
 void	ft_err(char *str, t_game *game)

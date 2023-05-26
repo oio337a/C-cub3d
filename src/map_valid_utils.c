@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_valid_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 15:21:52 by sohyupar          #+#    #+#             */
-/*   Updated: 2023/05/25 21:26:44 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/26 14:39:28 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,23 @@ int	start_end_wall(char *map)
 		i++;
 	}
 	return (TRUE);
+}
+
+int	word_cnt(char const *s)
+{
+	int	cnt;
+
+	cnt = 0;
+	while (*s)
+	{
+		while (*s && ft_isspace(*s) == 1)
+			s++;
+		if (*s && ft_isspace(*s) == 0)
+		{
+			cnt++;
+			while (*s && ft_isspace(*s) == 0)
+				s++;
+		}
+	}
+	return (cnt);
 }

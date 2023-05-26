@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:17:25 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/24 17:10:58 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/26 15:03:35 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,10 +173,9 @@ typedef struct s_game
 
 /* utils.c */
 void	ft_free(char **str);
-int		ft_size(char **str);
 void	ft_err(char *str, t_game *game);
-void	ft_struct_game_free(t_game *game);
 void	*safe_malloc(size_t	size);
+void	free_game(t_game *game);
 
 /*validation*/
 int		ft_str_col(char **map);
@@ -190,6 +189,10 @@ int		all_around_wall(char **map);
 void	append_space_index(char **map, t_queue *q);
 int		bfs(char **map);
 int		validate_all(char *map_join, t_game *game);
+char	**make_words(const char *s, char c, int i, char **word);
+void	img_check(char *map_join, t_game *game);
+
+
 /*map_validate_1.c*/
 char	**freeall(char **str, int cnt);
 int		word_cnt(char const *s);
@@ -203,6 +206,13 @@ void	read_map_info(char *str, t_game *game);
 int		validate_all(char *map_join, t_game *game);
 int		overlen_check(char **map);
 int		is_player_space(t_game *dir, char **map);
+void	check_color(int *map_info, char **color, t_game *game);
+/*map_validate_1.1c*/
+void	check_init_texture(char **str, t_game *game);
+void	validate_color(char **str, char **color, t_game *game, int type);
+void	valid_case(char **temp, t_game *game);
+
+
 //gnl
 char	*get_next_line(int fd);
 char	**ft_split2(char const *s, char c);
@@ -218,11 +228,11 @@ int		press_key(int keycode, t_game *game);
 int		exit_game(t_game *game);
 void	find_rotate_right(t_ray *ray);
 void	find_rotate_left(t_ray *ray);
-int	cant_move_forward(t_info *info, double y, double x);
+int		cant_move_forward(t_info *info, double y, double x);
 
 //ray_cast
 void	raycasting(t_game *game);
-int 	main_loop(t_game *game);
+int		main_loop(t_game *game);
 void	floor_casting(t_game *game);
 void	wall_casting(t_game *game);
 void	set_ray_values(t_game *game, int x);

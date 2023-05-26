@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_handle2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 21:23:04 by suhwpark          #+#    #+#             */
-/*   Updated: 2023/05/26 02:51:45 by hyecheon         ###   ########.fr       */
+/*   Updated: 2023/05/26 14:35:32 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	exit_game(t_game *game)
 {
 	mlx_destroy_window(game->mlx, game->window);
+	free_game(game);
 	exit(0);
 }
 

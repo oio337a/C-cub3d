@@ -3,24 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   map_validate_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:35:04 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/25 22:24:00 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/26 15:03:22 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
 
-int	validate_all(char *map_join, t_game *game)
+void	img_check(char *map_join, t_game *game)
 {
-	char	**map;
-
 	if (!game->img->north || !game->img->south
 		|| !game->img->east || !game->img->west)
 	{
 		free(map_join);
 		ft_err("image path", game);
+	}
+}
+
+int	validate_all(char *map_join, t_game *game)
+{
+	char	**map;
+
+	img_check(map_join, game);
+	if (!*map_join)
+	{
+		free(map_join);
+		return (FALSE);
 	}
 	map = ft_split2(map_join, '\n');
 	if (!map)
