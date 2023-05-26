@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validate_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: sohyupar <sohyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:35:04 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/26 15:39:43 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/26 19:08:39 by sohyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,13 @@ int	validate_all(char *map_join, t_game *game)
 	map = ft_split2(map_join, '\n');
 	if (!map)
 		return (FALSE);
-	if (bfs(map) && overlen_check(map) && all_around_wall(map)
-		&& mid_context_check(map, game) && is_player_space(game, map))
+	if (all_around_wall(map) && mid_context_check(map, game) \
+		&& is_player_space(game, map) && overlen_check(map) && bfs(map))
 	{
 		free(map_join);
 		game->info->map = map;
 		return (TRUE);
 	}
-	printf("after split???\n");
 	free(map_join);
 	ft_free(map);
 	return (FALSE);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_wall_check.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sohyupar <sohyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 15:51:44 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/25 22:31:55 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/26 19:08:32 by sohyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	mid_context_check(char **map, t_game *dir)
 		while (map[i][j])
 		{
 			if (!context_check(map[i][j], dir, j, i))
-				return (-1);
+				return (FALSE);
 			j++;
 		}
 		i++;
@@ -34,9 +34,9 @@ int	mid_context_check(char **map, t_game *dir)
 	if (dir->info->player != 1)
 	{
 		ft_err("player count err\n", dir);
-		return (-1);
+		return (FALSE);
 	}
-	return (1);
+	return (TRUE);
 }
 
 int	all_around_wall(char **map)
