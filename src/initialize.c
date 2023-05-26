@@ -6,7 +6,7 @@
 /*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 21:06:01 by suhwpark          #+#    #+#             */
-/*   Updated: 2023/05/26 02:02:19 by hyecheon         ###   ########.fr       */
+/*   Updated: 2023/05/26 14:25:49 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ static t_ray	*init_ray(void)
 
 	ray = (t_ray *)safe_malloc(sizeof(t_ray));
 	ft_memset(ray, 0, sizeof(t_ray));
-//	ray->planeX = 0.0;
-//	ray->planeY = 0.66;
+	// ray->planeX = 0.0;
+	// ray->planeY = 0.66;
 	ray->move_speed = 0.05;
 	ray->rot_speed = 0.05;
 	return (ray);
@@ -65,9 +65,7 @@ void	init_buf(t_game *game)
 	game->ray->buf = (int **)malloc(sizeof(int *) * (H + 1));
 	while (i < H)
 	{
-		game->ray->buf[i] = (int *)malloc(sizeof(int) * W + 1);
-		ft_memset(game->ray->buf[i], 0, W);
-		game->ray->buf[i][W] = '\0';
+		game->ray->buf[i] = (int *)ft_calloc(sizeof(int), W);
 		i++;
 	}
 	game->ray->buf[i] = NULL;
@@ -75,9 +73,7 @@ void	init_buf(t_game *game)
 	i = 0;
 	while (i < 5)
 	{
-		game->ray->texture[i] = (int *)malloc(sizeof(int) * (64 * 64));
-		ft_memset(game->ray->texture[i], 0, (64 * 64));
-		game->ray->texture[i][64 * 64] = '\0';
+		game->ray->texture[i] = (int *)ft_calloc(sizeof(int), (64 * 64));
 		i++;
 	}
 	game->ray->texture[i] = NULL;

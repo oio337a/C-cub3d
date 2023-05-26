@@ -6,7 +6,7 @@
 /*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 19:45:10 by suhwpark          #+#    #+#             */
-/*   Updated: 2023/05/25 21:28:18 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/26 14:20:54 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	floor_casting(t_game *game)
 	y = 0;
 	while (y < H)
 	{
-
 		x = 0;
 		while (x < W)
 		{
