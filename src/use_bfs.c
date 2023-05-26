@@ -6,7 +6,7 @@
 /*   By: sohyupar <sohyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:24:16 by suhwpark          #+#    #+#             */
-/*   Updated: 2023/05/26 19:12:59 by sohyupar         ###   ########.fr       */
+/*   Updated: 2023/05/26 19:46:02 by sohyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,10 @@ static void	visit_four_direction(char **map, t_queue *q, t_visit *visit, int c)
 			if (visit->visited[pop->y][pop->x + 1] == 0)
 				visit_r(map, visit, q, pop);
 		}
-		if (pop->y - 1 >= 0
-			&& (int)ft_strlen(map[pop->y - 1]) >= (int)ft_strlen(map[pop->y])) // 다음에 한한번번더더생생각하기
+		if (pop->y - 1 >= 0 && pop->y - 1 <= (int)ft_strlen(map[pop->y]))
 			if (visit->visited[pop->y - 1][pop->x] == 0)
 				visit_up(map, visit, q, pop);
-		if (pop->y + 1 < c
-			&& (int)ft_strlen(map[pop->y + 1]) >= (int)ft_strlen(map[pop->y]))
+		if (pop->y + 1 < c && pop->y + 1 <= (int)ft_strlen(map[pop->y]))
 			if (visit->visited[pop->y + 1][pop->x] == 0)
 				visit_d(map, visit, q, pop);
 		free(pop);
