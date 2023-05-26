@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   queue_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohyupar <sohyupar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 13:57:11 by suhwpark          #+#    #+#             */
-/*   Updated: 2023/05/26 20:35:46 by sohyupar         ###   ########.fr       */
+/*   Updated: 2023/05/26 20:42:13 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/queue.h"
-#include <stdio.h>
-
 
 void	visit_l(char **map, t_visit *visit_info, t_queue *queue, t_node *point)
 {
@@ -22,7 +20,7 @@ void	visit_l(char **map, t_visit *visit_info, t_queue *queue, t_node *point)
 		visit_info->visited[point->y][point->x - 1] = 1;
 	}
 	if (map[point->y][point->x - 1] == '0')
-		visit_info->zero_cnt++; // 하나라도 올라가면 q비우고 끝낼까여?
+		visit_info->zero_cnt++;
 }
 
 void	visit_r(char **map, t_visit *visit_info, t_queue *queue, t_node *point)

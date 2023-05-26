@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   use_bfs.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sohyupar <sohyupar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:24:16 by suhwpark          #+#    #+#             */
-/*   Updated: 2023/05/26 20:34:02 by sohyupar         ###   ########.fr       */
+/*   Updated: 2023/05/26 20:41:28 by yongmipa         ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ int	bfs(char **map)
 	clear_queue(q);
 	if (visit->zero_cnt != 0)
 	{
-		printf("zero count : %d\n", visit->zero_cnt);
 		while (visit->visited[i])
 			free(visit->visited[i++]);
 		free(visit->visited);
