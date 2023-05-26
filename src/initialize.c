@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: hyecheon <hyecheon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 21:06:01 by suhwpark          #+#    #+#             */
-/*   Updated: 2023/05/26 17:44:45 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/26 18:34:00 by hyecheon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ void	init_dir(t_game *game)
 	{
 		game->ray->dir_x = 0.0;
 		game->ray->dir_y = -1.0;
-		init_plane(game, 0.66, 0);
+		init_plane(game, -0.66, 0);
 	}
 	else if (game->info->n == 1)
 	{
 		game->ray->dir_x = 0.0;
 		game->ray->dir_y = 1.0;
-		init_plane(game, -0.66, 0.0);
+		init_plane(game, 0.66, 0.0);
 	}
 }
 
