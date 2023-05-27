@@ -33,7 +33,7 @@ int	mid_context_check(char **map, t_game *dir)
 	}
 	if (dir->info->player != 1)
 	{
-		ft_err("player count err\n", dir);
+		ft_err("player count err", dir);
 		return (FALSE);
 	}
 	return (TRUE);

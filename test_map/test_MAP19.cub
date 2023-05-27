@@ -1,8 +1,8 @@
-NO ./images/NO.xpm
-SO ./images/SO.xpm
-WE ./images/WE.xpm
+SO ./asset/bluestone.xpm
+WE  ./asset/colorstone.xpm
+EA  ./asset/eagle.xpm
 10000000000000000000000000001
-EA ./images/EA.xpm
+NO  ./asset/redbrick.xpm
 F 110,153,15 
 C 255,255,255
 
