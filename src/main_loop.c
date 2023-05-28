@@ -82,6 +82,7 @@ void	raycasting(t_game *game)
 	mlx_loop_hook(game->mlx, main_loop, game);
 	mlx_hook(game->window, X_EVENT_KEY_PRESS, 0, key_press, game);
 	mlx_hook(game->window, X_EVENT_KEY_RELEASE, 0, key_release, game->ray);
+	mlx_hook(game->window, X_EVENT_MOUSE_MOVE, 0, mouse_handle, game->ray);
 	mlx_hook(game->window, DESTROY_NOTIFY, 0, exit_game, game);
 	mlx_loop(game->mlx);
 }

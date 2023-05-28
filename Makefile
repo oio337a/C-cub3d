@@ -47,7 +47,8 @@ SRC			=	get_next_line.c \
 				set_ray_values2.c \
 				main_loop.c \
 				main_loop_utils.c \
-				ray_casting.c
+				ray_casting.c \
+				mouse_handle.c
 LIBS		=	$(addprefix $(LIB_DIR), $(LIB_NAME))
 SRCS		=	$(addprefix $(SRCS_DIR), $(SRC))
 OBJS		=	$(SRCS:.c=.o)

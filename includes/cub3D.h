@@ -27,6 +27,7 @@
 # define X_EVENT_KEY_PRESS		2
 # define X_EVENT_KEY_RELEASE	3
 # define X_EVENT_KEY_EXIT		17
+# define X_EVENT_MOUSE_MOVE		6
 
 # define TRUE 1
 # define FALSE 0
@@ -189,6 +190,8 @@ char	**ft_split2(char const *s, char c);
 t_game	*init_game(void);
 void	init_dir(t_game *game);
 void	init_buf(t_game *game);
+
+int		mouse_handle(int x, int y, t_ray *ray);
 
 int		find_move(t_game *game);
 int		press_key(t_game *game);
