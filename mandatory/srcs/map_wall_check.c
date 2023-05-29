@@ -107,8 +107,11 @@ int	check_wall(char *map, int len)
 {
 	int	i;
 
+	i = 0;
+	if (map[i] == ' ' && map[len - 1] == ' ')
+		return (TRUE);
 	i = is_whitespace(map);
-	if (map[i] == '1' || map[len - 1] != '1')
+	if (map[i] == '1' && map[len - 1] == '1')
 		return (TRUE);
 	return (FALSE);
 }

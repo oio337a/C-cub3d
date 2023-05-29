@@ -121,9 +121,9 @@ void	set_colors_values(t_game *game, int x)
 		else if (ray->side == 0 && ray->ray_dir_x < 0)
 			ray->color = ray->texture[2][wall->tex_y * 64 + wall->tex_x];
 		else if (ray->side == 1 && ray->ray_dir_y > 0)
-			ray->color = ray->texture[0][wall->tex_y * 64 + wall->tex_x];
-		else if (ray->side == 1 && ray->ray_dir_y < 0)
 			ray->color = ray->texture[1][wall->tex_y * 64 + wall->tex_x];
+		else if (ray->side == 1 && ray->ray_dir_y < 0)
+			ray->color = ray->texture[0][wall->tex_y * 64 + wall->tex_x];
 		ray->buf[y][x] = ray->color;
 		y++;
 	}

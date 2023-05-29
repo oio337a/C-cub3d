@@ -12,17 +12,17 @@
 
 #include "../includes/cub3D.h"
 
-void	leak(void)
-{
-	system("leaks cub3D");
-}
+// void	leak(void)
+// {
+// 	system("leaks cub3D");
+// }
 
 int	main(int ac, char *av[])
 {
 	t_game	*game;
 	int		fd;
 
-	atexit(leak);
+	// atexit(leak);
 	if (ac != 2)
 		ft_err("invalid argument count", 0);
 	if (!check_extension(av[1], ".cub"))
