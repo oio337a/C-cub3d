@@ -6,7 +6,7 @@
 /*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:35:04 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/29 16:51:43 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/29 17:00:50 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,12 @@ int	validate_all(char *map_join, t_game *game)
 	char	**map;
 
 	img_check(map_join, game);
-	if (!*map_join)
+	map = ft_split2(map_join, '\n');
+	if (!map)
 	{
 		free(map_join);
 		return (FALSE);
 	}
-	map = ft_split2(map_join, '\n');
-	if (!map)
-		return (FALSE);
 	if (all_around_wall(map) && mid_context_check(map, game) \
 		&& is_player_space(game, map) && overlen_check(map) && bfs(map))
 	{

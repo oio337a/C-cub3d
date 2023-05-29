@@ -6,7 +6,7 @@
 /*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 09:36:29 by sohyupar          #+#    #+#             */
-/*   Updated: 2023/05/29 16:51:42 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/29 17:01:49 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,9 @@ char	**ft_split2(char const *s, char c)
 	while (*s && *s == c)
 		s++;
 	count = word_count(s, c) + 1;
-	word = (char **)malloc(sizeof(char *) * (count + 1));
-	if (!word)
-		return (0);
+	if (count == 1)
+		return (NULL);
+	word = (char **)safe_malloc(sizeof(char *) * (count + 1));
 	while (++i < count)
 	{
 		if (*s && *s == c)
