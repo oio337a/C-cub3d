@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 18:02:09 by yongmipa          #+#    #+#             */
-/*   Updated: 2022/07/17 21:07:55 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/29 16:52:08 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

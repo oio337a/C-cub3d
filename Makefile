@@ -11,21 +11,16 @@
 # **************************************************************************** #
 
 NAME		= cub3D
-NAME_B		= cub3D_bonus
 
 CC			= cc
-FLAGS		= -Wall -Werror -Wextra -g3
-AR			= ar rcs
+FLAGS		= -Wall -Werror -Wextra
 RM			= rm -f
 
-INCS_DIR	= ./includes/
-SRCS_DIR	= ./src/
-SRCSB_DIR	= ./bonus/
+SRCS_DIR	= ./mandatory/srcs/
+SRCSB_DIR	= ./bonus/srcs/
 LIB_DIR		= ./libft/
 MLX_DIR		= ./mlx/
 
-LIB_NAME	= ./libft/libft.a
-INCS		= -I includes
 MLX_FLAGS	= -L./mlx -lmlx -framework OpenGL -framework Appkit
 
 SRC			=	get_next_line.c \
@@ -72,30 +67,33 @@ SRC_B		=	get_next_line_bonus.c \
 				set_ray_values2_bonus.c \
 				main_loop_bonus.c \
 				main_loop_utils_bonus.c \
-				ray_casting_bonus.c \
-				mouse_handle_bonus.c
-LIBS		=	$(addprefix $(LIB_DIR), $(LIB_NAME))
+				ray_casting_bonus.c
+
 SRCS		=	$(addprefix $(SRCS_DIR), $(SRC))
 SRCSB		=	$(addprefix $(SRCSB_DIR), $(SRC_B))
 OBJS		=	$(SRCS:.c=.o)
 OBJSB		=	$(SRCSB:.c=.o)
 
-all : $(NAME)
-
-bonus	:	$(NAME_B)
-
-$(NAME) : $(OBJS)
-	make -C $(LIB_DIR)
-	make -C $(MLX_DIR)
-	$(CC) -o $(NAME) $(OBJS) -L $(LIB_DIR) -lft -I $(INCS_DIR) -L $(MLX_DIR) -lmlx -framework OpenGL -framework Appkit
-
-$(NAME_B) : $(OBJSB)
-	make -C $(LIB_DIR)
-	make -C $(MLX_DIR)
-	$(CC) -o $(NAME_B) $(OBJSB) -L $(LIB_DIR) -lft -I $(INCS_DIR) -L $(MLX_DIR) -lmlx -framework OpenGL -framework Appkit
+ifdef CUB3D_WITH_BONUS
+	INC_DIR = ./bonus/includes/
+    OBJ_FILES = $(OBJSB)
+else
+	INC_DIR = ./mandatory/includes/
+    OBJ_FILES = $(OBJS)
+endif
 
 %.o : %.c
-	$(CC) $(FLAGS) -c $< -o $@
+	$(CC) $(FLAGS) -c $< -o $@ -I $(INC_DIR) -I $(LIB_DIR)
+
+all : $(NAME)
+
+bonus :
+	make CUB3D_WITH_BONUS=1 all
+
+$(NAME) : $(OBJ_FILES)
+	make -C $(LIB_DIR)
+	make -C $(MLX_DIR)
+	$(CC) $(FLAGS) $^ -Llibft -lft $(MLX_FLAGS) -o $@
 
 clean :
 	make -C $(LIB_DIR) clean
@@ -104,10 +102,14 @@ clean :
 
 fclean : clean
 	make -C $(LIB_DIR) fclean
-	$(RM) $(NAME) $(NAME_B)
+	$(RM) $(NAME)
 
 re :
 	make fclean
 	make all
 
-PHONY	: all clean fclean re
+bonus_re :
+	make fclean
+	make bonus
+
+.PHONY	: all bonus clean fclean re

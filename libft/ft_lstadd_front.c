@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 21:57:22 by yongmipa          #+#    #+#             */
-/*   Updated: 2022/07/17 21:08:04 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/29 16:52:07 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

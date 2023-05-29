@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 18:14:31 by yongmipa          #+#    #+#             */
-/*   Updated: 2022/07/17 19:31:11 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/29 16:52:08 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
