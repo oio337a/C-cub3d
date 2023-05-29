@@ -6,7 +6,7 @@
 /*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 14:17:25 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/29 16:52:48 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/29 17:10:44 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,7 @@ void	init_dir(t_game *game);
 void	init_buf(t_game *game);
 
 int		find_move(t_game *game);
-int		press_key(t_game *game);
+void	press_key(t_game *game);
 int		exit_game(t_game *game);
 void	find_rotate_right(t_ray *ray);
 void	find_rotate_left(t_ray *ray);

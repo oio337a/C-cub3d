@@ -6,7 +6,7 @@
 /*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 17:18:32 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/29 16:52:55 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/29 17:11:03 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,8 @@ int	cant_move_check(t_info *info, double y, double x)
 	return (TRUE);
 }
 
-int	press_key(t_game *game)
+void	press_key(t_game *game)
 {
 	if (!find_move(game))
-		return (FALSE);
-	return (FALSE);
+		return ;
 }
