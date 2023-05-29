@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3D.h                                            :+:      :+:    :+:   */
+/*   cub3D_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: hyecheon <hyecheon@student.42seoul.kr      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/15 14:17:25 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/26 19:27:26 by yongmipa         ###   ########seoul.kr  */
+/*   Created: 2023/05/29 12:12:53 by hyecheon          #+#    #+#             */
+/*   Updated: 2023/05/29 12:12:57 by hyecheon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef CUB3D_BONUS_H
+# define CUB3D_BONUS_H
 
 # define BUFFER_SIZE 10000
 # define KEY_PRESS				2
@@ -190,6 +190,8 @@ char	**ft_split2(char const *s, char c);
 t_game	*init_game(void);
 void	init_dir(t_game *game);
 void	init_buf(t_game *game);
+
+int		mouse_handle(int x, int y, t_ray *ray);
 
 int		find_move(t_game *game);
 int		press_key(t_game *game);
