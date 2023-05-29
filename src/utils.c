@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 15:17:38 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/26 14:58:10 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/29 15:36:22 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,6 @@ void	ft_err(char *str, t_game *game)
 	write(2, "Error\n", 6);
 	write(2, str, ft_strlen(str));
 	write(2, "\n", 1);
+	system("leaks cub3D");
 	exit(1);
 }

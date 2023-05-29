@@ -3,14 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yongmipa <yongmipa@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 18:08:44 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/26 17:26:37 by yongmipa         ###   ########seoul.kr  */
+/*   Updated: 2023/05/29 15:47:13 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
+
+// void	leak(void)
+// {
+// 	system("leaks cub3D");
+// }
 
 int	main(int ac, char *av[])
 {
@@ -31,5 +36,7 @@ int	main(int ac, char *av[])
 	game->window = mlx_new_window(game->mlx, W, H, "cub3D");
 	game->info->map[(int)game->info->p_pos[0]][(int)game->info->p_pos[1]] = '0';
 	raycasting(game);
+	// leask();
+	// atexit(leak);
 	return (0);
 }
