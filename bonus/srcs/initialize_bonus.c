@@ -43,13 +43,13 @@ void	init_dir(t_game *game)
 		game->ray->dir_y = 0.0;
 		init_plane(game, 0.0, -0.66);
 	}
-	else if (game->info->s == 1)
+	else if (game->info->n == 1)
 	{
 		game->ray->dir_x = 0.0;
 		game->ray->dir_y = -1.0;
 		init_plane(game, -0.66, 0);
 	}
-	else if (game->info->n == 1)
+	else if (game->info->s == 1)
 	{
 		game->ray->dir_x = 0.0;
 		game->ray->dir_y = 1.0;
