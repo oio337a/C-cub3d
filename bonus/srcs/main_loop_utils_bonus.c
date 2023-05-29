@@ -6,7 +6,7 @@
 /*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 17:27:11 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/29 16:58:36 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/29 17:26:13 by suhwpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	key_press(int key, t_game *game)
 		game->ray->key_l = 1;
 	else if (key == K_R)
 		game->ray->key_r = 1;
-	return (0);
+	return (FALSE);
 }
 
 int	key_release(int key, t_ray *ray)
@@ -45,7 +45,7 @@ int	key_release(int key, t_ray *ray)
 		ray->key_l = 0;
 	else if (key == K_R)
 		ray->key_r = 0;
-	return (0);
+	return (FALSE);
 }
 
 int	mouse_handle(int x, int y, t_game *game)
@@ -61,5 +61,5 @@ int	mouse_handle(int x, int y, t_game *game)
 		else
 			key_release(K_R, game->ray);
 	}
-	return (0);
+	return (FALSE);
 }
