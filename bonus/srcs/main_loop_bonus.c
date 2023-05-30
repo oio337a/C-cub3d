@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_loop_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sohyupar <sohyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 01:07:22 by hyecheon          #+#    #+#             */
-/*   Updated: 2023/05/29 16:51:33 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/30 17:37:49 by sohyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ static void	load_texture(t_game *game)
 {
 	load_image(game, game->ray->texture[0], game->img->north);
 	load_image(game, game->ray->texture[1], game->img->south);
-	load_image(game, game->ray->texture[2], game->img->west);
-	load_image(game, game->ray->texture[3], game->img->east);
+	load_image(game, game->ray->texture[2], game->img->east);
+	load_image(game, game->ray->texture[3], game->img->west);
 }
 
 void	raycasting(t_game *game)
