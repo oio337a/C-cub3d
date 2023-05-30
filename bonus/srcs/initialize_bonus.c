@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sohyupar <sohyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 21:06:01 by suhwpark          #+#    #+#             */
-/*   Updated: 2023/05/29 16:51:28 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/30 15:19:48 by sohyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ void	init_plane(t_game *game, double x, double y)
 
 void	init_dir(t_game *game)
 {
-	if (game->info->w == 1)
+	if (game->info->e == 1)
 	{
 		game->ray->dir_x = -1.0;
 		game->ray->dir_y = 0.0;
 		init_plane(game, 0.0, 0.66);
 	}
-	else if (game->info->e == 1)
+	else if (game->info->w == 1)
 	{
 		game->ray->dir_x = 1.0;
 		game->ray->dir_y = 0.0;

@@ -3,26 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sohyupar <sohyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 18:08:44 by yongmipa          #+#    #+#             */
-/*   Updated: 2023/05/29 17:03:20 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/30 14:09:27 by sohyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3D.h"
-
-// void	leak(void)
-// {
-// 	system("leaks cub3D");
-// }
 
 int	main(int ac, char *av[])
 {
 	t_game	*game;
 	int		fd;
 
-	// atexit(leak);
 	if (ac != 2)
 		ft_err("invalid argument count", 0);
 	if (!check_extension(av[1], ".cub"))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_ray_values.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: suhwpark <suhwpark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sohyupar <sohyupar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 20:10:20 by suhwpark          #+#    #+#             */
-/*   Updated: 2023/05/29 16:53:08 by suhwpark         ###   ########.fr       */
+/*   Updated: 2023/05/30 14:36:56 by sohyupar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	set_ray_values(t_game *game, int x)
 	ray = game->ray;
 	ray->map_x = (int)game->info->p_pos[1];
 	ray->map_y = (int)game->info->p_pos[0];
-	ray = game->ray;
 	ray->camera_x = 2 * x / (double)W - 1;
 	ray->ray_dir_x = ray->dir_x + ray->plane_x * ray->camera_x;
 	ray->ray_dir_y = ray->dir_y + ray->plane_y * ray->camera_x;
